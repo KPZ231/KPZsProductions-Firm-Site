@@ -1,26 +1,41 @@
 @import "tailwindcss";
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --background: #0D1826;
+    --foreground: white;
+    --black-font: black;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-jetbrains-mono);
+    margin: 0;
+    box-sizing: border-box;
+    letter-spacing: 3px;
+}
+
+nav {
+    color: var(--black-font);
+}
+
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8)), url("../public/Images/herobg.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+button {
+    padding-left: 2rem;
+    padding-top: 0.5rem;
+    padding-right: 2rem;
+    padding-bottom: 0.5rem;
+    background-color: rgb(63, 63, 63);
+    border-radius: 30px;
+    transition: ease-in-out 0.2s;
+}
+
+button:hover {
+    background-color: rgb(87, 87, 87);
+    transform: translateY(-5%);
+    cursor: pointer;
 }
