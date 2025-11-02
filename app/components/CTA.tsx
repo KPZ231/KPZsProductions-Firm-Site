@@ -1,29 +1,39 @@
 "use client";
-import React, { useEffect, useRef } from "react";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-interface HeroProps {
+gsap.registerPlugin(ScrollTrigger);
+
+interface CTAProps {
   title: string;
-  desc: string;
+  description: string;
   ctaButtonContent: string;
   ctaButtonLink: string;
 }
 
-export default function Hero({
+export default function CTA({
   title,
-  desc,
+  description,
   ctaButtonContent,
   ctaButtonLink,
-}: HeroProps) {
-  const heroRef = useRef<HTMLDivElement | null>(null);
+}: CTAProps) {
+  const ctaRef = useRef<HTMLDivElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
   const titleRef = useRef<HTMLHeadingElement | null>(null);
   const descRef = useRef<HTMLParagraphElement | null>(null);
   const buttonRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ctaRef.current,
+        start: "top 80%",
+        toggleActions: "play none none none",
+      },
+      defaults: { ease: "power3.out" },
+    });
 
     if (boxRef.current) {
       tl.fromTo(
@@ -69,17 +79,11 @@ export default function Hero({
   }, []);
 
   return (
-    <section
-      ref={heroRef}
-      className="hero h-[90vh] w-full bg-[#0a0a0a] flex flex-col items-start justify-start p-4 md:p-8 lg:p-16 pt-32 overflow-hidden"
-    >
+    <>
       {/* Główny container - 70% szerokości */}
-      <div className="w-full lg:w-[80%] flex flex-col gap-6 md:gap-8">
+      <div ref={ctaRef} className="w-full lg:w-[80%] flex mx-auto mb-12 flex-col gap-6 md:gap-8">
         {/* Box z glassmorphism i zawartością */}
-        <div
-          ref={boxRef}
-          className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-6 md:p-8 lg:p-10 shadow-2xl flex flex-col gap-6"
-        >
+        <div ref={boxRef} className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-6 md:p-8 lg:p-10 shadow-2xl flex flex-col gap-6">
           {/* Górny pasek z kolorowymi kółkami (terminal style) */}
           <div className="flex items-center gap-2">
             <div className="terminal-dot w-3 h-3 bg-red-500 rounded-full"></div>
@@ -92,11 +96,11 @@ export default function Hero({
             {/* Tytuł */}
             <h1 ref={titleRef} className="leading-relaxed w-[90%]">
               <span className="text-gray-500">&lt;</span>
-              <span className="text-red-400">H1</span>
+              <span className="text-red-400">H2</span>
               <span className="text-gray-500">&gt;</span>
               <span className="text-white">{title}</span>
               <span className="text-gray-500"> &lt;/</span>
-              <span className="text-red-400">H1</span>
+              <span className="text-red-400">H2</span>
               <span className="text-gray-500">&gt;</span>
             </h1>
 
@@ -105,25 +109,25 @@ export default function Hero({
               <span className="text-gray-500">&lt;</span>
               <span className="text-red-400">P</span>
               <span className="text-gray-500">&gt;</span>
-              <span className="text-gray-400">{desc}</span>
+              <span className="text-gray-400">{description}</span>
               <span className="text-gray-500">&lt;/</span>
               <span className="text-red-400">P</span>
               <span className="text-gray-500">&gt;</span>
             </p>
+
+            {/* CTA Button */}
+            <div ref={buttonRef} className="mt-4 font-mono text-sm md:text-base">
+              <button>
+                <Link href={ctaButtonLink}>
+                  <span className="text-red-500">&lt;button&gt;</span>
+                  {ctaButtonContent}
+                  <span className="text-red-500">&lt;/button&gt;</span>
+                </Link>
+              </button>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* CTA Button */}
-      <div ref={buttonRef} className="mt-4 font-mono text-sm md:text-base">
-        <button>
-          <Link href={ctaButtonLink}>
-            <span className="text-red-500">&lt;button&gt;</span>
-            {ctaButtonContent}
-            <span className="text-red-500">&lt;/button&gt;</span>
-          </Link>
-        </button>
-      </div>
-    </section>
+    </>
   );
 }

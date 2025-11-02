@@ -1,5 +1,9 @@
 "use client";
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+gsap.registerPlugin(ScrollTrigger);
 
 interface HeaderProps{
     title: string;
@@ -8,8 +12,31 @@ interface HeaderProps{
 export default function Header({
     title
 }:HeaderProps) {
+  const headerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const header = headerRef.current;
+
+    if (header) {
+      gsap.fromTo(header, 
+        { opacity: 0, y: 50 }, 
+        {
+          opacity: 1, 
+          y: 0, 
+          duration: 1, 
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: header,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          }
+        }
+      );
+    }
+  }, []);
+
   return (
-    <section className="h-[30vh] w-[80%] flex flex-col items-start justify-start p-4 md:p-8 lg:p-16 pt-32 overflow-hidden">
+    <section ref={headerRef} className="h-[30vh] w-[80%] flex flex-col items-start justify-start p-4 md:p-8 lg:p-16 pt-32 overflow-hidden">
       {/* Główny container - 70% szerokości */}
       <div className="w-full lg:w-[80%] flex flex-col gap-6 md:gap-8">
         {/* Box z glassmorphism i zawartością */}

@@ -2,8 +2,47 @@ import Header from "./components/Header";
 import Hero from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import Grid from "./components/Grid";
+import ProjectsCarousel from './components/ProjectsCarousel';
+import { Project } from './classes/Projects';
+import CTA from './components/CTA';
+import Footer from "./components/Footer";
 
 export default function Home() {
+  const projects: Project[] = [
+    {
+      title: "Project 1",
+      description: "Description for project 1",
+      buttonContent: "View Project",
+      link: "/project-1",
+      thumbnail: "/Images/nextjs-logo.png",
+      isIframable: false
+    },
+    {
+      title: "Project 2",
+      description: "Description for project 2",
+      buttonContent: "View Project",
+      link: "/project-2",
+      thumbnail: "/Images/react-logo.png",
+      isIframable: false
+    },
+    {
+      title: "Project 3",
+      description: "Description for project 3",
+      buttonContent: "View Project",
+      link: "/project-3",
+      thumbnail: "/Images/astro-logo.png",
+      isIframable: false
+    },
+    {
+      title: "Project 4",
+      description: "Description for project 4",
+      buttonContent: "View Project",
+      link: "/project-4",
+      thumbnail: "/Images/logo.png",
+      isIframable: false
+    },
+  ];
+
   return (
     <>
       <Navbar />
@@ -37,7 +76,13 @@ and Tailwind CSS.</span>Boost your SEO, performance, and brand identity with a w
         header_4="Transparent"
       />
       <Header title="Projects that speak for themselves"></Header>
-      
+      <ProjectsCarousel ProjectsShown={projects}></ProjectsCarousel>
+      <CTA title="Ready to build something amazing?"
+        description="Let’s create a website that drives results fast, modern, and built for growth."
+        ctaButtonContent="Get a Free Quote or Contact Us Now"
+        ctaButtonLink="/contact"
+      ></CTA>
+      <Footer></Footer>
     </>
   );
 }

@@ -1,10 +1,28 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 
 export default function Navbar() {
+  const navbarRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const navbar = navbarRef.current;
+    if (navbar) {
+      gsap.fromTo(
+        navbar,
+        { y: -100, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+      );
+    }
+  }, []);
+
   return (
-    <nav className="navbar w-full h-[120px] bg-white flex items-center justify-between px-8">
+    <nav
+      ref={navbarRef}
+      className="navbar w-full h-[120px] bg-white flex items-center justify-between px-8"
+    >
       <div className="logo w-[40%] flex items-center">
         <Link href={"/home"}>
           <Image
