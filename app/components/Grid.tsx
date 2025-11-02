@@ -53,7 +53,7 @@ export default function Grid({
 
   return (
     <>
-      <section ref={gridRef} className="w-[90%] h-[50vh] grid grid-cols-2 grid-rows-2 gap-4 m-auto">
+      <section ref={gridRef} className="w-[90%] min-h-[50vh] h-auto grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 m-auto">
         <div className="bg-[#D9D9D9] w-full h-full rounded-4xl p-8">
             <div className="flex flex-col">
                 <h3 className="text-black font-bold text-4xl">{header_1}</h3>

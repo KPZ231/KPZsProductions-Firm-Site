@@ -81,7 +81,7 @@ export default function CTA({
   return (
     <>
       {/* Główny container - 70% szerokości */}
-      <div ref={ctaRef} className="w-full lg:w-[80%] flex mx-auto mb-12 flex-col gap-6 md:gap-8">
+      <div ref={ctaRef} className="w-full mt-12 lg:w-[80%] flex mx-auto mb-12 flex-col gap-6 md:gap-8">
         {/* Box z glassmorphism i zawartością */}
         <div ref={boxRef} className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-6 md:p-8 lg:p-10 shadow-2xl flex flex-col gap-6">
           {/* Górny pasek z kolorowymi kółkami (terminal style) */}

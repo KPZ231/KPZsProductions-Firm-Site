@@ -14,28 +14,28 @@ export default function Timeline({ items }: TimelineProps) {
     const timelineRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        const timeline = timelineRef.current;
-        const itemElements = gsap.utils.toArray<HTMLElement>(".timeline-item-wrapper");
+        const ctx = gsap.context(() => {
+            const itemElements = gsap.utils.toArray<HTMLElement>(".timeline-item-wrapper");
 
-        if (!timeline || itemElements.length === 0) return;
+            if (itemElements.length === 0) return;
 
-        // Kill previous ScrollTriggers to prevent memory leaks
-        ScrollTrigger.getAll().forEach(st => st.kill());
-
-        // Animate items into view
-        itemElements.forEach((item) => {
-            gsap.from(item.querySelector('.timeline-content'), {
-                opacity: 0,
-                y: 50,
-                scale: 0.95,
-                scrollTrigger: {
-                    trigger: item,
-                    start: 'top 80%',
-                    end: 'bottom 60%',
-                    toggleActions: 'play none none reverse',
-                }
+            // Animate items into view
+            itemElements.forEach((item) => {
+                gsap.from(item.querySelector('.timeline-content'), {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.95,
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 80%',
+                        end: 'bottom 60%',
+                        toggleActions: 'play none none reverse',
+                    }
+                });
             });
-        });
+        }, timelineRef);
+
+        return () => ctx.revert();
 
     }, [items]);
 

@@ -23,7 +23,7 @@ export default function Header({
         {
           opacity: 1, 
           y: 0, 
-          duration: 1, 
+          duration: 0.5, 
           ease: 'power3.out',
           scrollTrigger: {
             trigger: header,

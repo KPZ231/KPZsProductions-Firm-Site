@@ -24,7 +24,7 @@ export default function Navbar() {
       className="navbar w-full h-[120px] bg-white flex items-center justify-between px-8"
     >
       <div className="logo w-[40%] flex items-center">
-        <Link href={"/home"}>
+        <Link href={"/"}>
           <Image
             src={"/Images/logo.png"}
             alt="logo kpzsproductions"

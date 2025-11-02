@@ -1,13 +1,12 @@
 import Header from "./components/Header";
 import Hero from "./components/HeroSection";
-import Navbar from "./components/Navbar";
 import Grid from "./components/Grid";
 import ProjectsCarousel from './components/ProjectsCarousel';
 import { Project } from './classes/Projects';
 import CTA from './components/CTA';
-import Footer from "./components/Footer";
-import Timeline from "./components/Timeline";
-import { TimelineItem } from "./classes/TimelineClass";
+import ProjectsGrid from "./components/ProjectsGrid";
+
+
 
 export default function Home() {
   const projects: Project[] = [
@@ -48,7 +47,6 @@ export default function Home() {
 
   return (
     <>
-      <Navbar />
       <Hero
         title="<h1>Modern Websites Built with <span>Next.js, Astro & React</span> – <b>KPZsProductions</b> </h1>"
         desc="<p>We create <span>fast, responsive, and visually stunning websites powered by Next.js, Astro, React, 
@@ -78,16 +76,15 @@ and Tailwind CSS.</span>Boost your SEO, performance, and brand identity with a w
         header_3="Clean, scalable"
         header_4="Transparent"
       />
-      <Header title="Our Development Process"></Header>
 
       <Header title="Projects that speak for themselves"></Header>
       <ProjectsCarousel ProjectsShown={projects}></ProjectsCarousel>
+      
       <CTA title="Ready to build something amazing?"
         description="Let’s create a website that drives results fast, modern, and built for growth."
         ctaButtonContent="Get a Free Quote or Contact Us Now"
         ctaButtonLink="/contact"
       ></CTA>
-      <Footer />
     </>
   );
 }
