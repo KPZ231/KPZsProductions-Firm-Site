@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
 
-
 function getCurrentYear() {
   let year = new Date().getFullYear();
   return year;
@@ -32,18 +31,30 @@ export default function Footer() {
             <Link href={"/pricing"}>Pricing</Link>
           </div>
           <div className="flex flex-col w-full md:w-1/3 items-center">
-                <h3 className="font-bold mb-2">Social Media</h3>
-                <div className="flex flex-row items-center gap-4 text-3xl md:text-4xl pt-2">
-                    <Link href={"/instaram"}><FaInstagram></FaInstagram></Link>
-                <Link href={"/linkedin"}><FaLinkedin></FaLinkedin></Link>
-                <Link href={"/facebook"}><FaFacebook></FaFacebook></Link>
-                </div>
-                
+            <h3 className="font-bold mb-2">Social Media</h3>
+            <div className="flex flex-row items-center gap-4 text-3xl md:text-4xl pt-2">
+              <Link href={"/instaram"}>
+                <FaInstagram></FaInstagram>
+              </Link>
+              <Link href={"/linkedin"}>
+                <FaLinkedin></FaLinkedin>
+              </Link>
+              <Link href={"/facebook"}>
+                <FaFacebook></FaFacebook>
+              </Link>
+            </div>
+            <div className="flex flex-col items-center p-6">
+              <h3><b>Contact Info</b></h3>
+              <Link  className="text-[1rem] mt-2" href={"tel:+48501740587"}>+48 501 740 587</Link>
+              <Link className="text-[1rem] mt-2" href={"mailto:kpzsproductionscontact@gmail.com"}>kpzsproductionscontact@gmail.com</Link>
+            </div>
           </div>
         </div>
         <hr className="w-full mt-4 md:mt-8" />
         <div className="flex flex-row items-center pt-6 pb-6 md:pt-8 md:pb-8 mx-auto">
-          <p className="text-sm md:text-base">Copyright © {getCurrentYear()} KPZsProductions</p>
+          <p className="text-sm md:text-base">
+            Copyright © {getCurrentYear()} KPZsProductions
+          </p>
         </div>
       </section>
     </>

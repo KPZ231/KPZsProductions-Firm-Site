@@ -47,6 +47,10 @@ export default function Navbar() {
         <Link href={"/contact"} className="nav-link" target="_self">
           Contact
         </Link>
+        <p>|</p>
+        <Link href={"/pricing"} className="nav-link" target="_self">
+          Pricing
+        </Link>
       </div>
     </nav>
   );
