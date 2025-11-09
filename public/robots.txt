@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Dissalow: /api
+
+
+Sitemap: https://kpzsproductions.com/sitemap.xml

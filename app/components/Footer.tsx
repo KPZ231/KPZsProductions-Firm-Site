@@ -33,9 +33,9 @@ export default function Footer() {
   ];
 
   const socialLinks = [
-    { href: "/instagram", label: "Instagram", icon: "IG" },
-    { href: "/linkedin", label: "LinkedIn", icon: "in" },
-    { href: "/facebook", label: "Facebook", icon: "fb" },
+    { href: "https://www.instagram.com/kpzsproductions/", label: "Instagram", icon: "IG" },
+    { href: "https://www.linkedin.com/in/kacper-duda-282150224/", label: "LinkedIn", icon: "in" },
+    { href: "https://github.com/KPZ231", label: "Github", icon: "gh" },
   ];
 
   return (
