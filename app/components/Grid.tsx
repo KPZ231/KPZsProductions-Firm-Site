@@ -1,9 +1,5 @@
-"use client";
+'use client'
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface GridContentProps {
   content_1: string;
@@ -30,55 +26,154 @@ export default function Grid({
 
   useEffect(() => {
     if (gridRef.current) {
-      const gridItems = gridRef.current.children;
-      
-      gsap.fromTo(gridItems, 
-        { opacity: 0, scale: 0.9, y: 20 }, 
-        {
-          opacity: 1, 
-          scale: 1, 
-          y: 0, 
-          duration: 0.8, 
-          stagger: 0.2, 
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: 'top 80%',
-            toggleActions: 'play none none none',
-          }
-        }
-      );
+      const cards = gridRef.current.querySelectorAll('.grid-card');
+      cards.forEach((card, index) => {
+        const htmlCard = card as HTMLElement;
+        htmlCard.style.opacity = '0';
+        htmlCard.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+          htmlCard.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+          htmlCard.style.opacity = '1';
+          htmlCard.style.transform = 'translateY(0)';
+        }, 100 + index * 150);
+      });
     }
   }, []);
 
+  const gridItems = [
+    { header: header_1, content: content_1, index: '01' },
+    { header: header_2, content: content_2, index: '02' },
+    { header: header_3, content: content_3, index: '03' },
+    { header: header_4, content: content_4, index: '04' },
+  ];
+
   return (
-    <>
-      <section ref={gridRef} className="w-[90%] min-h-[50vh] h-auto grid grid-cols-1 md:grid-cols-2 grid-rows-2 gap-4 m-auto">
-        <div className="bg-[#D9D9D9] w-full h-full rounded-4xl p-8">
-            <div className="flex flex-col">
-                <h3 className="text-black font-bold text-4xl">{header_1}</h3>
-                <p className="text-black text-2xl">{content_1}</p>
+    <section className="min-h-screen w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        
+        .grid-container {
+          font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .grid-card {
+          transition: all 0.3s ease;
+          position: relative;
+        }
+        
+        .grid-card::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          border: 1px solid transparent;
+          border-radius: 0.5rem;
+          transition: border-color 0.3s ease;
+        }
+        
+        .grid-card:hover::before {
+          border-color: #333333;
+        }
+        
+        .grid-card:hover {
+          transform: translateY(-4px);
+          background: #1a1a1a;
+        }
+        
+        .grid-pattern {
+          background-image: 
+            linear-gradient(rgba(75, 85, 99, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(75, 85, 99, 0.05) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+      `}</style>
+
+      <div className="grid-container w-full max-w-7xl">
+        {/* Header */}
+        <div className="bg-[#111111] border border-[#222222] rounded-lg overflow-hidden mb-6">
+          <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              </div>
+              <span className="text-[#666666] text-xs tracking-wider">FEATURES.TSX</span>
             </div>
-        </div>
-       <div className="bg-[#D9D9D9] w-full h-full rounded-4xl p-8">
-            <div className="flex flex-col">
-                <h3 className="text-black font-bold text-4xl">{header_2}</h3>
-                <p className="text-black text-2xl">{content_2}</p>
+            <div className="text-[#444444] text-xs">
+              <span className="text-[#666666]">Grid Layout</span>
             </div>
-        </div>
-        <div className="bg-[#D9D9D9] w-full h-full rounded-4xl p-8">
-            <div className="flex flex-col">
-                <h3 className="text-black font-bold text-4xl">{header_3}</h3>
-                <p className="text-black text-2xl">{content_3}</p>
+          </div>
+
+          <div className="p-8 grid-pattern">
+            {/* Comment */}
+            <div className="mb-6 text-[#555555] text-sm">
+              <span className="text-[#666666]">/**</span>
+              <div className="pl-3">* Key features and benefits</div>
+              <div className="pl-3">* @type {'{GridItem[]}'}</div>
+              <span className="text-[#666666]"> */</span>
             </div>
-        </div>
-        <div className="bg-[#D9D9D9] w-full h-full rounded-4xl p-8">
-            <div className="flex flex-col">
-                <h3 className="text-black font-bold text-4xl">{header_4}</h3>
-                <p className="text-black text-2xl">{content_4}</p>
+
+            {/* Grid */}
+            <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {gridItems.map((item, index) => (
+                <div
+                  key={index}
+                  className="grid-card bg-[#0d0d0d] border border-[#222222] rounded-lg p-8 flex flex-col gap-4"
+                >
+                  {/* Index number */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-[#444444] text-xs font-mono">
+                      // index: {item.index}
+                    </span>
+                    <span className="text-[#333333] text-2xl font-bold">
+                      {item.index}
+                    </span>
+                  </div>
+
+                  {/* Header */}
+                  <div>
+                    <div className="text-[#555555] text-xs mb-2">
+                      &lt;h3&gt;
+                    </div>
+                    <h3 className="text-[#cccccc] text-2xl font-semibold pl-4">
+                      {item.header}
+                    </h3>
+                    <div className="text-[#555555] text-xs mt-2">
+                      &lt;/h3&gt;
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div>
+                    <div className="text-[#555555] text-xs mb-2">
+                      &lt;p&gt;
+                    </div>
+                    <p className="text-[#999999] text-sm leading-relaxed pl-4">
+                      {item.content}
+                    </p>
+                    <div className="text-[#555555] text-xs mt-2">
+                      &lt;/p&gt;
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
+
+            {/* Footer */}
+            <div className="mt-8 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#555555] text-xs">
+              <div className="flex items-center gap-4">
+                <span>const features</span>
+                <span className="text-[#333333]">|</span>
+                <span className="text-[#666666]">Array&lt;Feature&gt;</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[#666666]">Items:</span> {gridItems.length}
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

@@ -1,56 +1,155 @@
-"use client";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+'use client'
+import { useState, useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
+
+  const navLinks = [
+    { href: "/about-us", label: "About Us" },
+    { href: "/portfolio", label: "Portfolio" },
+    { href: "/contact", label: "Contact" },
+    { href: "/pricing", label: "Pricing" },
+  ];
 
   useEffect(() => {
-    const navbar = navbarRef.current;
-    if (navbar) {
-      gsap.fromTo(
-        navbar,
-        { y: -100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
-      );
+    if (navbarRef.current) {
+      navbarRef.current.style.opacity = '0';
+      navbarRef.current.style.transform = 'translateY(-20px)';
+      setTimeout(() => {
+        if (navbarRef.current) {
+          navbarRef.current.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+          navbarRef.current.style.opacity = '1';
+          navbarRef.current.style.transform = 'translateY(0)';
+        }
+      }, 100);
     }
   }, []);
 
   return (
-    <nav
-      ref={navbarRef}
-      className="navbar w-full h-[120px] bg-white flex items-center justify-between px-8"
-    >
-      <div className="logo w-[40%] flex items-center">
-        <Link href={"/"}>
-          <Image
-            src={"/Images/logo.png"}
-            alt="logo kpzsproductions"
-            width={180}
-            height={60}
-            priority
-          />
-        </Link>
-      </div>
+    <nav className="w-full bg-[#0a0a0a] border-b border-[#222222] sticky top-0 z-50 backdrop-blur-sm bg-opacity-95">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+        .navbar-container { font-family: 'JetBrains Mono', monospace; }
+        .nav-link {
+          transition: all 0.25s ease;
+          position: relative;
+          color: #888888;
+          font-size: 0.875rem;
+        }
+        .nav-link::before {
+          content: '';
+          position: absolute;
+          bottom: -4px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: #cccccc;
+          transition: width 0.3s ease;
+        }
+        .nav-link:hover::before { width: 100%; }
+        .nav-link:hover { color: #cccccc; }
+        .nav-link.active {
+          color: #ffffff;
+        }
+        .nav-link.active::before {
+          width: 100%;
+          background: #ffffff;
+        }
+        .logo-container { transition: all 0.3s ease; }
+        .logo-container:hover { transform: scale(1.05); }
+        .grid-pattern {
+          background-image: 
+            linear-gradient(rgba(75, 85, 99, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(75, 85, 99, 0.03) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+      `}</style>
 
-      <div className="links w-[60%] flex items-center flex-row gap-4">
-        <Link href={"/about-us"} className="nav-link" target="_self">
-          About US
-        </Link>
-        <p>|</p>
-        <Link href={"/portfolio"} className="nav-link" target="_self">
-          Portfolio
-        </Link>
-        <p>|</p>
-        <Link href={"/contact"} className="nav-link" target="_self">
-          Contact
-        </Link>
-        <p>|</p>
-        <Link href={"/pricing"} className="nav-link" target="_self">
-          Pricing
-        </Link>
+      <div ref={navbarRef} className="navbar-container mx-auto px-6 py-4 grid-pattern">
+        <div className="flex items-center justify-between">
+          {/* Logo Section */}
+          <div className="flex items-center gap-4">
+            <div className="hidden md:flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+            </div>
+
+            <a href="/" className="logo-container flex items-center">
+              <img src="/Images/logo.png" alt="KPZsProductions Logo" className="h-12 w-auto" />
+            </a>
+
+            <div className="hidden lg:block text-[#555555] text-xs">
+              <span className="text-[#666666">//</span> NAV.TSX
+            </div>
+          </div>
+
+          {/* Desktop Links */}
+          <div className="hidden md:flex items-center gap-6">
+            {navLinks.map((link, index) => {
+              const isActive = pathname === link.href;
+              return (
+                <div key={index} className="flex items-center gap-6">
+                  <a
+                    href={link.href}
+                    className={`nav-link ${isActive ? "active" : ""}`}
+                  >
+                    {link.label}
+                  </a>
+                  {index < navLinks.length - 1 && <span className="text-[#333333]">|</span>}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Hamburger - Mobile */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="flex flex-col justify-between w-6 h-6 focus:outline-none"
+            >
+              <span className={`block h-0.5 w-full bg-[#888] transition-transform ${menuOpen ? "rotate-45 translate-y-2" : ""}`}></span>
+              <span className={`block h-0.5 w-full bg-[#888] transition-opacity ${menuOpen ? "opacity-0" : "opacity-100"}`}></span>
+              <span className={`block h-0.5 w-full bg-[#888] transition-transform ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`}></span>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden mt-4 flex flex-col gap-4 bg-[#0a0a0a] p-4 rounded border border-[#222]">
+            {navLinks.map((link, index) => {
+              const isActive = pathname === link.href;
+              return (
+                <a
+                  key={index}
+                  href={link.href}
+                  className={`nav-link ${isActive ? "active" : ""}`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Bottom code line (optional) */}
+        <div className="mt-3 text-[#444444] text-xs hidden xl:block">
+          <span className="text-[#666666]">const</span>
+          <span className="text-[#888888]"> navigation </span>
+          <span className="text-[#666666]">= </span>
+          <span className="text-[#888888]">[</span>
+          {navLinks.map((link, index) => (
+            <span key={index}>
+              <span className="text-[#999999]">'{link.label}'</span>
+              {index < navLinks.length - 1 && <span className="text-[#888888]">, </span>}
+            </span>
+          ))}
+          <span className="text-[#888888]">];</span>
+        </div>
       </div>
     </nav>
   );

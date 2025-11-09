@@ -1,62 +1,196 @@
-"use client";
-import Link from "next/link";
+'use client'
+import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { FaInstagram, FaFacebook, FaLinkedin } from "react-icons/fa";
 
 function getCurrentYear() {
-  let year = new Date().getFullYear();
-  return year;
+  return new Date().getFullYear();
 }
 
 export default function Footer() {
+  const footerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (footerRef.current) {
+      footerRef.current.style.opacity = '0';
+      footerRef.current.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        if (footerRef.current) {
+          footerRef.current.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+          footerRef.current.style.opacity = '1';
+          footerRef.current.style.transform = 'translateY(0)';
+        }
+      }, 100);
+    }
+  }, []);
+
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/contact", label: "Contact" },
+    { href: "/portfolio", label: "Portfolio" },
+    { href: "/about-us", label: "About Us" },
+    { href: "/pricing", label: "Pricing" },
+  ];
+
+  const socialLinks = [
+    { href: "/instagram", label: "Instagram", icon: "IG" },
+    { href: "/linkedin", label: "LinkedIn", icon: "in" },
+    { href: "/facebook", label: "Facebook", icon: "fb" },
+  ];
+
   return (
-    <>
-      <section className="w-full h-auto bg-white text-black text-lg md:text-2xl flex flex-col">
-        <div className="flex flex-col md:flex-row justify-evenly p-8 md:p-12 gap-8 md:gap-0">
-          <div className="flex flex-col items-center md:items-start w-full md:w-1/3">
-            <Image
-              src={"/Images/logo.png"}
-              alt="KPZsProductions Logo"
-              width={300}
-              height={120}
-              className="w-[250px] md:w-[400px]"
-            ></Image>
-          </div>
-          <div className="flex flex-col w-full md:w-1/3 items-center">
-            <h3 className="font-bold mb-2">Qucik Links</h3>
-            <Link href={"/"}>Home</Link>
-            <Link href={"/contact"}>Contact</Link>
-            <Link href={"/portfolio"}>Portfolio</Link>
-            <Link href={"/about-us"}>About Us</Link>
-            <Link href={"/pricing"}>Pricing</Link>
-          </div>
-          <div className="flex flex-col w-full md:w-1/3 items-center">
-            <h3 className="font-bold mb-2">Social Media</h3>
-            <div className="flex flex-row items-center gap-4 text-3xl md:text-4xl pt-2">
-              <Link href={"/instaram"}>
-                <FaInstagram></FaInstagram>
-              </Link>
-              <Link href={"/linkedin"}>
-                <FaLinkedin></FaLinkedin>
-              </Link>
-              <Link href={"/facebook"}>
-                <FaFacebook></FaFacebook>
-              </Link>
+    <footer className="w-full bg-[#0a0a0a] border-t border-[#222222]">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        .footer-container {
+          font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .footer-link {
+          transition: all 0.2s ease;
+          position: relative;
+          color: #999999;
+        }
+        
+        .footer-link::before {
+          content: '→ ';
+          opacity: 0;
+          margin-right: -12px;
+          transition: all 0.2s ease;
+        }
+        
+        .footer-link:hover::before {
+          opacity: 1;
+          margin-right: 4px;
+        }
+        
+        .footer-link:hover {
+          color: #cccccc;
+          padding-left: 4px;
+        }
+        
+        .social-icon {
+          transition: all 0.3s ease;
+          border: 1px solid #2a2a2a;
+          background: #0d0d0d;
+        }
+        
+        .social-icon:hover {
+          background: #1a1a1a;
+          border-color: #3a3a3a;
+          transform: translateY(-2px);
+        }
+
+        .grid-pattern {
+          background-image: 
+            linear-gradient(rgba(75, 85, 99, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(75, 85, 99, 0.03) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+      `}</style>
+
+      <div ref={footerRef} className="footer-container mx-auto grid-pattern">
+        {/* Main Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 p-8 md:p-12">
+          {/* Logo/Brand Section */}
+          <div className="flex flex-col gap-4">
+            <div className="text-[#555555] text-xs mb-2">
+              <span className="text-[#666666]">/**</span>
+              <div className="pl-3">* Brand identity</div>
+              <span className="text-[#666666]"> */</span>
             </div>
-            <div className="flex flex-col items-center p-6">
-              <h3><b>Contact Info</b></h3>
-              <Link  className="text-[1rem] mt-2" href={"tel:+48501740587"}>+48 501 740 587</Link>
-              <Link className="text-[1rem] mt-2" href={"mailto:kpzsproductionscontact@gmail.com"}>kpzsproductionscontact@gmail.com</Link>
+            <div className="bg-[#0d0d0d] border border-[#222222] rounded p-6">
+              <div className="text-2xl font-bold text-[#cccccc] mb-2">
+                <Image src={"/Images/logo.png"} alt="logo" width={200} height={100}></Image>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col gap-4">
+            <div className="text-[#888888] text-sm font-semibold mb-2">
+              // QUICK_LINKS
+            </div>
+            <nav className="flex flex-col gap-2">
+              {navLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  className="footer-link text-sm"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact & Social */}
+          <div className="flex flex-col gap-6">
+            {/* Social Media */}
+            <div>
+              <div className="text-[#888888] text-sm font-semibold mb-3">
+                // SOCIAL_MEDIA
+              </div>
+              <div className="flex gap-3">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    className="social-icon w-12 h-12 flex items-center justify-center rounded text-[#888888] hover:text-[#cccccc] text-xs font-bold"
+                    title={social.label}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <div className="text-[#888888] text-sm font-semibold mb-3">
+                // CONTACT_INFO
+              </div>
+              <div className="flex flex-col gap-2">
+                <a
+                  href="tel:+48501740587"
+                  className="footer-link text-sm"
+                >
+                  +48 501 740 587
+                </a>
+                <a
+                  href="mailto:kpzsproductionscontact@gmail.com"
+                  className="footer-link text-xs break-all"
+                >
+                  kpzsproductionscontact@gmail.com
+                </a>
+              </div>
             </div>
           </div>
         </div>
-        <hr className="w-full mt-4 md:mt-8" />
-        <div className="flex flex-row items-center pt-6 pb-6 md:pt-8 md:pb-8 mx-auto">
-          <p className="text-sm md:text-base">
-            Copyright © {getCurrentYear()} KPZsProductions
-          </p>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-[#1a1a1a] px-8 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#555555]">
+            <div className="flex items-center gap-3">
+              <span className="text-[#666666]">const</span>
+              <span className="text-[#888888]">year</span>
+              <span className="text-[#666666]">=</span>
+              <span className="text-[#999999]">{getCurrentYear()}</span>
+            </div>
+            <div>
+              <span className="text-[#666666]">// Copyright © </span>
+              <span className="text-[#888888]">{getCurrentYear()}</span>
+              <span className="text-[#666666]"> KPZsProductions</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-[#444444]">v1.0.0</span>
+              <span className="text-[#333333]">|</span>
+              <span className="text-[#444444]">Built with Next.js</span>
+            </div>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </footer>
   );
 }

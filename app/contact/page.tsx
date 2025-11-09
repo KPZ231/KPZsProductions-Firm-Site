@@ -6,9 +6,9 @@ export default function Contact() {
   return (
     <>
       <Hero
-        title="Let's Build Something Amazing Together"
-        desc="I'm Kacper Duda the developer behind KPZsProductions.Whether you have a project idea, a question, or want to discuss collaboration, I'm here to help. Let's create a website that's fast, modern, and tailored to your needs."
-        ctaButtonContent="Get Your Website Today"
+        title="Stwórzmy coś niesamowitego razem"
+        desc="Jestem Kacper Duda, twórca KPZsProductions. Niezależnie od tego, czy masz pomysł na projekt, pytania, czy chcesz omówić współpracę, jestem tutaj, aby pomóc. Stwórzmy stronę, która będzie szybka, nowoczesna i dopasowana do Twoich potrzeb."
+        ctaButtonContent="Zamów swoją stronę już dziś"
         ctaButtonLink="/pricing"
       ></Hero>
       <ContactForm />

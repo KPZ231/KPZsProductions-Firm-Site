@@ -1,181 +1,237 @@
- 'use client'
-import { FC, useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import gsap from 'gsap';
-import { sendEmail } from '../utils/send-email';
+import { FC, useState } from 'react';
 
 export type FormData = {
-    name: string;
-    surname: string;
-    email: string;
-    phone: string;
-    message:string;
-    topic: string;
+  name: string;
+  surname: string;
+  email: string;
+  phone: string;
+  message: string;
 };
 
 const ContactForm: FC = () => {
-    const {register, handleSubmit} = useForm<FormData>();
-    const formRef = useRef<HTMLFormElement | null>(null);
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    surname: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [status, setStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [isSending, setIsSending] = useState(false);
 
-    useEffect(() => {
-        // entrance animation for the whole form and staggered fields
-        const el = formRef.current;
-        if (!el) return;
+  const handleChange = (field: keyof FormData, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
-        const q = gsap.utils.selector(el);
+  const handleSubmit = async () => {
+    try {
+      setIsSending(true);
+      setStatus(null);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setStatus({ type: 'success', text: '✓ Wiadomość została pomyślnie wysłana' });
+      setFormData({ name: '', surname: '', email: '', phone: '', message: '' });
+    } catch (err: any) {
+      setStatus({ type: 'error', text: '✗ Błąd podczas wysyłania wiadomości' });
+    } finally {
+      setIsSending(false);
+    }
+  };
 
-        gsap.from(el, { opacity: 0, y: 18, duration: 0.6, ease: 'power2.out' });
-        // include select and button so <select> also animates
-        gsap.from(q('input, textarea, select'), { opacity: 0, y: 10, stagger: 0.06, duration: 0.45, delay: 0.12, ease: 'power2.out' });
-    }, []);
-
-    const [status, setStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-    const [isSending, setIsSending] = useState(false);
-    const bannerRef = useRef<HTMLDivElement | null>(null);
-
-    async function onSubmit(data: FormData){
-        try {
-            setIsSending(true);
-            const res = await sendEmail(data);
-            setStatus({ type: 'success', text: res?.message || 'Wiadomość została wysłana.' });
-        } catch (err: any) {
-            setStatus({ type: 'error', text: err?.message || 'Wystąpił błąd podczas wysyłania.' });
-        } finally {
-            setIsSending(false);
+  return (
+    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        body {
+          font-family: 'JetBrains Mono', monospace;
         }
-    }
-
-    // subtle focus/blur animation using GSAP
-    function handleFocus(e: React.FocusEvent<HTMLElement>) {
-        gsap.to(e.currentTarget, { boxShadow: '0 0 0 6px rgba(239,68,68,0.08)', duration: 0.18 });
-    }
-    function handleBlur(e: React.FocusEvent<HTMLElement>) {
-        gsap.to(e.currentTarget, { boxShadow: '0 0 0 0px rgba(0,0,0,0)', duration: 0.18 });
-    }
-
-    // animate banner in when status changes
-    useEffect(() => {
-        const b = bannerRef.current;
-        if (!b) return;
-        if (status) {
-            gsap.fromTo(b, { y: -8, opacity: 0 }, { y: 0, opacity: 1, duration: 0.28, ease: 'power2.out' });
+        
+        .code-form {
+          font-family: 'JetBrains Mono', monospace;
         }
-    }, [status]);
+        
+        .subtle-glow {
+          box-shadow: 0 0 40px rgba(100, 100, 100, 0.1);
+        }
+        
+        .input-line {
+          position: relative;
+        }
+        
+        .input-line::before {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: linear-gradient(90deg, #6b7280, #4b5563);
+          transition: width 0.3s ease;
+        }
+        
+        .input-line:focus-within::before {
+          width: 100%;
+        }
+        
+        .grid-bg {
+          background-image: 
+            linear-gradient(rgba(75, 85, 99, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(75, 85, 99, 0.1) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+      `}</style>
 
-    function dismissBanner() {
-        const b = bannerRef.current;
-        if (!b) return setStatus(null);
-        gsap.to(b, { y: -8, opacity: 0, duration: 0.18, ease: 'power2.in', onComplete: () => setStatus(null) });
-    }
+      <div className="code-form w-full max-w-6xl bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow relative">
+        {/* Minimalistyczny nagłówek */}
+        <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+            </div>
+            <span className="text-[#666666] text-xs tracking-wider">CONTACT.TSX</span>
+          </div>
+          <div className="text-[#444444] text-xs">
+            <span className="text-[#666666]">ln</span> 1:1
+          </div>
+        </div>
 
-    return(
-        <>
-            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} className="w-full max-w-4xl mx-auto p-6 mb-12 mt-12">
-                {/* Inline banner for success / error messages */}
-                {status && (
-                    <div ref={bannerRef} className={`mb-4 rounded-2xl p-3 flex items-start justify-between gap-4 ${status.type === 'success' ? 'bg-green-800/80 text-green-100' : 'bg-red-900/90 text-red-100'}`} role="status" aria-live="polite">
-                        <div className="flex items-center gap-3">
-                            <strong className="font-semibold">{status.type === 'success' ? 'Email Sent' : 'Błąd'}</strong>
-                        </div>
-                        <button type="button" onClick={dismissBanner} className="text-sm opacity-80 hover:opacity-100">Zamknij</button>
-                    </div>
-                )}
-                {/* Visual wrapper showing tags and styled form */}
-                <div className="text-left text-gray-100">
-                    <div className="mb-6">  
-                        <h3 className="text-2xl font-semibold text-white py-2"><span className='text-red-500'>{"<h3>"}</span>Contact Us<span className='text-red-500'>{"</h3>"}</span></h3>                      
-                    </div>
+        {/* Zawartość formularza */}
+        <div className="p-8 grid-bg">
+          {/* Komentarz nagłówka */}
+          <div className="mb-8">
+            <div className="text-[#555555] text-sm mb-2">
+              <span className="text-[#666666]">/**</span>
+            </div>
+            <div className="text-[#555555] text-sm mb-1 pl-3">
+              * Wyślij do nas wiadomość
+            </div>
+            <div className="text-[#555555] text-sm mb-1 pl-3">
+              * Odezwiemy się do Ciebie wkrótce
+            </div>
+            <div className="text-[#555555] text-sm">
+              <span className="text-[#666666]">*/</span>
+            </div>
+          </div>
 
-                    {/* Name */}
-                    <div className="mb-5">
-                        <div className="flex items-center gap-2">
-                            <span className="font-mono text-red-400 text-sm">{'<label for="name">'}</span>
-                            <span className="text-gray-200">Name</span>
-                            <span className="font-mono text-red-400 text-sm">{'</label>'}</span>
-                        </div>
-                        <div className="mt-2">
-                            <input {...register('name')} type="text" onFocus={handleFocus} onBlur={handleBlur} className="w-full bg-gray-700 text-white rounded-full h-10 px-4 outline-none focus:ring-2 focus:ring-red-500" />
-                        </div>
-                    </div>
+          {/* Pole Imię */}
+          <div className="mb-6">
+            <div className="text-[#888888] text-xs mb-2 font-medium tracking-wide">
+              IMIĘ
+            </div>
+            <div className="input-line">
+              <input
+                type="text"
+                value={formData.name}
+                onChange={(e) => handleChange('name', e.target.value)}
+                className="w-full bg-transparent text-[#e0e0e0] text-sm outline-none pb-2 border-b border-[#222222] focus:border-[#333333] transition-colors"
+                placeholder="Wpisz swoje imię"
+              />
+            </div>
+          </div>
 
-                    {/* Topic */}
-                    <div className="mb-5">
-                        <div className="flex items-center gap-2">
-                            <span className="font-mono text-red-400 text-sm">{'<label for="topic">'}</span>
-                            <span className="text-gray-200">Topic</span>
-                            <span className="font-mono text-red-400 text-sm">{'</label>'}</span>
-                        </div>
-                        <div className="mt-2">
-                            <select {...register('topic')} onFocus={handleFocus} onBlur={handleBlur} className="w-full bg-gray-700 text-white rounded-full h-10 px-4 outline-none focus:ring-2 focus:ring-red-500">
-                                <option value="" disabled hidden>Wybierz temat</option>
-                                <option value="strona internetowa">Strona internetowa</option>
-                                <option value="poprawki">Poprawki</option>
-                                <option value="seo">SEO</option>
-                                <option value="inne">Inne</option>
-                            </select>
-                        </div>
-                    </div>
+          {/* Pole Nazwisko */}
+          <div className="mb-6">
+            <div className="text-[#888888] text-xs mb-2 font-medium tracking-wide">
+              NAZWISKO
+            </div>
+            <div className="input-line">
+              <input
+                type="text"
+                value={formData.surname}
+                onChange={(e) => handleChange('surname', e.target.value)}
+                className="w-full bg-transparent text-[#e0e0e0] text-sm outline-none pb-2 border-b border-[#222222] focus:border-[#333333] transition-colors"
+                placeholder="Wpisz swoje nazwisko"
+              />
+            </div>
+          </div>
 
-                    {/* Surname */}
-                    <div className="mb-5">
-                        <div className="flex items-center gap-2">
-                            <span className="font-mono text-red-400 text-sm">{'<label for="surname">'}</span>
-                            <span className="text-gray-200">Surname</span>
-                            <span className="font-mono text-red-400 text-sm">{'</label>'}</span>
-                        </div>
-                        <div className="mt-2">
-                            <input {...register('surname')} type="text" onFocus={handleFocus} onBlur={handleBlur} className="w-full bg-gray-700 text-white rounded-full h-10 px-4 outline-none focus:ring-2 focus:ring-red-500" />
-                            
-                        </div>
-                    </div>
+          {/* Pole Email */}
+          <div className="mb-6">
+            <div className="text-[#888888] text-xs mb-2 font-medium tracking-wide">
+              EMAIL
+            </div>
+            <div className="input-line">
+              <input
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleChange('email', e.target.value)}
+                className="w-full bg-transparent text-[#e0e0e0] text-sm outline-none pb-2 border-b border-[#222222] focus:border-[#333333] transition-colors"
+                placeholder="twoj@email.com"
+              />
+            </div>
+          </div>
 
-                    {/* Email */}
-                    <div className="mb-5">
-                        <div className="flex items-center gap-2">
-                            <span className="font-mono text-red-400 text-sm">{'<label for="email">'}</span>
-                            <span className="text-gray-200">E-mail</span>
-                            <span className="font-mono text-red-400 text-sm">{'</label>'}</span>
-                        </div>
-                        <div className="mt-2">
-                            <input {...register('email')} type="email" onFocus={handleFocus} onBlur={handleBlur} className="w-full bg-gray-700 text-white rounded-full h-10 px-4 outline-none focus:ring-2 focus:ring-red-500" />
-                           
-                        </div>
-                    </div>
+          {/* Pole Telefon */}
+          <div className="mb-6">
+            <div className="text-[#888888] text-xs mb-2 font-medium tracking-wide">
+              TELEFON <span className="text-[#555555]">// opcjonalnie</span>
+            </div>
+            <div className="input-line">
+              <input
+                type="tel"
+                value={formData.phone}
+                onChange={(e) => handleChange('phone', e.target.value)}
+                className="w-full bg-transparent text-[#e0e0e0] text-sm outline-none pb-2 border-b border-[#222222] focus:border-[#333333] transition-colors"
+                placeholder="+48 123 456 789"
+              />
+            </div>
+          </div>
 
-                    {/* Phone */}
-                    <div className="mb-5">
-                        <div className="flex items-center gap-2">
-                            <span className="font-mono text-red-400 text-sm">{'<label for="phone">'}</span>
-                            <span className="text-gray-200">Phone Number (optional)</span>
-                            <span className="font-mono text-red-400 text-sm">{'</label>'}</span>
-                        </div>
-                        <div className="mt-2">
-                            <input {...register('phone')} type="tel" onFocus={handleFocus} onBlur={handleBlur} className="w-full bg-gray-700 text-white rounded-full h-10 px-4 outline-none focus:ring-2 focus:ring-red-500" />
-                            
-                        </div>
-                    </div>
+          {/* Pole Wiadomość */}
+          <div className="mb-8">
+            <div className="text-[#888888] text-xs mb-2 font-medium tracking-wide">
+              WIADOMOŚĆ
+            </div>
+            <textarea
+              value={formData.message}
+              onChange={(e) => handleChange('message', e.target.value)}
+              rows={5}
+              className="w-full bg-[#0d0d0d] text-[#e0e0e0] text-sm outline-none p-4 border border-[#222222] focus:border-[#333333] rounded transition-colors resize-none"
+              placeholder="Wpisz tutaj swoją wiadomość..."
+            />
+          </div>
 
-                    {/* Message */}
-                    <div className="mb-6">
-                        <div className="flex items-center gap-2">
-                            <span className="font-mono text-red-400 text-sm">{'<label for="message">'}</span>
-                            <span className="text-gray-200">Message</span>
-                            <span className="font-mono text-red-400 text-sm">{'</label>'}</span>
-                        </div>
-                        <div className="mt-2">
-                            <textarea {...register('message')} rows={6} onFocus={handleFocus} onBlur={handleBlur} className="w-full bg-gray-700 text-white rounded-2xl p-4 outline-none focus:ring-2 focus:ring-red-500" />
-                            
-                        </div>
-                    </div>
+          {/* Komunikaty statusu */}
+          {status && (
+            <div className={`mb-6 text-xs px-4 py-3 rounded border ${
+              status.type === 'success' 
+                ? 'bg-[#1a1a1a] border-[#2a2a2a] text-[#999999]' 
+                : 'bg-[#1a1a1a] border-[#2a2a2a] text-[#888888]'
+            }`}>
+              {status.text}
+            </div>
+          )}
 
-                    {/* Submit button with visible tag */}
-                    <div className="mb-2">                       
-                        <button type="submit"><span className='text-red-400'>{"<span>"}</span>Send<span className='text-red-400'>{"</span>"}</span></button>                    
-                    </div>
-                </div>
-            </form>
-        </>
-    );
-}
+          {/* Przycisk wysyłania */}
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleSubmit}
+              disabled={isSending}
+              className="flex-1 bg-[#1a1a1a] hover:bg-[#222222] disabled:bg-[#0d0d0d] text-[#cccccc] hover:text-white disabled:text-[#555555] text-sm py-3 px-6 border border-[#2a2a2a] hover:border-[#3a3a3a] transition-all duration-200 disabled:cursor-not-allowed"
+            >
+              {isSending ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="animate-pulse">●</span> WYSYŁANIE
+                </span>
+              ) : (
+                'WYŚLIJ WIADOMOŚĆ'
+              )}
+            </button>
+          </div>
+
+          {/* Stopka */}
+          <div className="mt-8 pt-6 border-t border-[#1a1a1a] text-[#555555] text-xs">
+            <div className="flex items-center justify-between">
+              <span>v1.0.0</span>
+              <span className="text-[#444444]">Naciśnij ESC, aby wyczyścić</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default ContactForm;

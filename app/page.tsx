@@ -6,83 +6,79 @@ import { Project } from './classes/Projects';
 import CTA from './components/CTA';
 import ProjectsGrid from "./components/ProjectsGrid";
 
-
-
 export default function Home() {
   const projects: Project[] = [
     {
-      title: "Project 1",
-      description: "Description for project 1",
-      buttonContent: "View Project",
-      link: "/project-1",
-      thumbnail: "/Images/nextjs-logo.png",
+      title: "Whatnow!? - Chaos",
+      description: "Whatnow!? - Chaos to aplikacja imprezowa której celem jest łączenie zajmoych za pomocą śmiesznych wyzwań",
+      buttonContent: "Zobacz projekt",
+      link: "https://what-now-chaos.vercel.app/",
+      thumbnail: "/Images/whatnowchaos.png",
+      isIframable: true
+    },
+    {
+      title: "Łowisko Lipus - Strona łowiska komercyjnego",
+      description: "Łowisko Lipus - Strona łowiska komercyjnego umieszczonego w Mikołowie",
+      buttonContent: "Zobacz projekt",
+      link: "https://github.com/KPZ231/lipus",
+      thumbnail: "/Images/GitHub.png",
       isIframable: false
     },
     {
-      title: "Project 2",
-      description: "Description for project 2",
-      buttonContent: "View Project",
-      link: "/project-2",
-      thumbnail: "/Images/react-logo.png",
+      title: "Challengify",
+      description: "Challengify to platforma do pokazywania swoich umiejetnosci, ktora losuje jedno losowe zadanie dziennie, i użytkownicy maja 24h na wykonanie zadania",
+      buttonContent: "Zobacz projekt",
+      link: "https://github.com/KPZ231/Challengify-App",
+      thumbnail: "/Images/challengify-logo.jpg",
       isIframable: false
     },
     {
-      title: "Project 3",
-      description: "Description for project 3",
-      buttonContent: "View Project",
-      link: "/project-3",
-      thumbnail: "/Images/astro-logo.png",
-      isIframable: false
-    },
-    {
-      title: "Project 4",
-      description: "Description for project 4",
-      buttonContent: "View Project",
-      link: "/project-4",
-      thumbnail: "/Images/logo.png",
+      title: "Code Locker",
+      description: "Strona do zapisywania swoich snippetów kodu i dzielenie sie nimi z innymi",
+      buttonContent: "Zobacz projekt",
+      link: "https://github.com/KPZ231/Code-Locker",
+      thumbnail: "/Images/GitHub.png",
       isIframable: false
     },
   ];
 
-
   return (
     <>
       <Hero
-        title="<h1>Modern Websites Built with <span>Next.js, Astro & React</span> – <b>KPZsProductions</b> </h1>"
-        desc="<p>We create <span>fast, responsive, and visually stunning websites powered by Next.js, Astro, React, 
-and Tailwind CSS.</span>Boost your SEO, performance, and brand identity with a website that stands out in today’s digital world.</p>"
-        ctaButtonContent="Content"
+        title="Nowoczesne strony internetowe stworzone za pomocą Next.js, Astro & React – <b>KPZsProductions"
+        desc="Tworzymy szybkie, responsywne i efektowne wizualnie strony internetowe napędzane przez Next.js, Astro, React i Tailwind CSS. Zwiększ swoją widoczność SEO, wydajność i tożsamość marki dzięki stronie, która wyróżnia się w dzisiejszym cyfrowym świecie."
+        ctaButtonContent="Stwórzmy razem twoją strone"
         ctaButtonLink="/contact"
       />
-      <Header title="Crafting fast, beautiful, and scalable web experiences"></Header>
+      <Header title="Tworzenie szybkich, pięknych i skalowalnych doświadczeń internetowych"></Header>
       <Grid
-        content_1="Designed and coded from scratch for your brand."
-        content_2="Lightning-fast loading and perfect Lighthouse scores."
-        content_3="Visibility that drives real results."
-        content_4="Reliable updates and long-term partnership."
-        header_1="Custom Websites"
-        header_2="Performance Optimization"
-        header_3="SEO & Analytics Setup"
-        header_4="Maintenance & Support"
+        content_1="Projektowane i kodowane od podstaw dla Twojej marki."
+        content_2="Błyskawiczne ładowanie i perfekcyjne wyniki w Lighthouse."
+        content_3="Widoczność, która generuje rzeczywiste rezultaty."
+        content_4="Niezawodne aktualizacje i długoterminowa współpraca."
+        header_1="Strony na zamówienie"
+        header_2="Optymalizacja wydajności"
+        header_3="Konfiguracja SEO & analityki"
+        header_4="Utrzymanie i wsparcie"
       />
-      <Header title="Why work with KPZsProductions?"></Header>
+      <Header title="Dlaczego warto pracować z KPZsProductions?"></Header>
       <Grid
-        content_1="Modern frameworks like Next.js and Astro."
-        content_2="Speed, SEO, and user experience."
-        content_3="Code using React and Tailwind CSS."
-        content_4="Communication and delivery on time."
-        header_1="Built with"
-        header_2="Focus on"
-        header_3="Clean, scalable"
-        header_4="Transparent"
+        content_1="Nowoczesne frameworki takie jak Next.js i Astro."
+        content_2="Prędkość, SEO i doświadczenie użytkownika."
+        content_3="Kodowanie w React i Tailwind CSS."
+        content_4="Komunikacja i terminowa realizacja."
+        header_1="Stworzone z"
+        header_2="Skupienie na"
+        header_3="Czysty, skalowalny"
+        header_4="Przejrzysty"
       />
 
-      <Header title="Projects that speak for themselves"></Header>
+      <Header title="Projekty, które mówią same za siebie"></Header>
       <ProjectsCarousel ProjectsShown={projects}></ProjectsCarousel>
       
-      <CTA title="Ready to build something amazing?"
-        description="Let’s create a website that drives results fast, modern, and built for growth."
-        ctaButtonContent="Get a Free Quote or Contact Us Now"
+      <CTA title="Gotowy, aby stworzyć coś niesamowitego?"
+        description="Stwórzmy stronę, która szybko przyniesie rezultaty, jest nowoczesna i gotowa na rozwój."
+        ctaButtonContent="Uzyskaj darmową wycenę lub skontaktuj się z nami"
         ctaButtonLink="/contact"
       ></CTA>
     </>

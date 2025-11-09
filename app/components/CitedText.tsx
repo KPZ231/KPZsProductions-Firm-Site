@@ -1,85 +1,146 @@
-"use client";
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+'use client'
 
-gsap.registerPlugin(ScrollTrigger);
+import { useEffect, useRef } from "react";
 
 interface CitedTextProps {
   content: string;
 }
 
 export default function CitedText({ content }: CitedTextProps) {
-  const ctaRef = useRef<HTMLDivElement | null>(null);
   const boxRef = useRef<HTMLDivElement | null>(null);
-  const titleRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: ctaRef.current,
-        start: "top 80%",
-        toggleActions: "play none none none",
-      },
-      defaults: { ease: "power3.out" },
-    });
-
+    // Simple fade-in animation
     if (boxRef.current) {
-      tl.fromTo(
-        boxRef.current,
-        { opacity: 0, scale: 0.95 },
-        { opacity: 1, scale: 1, duration: 1 }
-      );
-    }
-
-    tl.fromTo(
-      ".terminal-dot",
-      { opacity: 0, scale: 0 },
-      { opacity: 1, scale: 1, stagger: 0.2, duration: 0.5 },
-      "-=0.5"
-    );
-
-    if (titleRef.current) {
-      tl.fromTo(
-        titleRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8 },
-        "-=0.5"
-      );
+      boxRef.current.style.opacity = '0';
+      boxRef.current.style.transform = 'translateY(20px)';
+      
+      setTimeout(() => {
+        if (boxRef.current) {
+          boxRef.current.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+          boxRef.current.style.opacity = '1';
+          boxRef.current.style.transform = 'translateY(0)';
+        }
+      }, 100);
     }
   }, []);
+
   return (
-    <>
-      {/* Główny container - 70% szerokości */}
+    <div className="w-full lg:w-[80%] flex mx-auto mb-12 mt-12 px-4">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        .code-box {
+          font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .subtle-glow {
+          box-shadow: 0 0 40px rgba(100, 100, 100, 0.08);
+        }
+        
+        .grid-pattern {
+          background-image: 
+            linear-gradient(rgba(75, 85, 99, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(75, 85, 99, 0.05) 1px, transparent 1px);
+          background-size: 20px 20px;
+        }
+        
+        .scan-effect {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .scan-effect::before {
+          content: '';
+          position: absolute;
+          top: -100%;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(
+            180deg,
+            transparent,
+            rgba(100, 100, 100, 0.03),
+            transparent
+          );
+          animation: scan 8s linear infinite;
+        }
+        
+        @keyframes scan {
+          0% { top: -100%; }
+          100% { top: 200%; }
+        }
+      `}</style>
+
       <div
-        ref={ctaRef}
-        className="w-full lg:w-[80%] flex mx-auto mb-12 flex-col gap-6 md:gap-8"
+        ref={boxRef}
+        className="code-box w-full bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow scan-effect"
       >
-        {/* Box z glassmorphism i zawartością */}
-        <div
-          ref={boxRef}
-          className="bg-[#1a1a1a] border border-gray-800 rounded-lg p-6 md:p-8 lg:p-10 shadow-2xl flex flex-col gap-6"
-        >
-          {/* Górny pasek z kolorowymi kółkami (terminal style) */}
-          <div className="flex items-center gap-2">
-            <div className="terminal-dot w-3 h-3 bg-red-500 rounded-full"></div>
-            <div className="terminal-dot w-3 h-3 bg-yellow-400 rounded-full"></div>
-            <div className="terminal-dot w-3 h-3 bg-green-500 rounded-full"></div>
+        {/* Header */}
+        <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+            </div>
+            <span className="text-[#666666] text-xs tracking-wider">MISSION.TS</span>
+          </div>
+          <div className="text-[#444444] text-xs">
+            <span className="text-[#666666]">readonly</span>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 md:p-10 lg:p-12 grid-pattern">
+          {/* Line numbers and code */}
+          <div className="flex gap-6">
+            {/* Line numbers */}
+            <div className="text-[#333333] text-sm select-none flex flex-col gap-1">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+            </div>
+
+            {/* Code content */}
+            <div className="flex-1 text-sm md:text-base">
+              <div className="flex flex-col gap-1">
+                <div>
+                  <span className="text-[#666666]">/**</span>
+                </div>
+                <div>
+                  <span className="text-[#666666]"> * </span>
+                  <span className="text-[#888888]">@description Our mission statement</span>
+                </div>
+                <div>
+                  <span className="text-[#666666]"> */</span>
+                </div>
+                <div className="mt-2">
+                  <span className="text-[#888888]">const </span>
+                  <span className="text-[#999999]">mission</span>
+                  <span className="text-[#666666]"> = </span>
+                  <span className="text-[#aaaaaa]">"{content}"</span>
+                  <span className="text-[#666666]">;</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Treść w stylu kodu z HTML tagami */}
-          <div className="flex flex-col gap-4 font-mono text-sm md:text-base lg:text-lg">
-            {/* Tytuł */}
-            <p ref={titleRef} className="leading-relaxed w-[90%]">
-              <span className="text-red-400">const </span>
-              <span className="text-blue-400">mission = </span>
-
-              <span className="text-yellow-400">"{content}"</span>
-              <span className="text-white">;</span>
-            </p>
+          {/* Bottom status bar */}
+          <div className="mt-8 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#555555] text-xs">
+            <div className="flex items-center gap-4">
+              <span>TypeScript</span>
+              <span className="text-[#333333]">|</span>
+              <span>UTF-8</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-[#666666]">Ln</span> 4
+              <span className="text-[#666666]">Col</span> {content.length + 18}
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

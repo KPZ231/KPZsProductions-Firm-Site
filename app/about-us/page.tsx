@@ -1,24 +1,32 @@
 import Hero from "../components/HeroSection";
 import Timeline from "../components/Timeline";
-import { TimelineItem } from "./../classes/TimelineClass";
-import Header from "./../components/Header";
-import CitedText from "./../components/CitedText";
-import Grid from "./../components/Grid";
+import { TimelineItem } from "../classes/TimelineClass";
+import Header from "../components/Header";
+import CitedText from "../components/CitedText";
+import Grid from "../components/Grid";
 import ImageGrid from "../components/ImageGrid";
 import CTA from "../components/CTA";
 
 const timelineItems: TimelineItem[] = [
   {
     year: 2020,
-    title: "Phase 1",
-    description: "Initial planning and concept.",
+    title: "Faza 1",
+    description: "Wstępne planowanie i koncepcja.",
   },
-  { year: 2021, title: "Phase 2", description: "Development and testing." },
-  { year: 2022, title: "Phase 3", description: "Deployment and launch." },
+  {
+    year: 2021,
+    title: "Faza 2",
+    description: "Rozwój i testowanie.",
+  },
+  {
+    year: 2022,
+    title: "Faza 3",
+    description: "Wdrażanie i uruchomienie.",
+  },
   {
     year: 2023,
-    title: "Phase 4",
-    description: "Post-launch support and maintenance.",
+    title: "Faza 4",
+    description: "Wsparcie i utrzymanie po uruchomieniu.",
   },
 ];
 
@@ -26,29 +34,36 @@ export default function AboutUs() {
   return (
     <>
       <Hero
-        title="Turning Ideas Into Fast, Modern, and Scalable Websites"
-        desc="I’m Kacper Duda, the founder and developer behind KPZsProductions — a creative studio focused on building fast, modern, and visually stunning websites powered by Next.js, Astro, React, and Tailwind CSS. My goal is simple: craft web experiences that are not only beautiful but also lightning-fast and SEO-friendly."
-        ctaButtonContent="Let’s build your website together"
+        title="Przekształcanie pomysłów w szybkie, nowoczesne i skalowalne strony internetowe"
+        desc="Jestem Kacper Duda, założyciel i twórca KPZsProductions — studia kreatywnego skupionego na tworzeniu szybkich, nowoczesnych i efektownych wizualnie stron internetowych wykorzystujących Next.js, Astro, React i Tailwind CSS. Moim celem jest proste: tworzyć doświadczenia internetowe, które są nie tylko piękne, ale także błyskawicznie szybkie i przyjazne SEO."
+        ctaButtonContent="Stwórzmy razem Twoją stronę"
         ctaButtonLink="/contact"
       ></Hero>
 
-      
       <Timeline items={timelineItems}></Timeline>
-      <CitedText content="My mission is to build websites that inspire, perform, and grow with your business. Each project is unique, and I treat every website as a long-term investment in your digital presence — optimized for speed, SEO, and design consistency."></CitedText>
-      <Header title="Values"></Header>
+      <CitedText content="Moja misja to tworzenie stron, które inspirują, osiągają wyniki i rosną wraz z Twoim biznesem. Każdy projekt jest wyjątkowy, a każdą stronę traktuję jak długoterminową inwestycję w Twoją obecność w sieci — zoptymalizowaną pod kątem szybkości, SEO i spójności designu."></CitedText>
+      
+      <Header title="Wartości"></Header>
       <Grid
-        header_1="Precision"
-        content_1="Every detail matters from pixels to performance"
-        header_2="Performance"
-        content_2="Fast websites convert better and I make sure they do."
-        header_3="Transparency"
-        content_3="You always know what’s being built and why."
-        header_4="Modern Design"
-        content_4="Clean, bold, and tailored to your brand."
+        header_1="Precyzja"
+        content_1="Każdy detal ma znaczenie — od pikseli po wydajność."
+        header_2="Wydajność"
+        content_2="Szybkie strony lepiej konwertują, a ja dbam o to, by tak było."
+        header_3="Przejrzystość"
+        content_3="Zawsze wiesz, co jest tworzone i dlaczego."
+        header_4="Nowoczesny design"
+        content_4="Czysty, odważny i dopasowany do Twojej marki."
       ></Grid>
-      <Header title="Technologies"></Header>
+      
+      <Header title="Technologie"></Header>
       <ImageGrid></ImageGrid>
-      <CTA title="Ready to build something amazing?" description="Let’s create a website that drives results fast, modern, and built for growth." ctaButtonContent="Get a Free Quote or Contact Us Now" ctaButtonLink="/contact"></CTA>
+      
+      <CTA 
+        title="Gotowy, aby stworzyć coś niesamowitego?" 
+        description="Stwórzmy stronę, która szybko przyniesie rezultaty, jest nowoczesna i gotowa na rozwój." 
+        ctaButtonContent="Uzyskaj darmową wycenę lub skontaktuj się z nami" 
+        ctaButtonLink="/contact"
+      ></CTA>
     </>
   );
 }
