@@ -4,4 +4,4 @@ Disallow: /private/
 Dissalow: /api
 
 
-Sitemap: https://kpzsproductions.com/sitemap.xml
+Sitemap: https://kpzsproductions.pl/sitemap.xml
