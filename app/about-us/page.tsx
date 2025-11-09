@@ -40,7 +40,10 @@ export default function AboutUs() {
         ctaButtonLink="/contact"
       ></Hero>
 
-      <Timeline items={timelineItems}></Timeline>
+      <Timeline items={timelineItems.map(item => ({
+        ...item,
+        year: item.year.toString()
+      }))}></Timeline>
       <CitedText content="Moja misja to tworzenie stron, które inspirują, osiągają wyniki i rosną wraz z Twoim biznesem. Każdy projekt jest wyjątkowy, a każdą stronę traktuję jak długoterminową inwestycję w Twoją obecność w sieci — zoptymalizowaną pod kątem szybkości, SEO i spójności designu."></CitedText>
       
       <Header title="Wartości"></Header>

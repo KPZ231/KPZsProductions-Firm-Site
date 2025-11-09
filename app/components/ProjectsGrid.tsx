@@ -12,12 +12,17 @@ interface ProjectsShowcaseProps {
 
 export default function ProjectsShowcase({ projects }: ProjectsShowcaseProps) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const cardRefs = useRef<HTMLDivElement[]>([])
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeProject, setActiveProject] = useState<Project | null>(null)
+
+  const setCardRef = (el: HTMLDivElement | null, index: number) => {
+    cardRefs.current[index] = el
+  }
 
   useEffect(() => {
     const ctx = gsap.context(() => {
       cardRefs.current.forEach((card) => {
+        if (!card) return;
         gsap.fromTo(
           card,
           { opacity: 0, y: 100 },
@@ -123,7 +128,7 @@ export default function ProjectsShowcase({ projects }: ProjectsShowcaseProps) {
       {projects.map((project, i) => (
         <div
           key={i}
-          ref={(el) => el && (cardRefs.current[i] = el)}
+          ref={(el) => setCardRef(el, i)}
           className="project-terminal w-full max-w-6xl shadow-2xl"
         >
           {/* HEADER */}
@@ -243,7 +248,7 @@ export default function ProjectsShowcase({ projects }: ProjectsShowcaseProps) {
                   href={activeProject.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-8 py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/40 transition-all duration-300 text-white text-center"
+                  className="inline-block px-8 py-4 bg-linear-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-xl font-semibold shadow-lg hover:shadow-pink-500/40 transition-all duration-300 text-white text-center"
                 >
                   Visit Project ↗
                 </a>
