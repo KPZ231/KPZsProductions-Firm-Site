@@ -1,23 +1,92 @@
 import { useState } from 'react';
 
 export default function PricingForm() {
+  type WebsiteType = 'portfolio' | 'business' | 'store' | 'blog' | 'custom';
+  type CmsType = 'wordpress' | 'custom' | 'none';
+  type IntegrationType = 'none' | 'payments' | 'social' | 'analytics' | 'newsletter' | 'crm' | 'multiple';
+
   const [formData, setFormData] = useState({
-    websiteType: 'portfolio',
+    websiteType: 'portfolio' as WebsiteType,
     pagesCount: 1,
-    cms: 'wordpress',
+    cms: 'wordpress' as CmsType,
     customDesign: false,
-    integrations: 'payments',
+    integrations: 'none' as IntegrationType,
     deadline: '',
-    email: ''
+    email: '',
+    budget: '',
+    requirements: '',
+    seo: false,
+    maintenance: false,
+    hosting: false,
+    domain: false,
   });
+  const [status, setStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
-    console.log('Formularz wysłany:', formData);
-    alert('Wycena została pomyślnie wysłana!');
+  const validateForm = () => {
+    if (!formData.email.trim()) {
+      setStatus({ type: 'error', text: '✗ Email jest wymagany' });
+      return false;
+    }
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(formData.email)) {
+      setStatus({ type: 'error', text: '✗ Nieprawidłowy format emaila' });
+      return false;
+    }
+    if (formData.pagesCount < 1) {
+      setStatus({ type: 'error', text: '✗ Liczba stron musi być większa od 0' });
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (!validateForm()) return;
+
+      setIsSubmitting(true);
+      setStatus(null);
+
+      const response = await fetch('/api/pricing', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Błąd podczas wysyłania formularza');
+      }
+
+      setStatus({ type: 'success', text: '✓ Wycena została pomyślnie wysłana' });
+      // Reset form after successful submission
+      setFormData({
+        websiteType: 'portfolio',
+        pagesCount: 1,
+        cms: 'wordpress',
+        customDesign: false,
+        integrations: 'none',
+        deadline: '',
+        email: '',
+        budget: '',
+        requirements: '',
+        seo: false,
+        maintenance: false,
+        hosting: false,
+        domain: false,
+      });
+    } catch (err: any) {
+      setStatus({ type: 'error', text: `✗ ${err.message}` });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // Oblicz wycenę na podstawie danych z formularza
@@ -37,7 +106,7 @@ export default function PricingForm() {
       maxCost += 5000;
       minWeeks += 2;
       maxWeeks += 3;
-    } else if (formData.websiteType === 'firm') {
+    } else if (formData.websiteType === 'business') {
       minCost += 1500;
       maxCost += 3000;
       minWeeks += 1;
@@ -274,13 +343,31 @@ export default function PricingForm() {
             </div>
           </div>
 
+          {/* Komunikaty statusu */}
+          {status && (
+            <div className={`mb-6 text-xs px-4 py-3 rounded border ${
+              status.type === 'success' 
+                ? 'bg-[#1a1a1a] border-[#2a2a2a] text-[#999999]' 
+                : 'bg-[#1a1a1a] border-[#2a2a2a] text-[#888888]'
+            }`}>
+              {status.text}
+            </div>
+          )}
+
           {/* Przycisk wysyłania */}
           <div className="flex items-center gap-3">
             <button
               onClick={handleSubmit}
-              className="flex-1 bg-[#1a1a1a] hover:bg-[#222222] text-[#cccccc] hover:text-white text-sm py-3 px-6 border border-[#2a2a2a] hover:border-[#3a3a3a] transition-all duration-200"
+              disabled={isSubmitting}
+              className="flex-1 bg-[#1a1a1a] hover:bg-[#222222] disabled:bg-[#0d0d0d] text-[#cccccc] hover:text-white disabled:text-[#555555] text-sm py-3 px-6 border border-[#2a2a2a] hover:border-[#3a3a3a] transition-all duration-200 disabled:cursor-not-allowed"
             >
-              UZYSKAJ_WYCENĘ()
+              {isSubmitting ? (
+                <span className="flex items-center justify-center gap-2">
+                  <span className="animate-pulse">●</span> WYSYŁANIE
+                </span>
+              ) : (
+                'UZYSKAJ_WYCENĘ()'
+              )}
             </button>
           </div>
 

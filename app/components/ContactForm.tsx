@@ -23,15 +23,59 @@ const ContactForm: FC = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
+  const validateForm = () => {
+    if (!formData.name.trim()) {
+      setStatus({ type: 'error', text: '✗ Imię jest wymagane' });
+      return false;
+    }
+    if (!formData.email.trim()) {
+      setStatus({ type: 'error', text: '✗ Email jest wymagany' });
+      return false;
+    }
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(formData.email)) {
+      setStatus({ type: 'error', text: '✗ Nieprawidłowy format emaila' });
+      return false;
+    }
+    if (!formData.message.trim()) {
+      setStatus({ type: 'error', text: '✗ Wiadomość jest wymagana' });
+      return false;
+    }
+    if (formData.phone) {
+      const phoneRegex = /^(\+\d{1,3}\s?)?\d{3}[\s-]?\d{3}[\s-]?\d{3}$/;
+      if (!phoneRegex.test(formData.phone)) {
+        setStatus({ type: 'error', text: '✗ Nieprawidłowy format numeru telefonu' });
+        return false;
+      }
+    }
+    return true;
+  };
+
   const handleSubmit = async () => {
     try {
+      if (!validateForm()) return;
+
       setIsSending(true);
       setStatus(null);
-      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      const response = await fetch('/api/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Błąd podczas wysyłania wiadomości');
+      }
+
       setStatus({ type: 'success', text: '✓ Wiadomość została pomyślnie wysłana' });
       setFormData({ name: '', surname: '', email: '', phone: '', message: '' });
     } catch (err: any) {
-      setStatus({ type: 'error', text: '✗ Błąd podczas wysyłania wiadomości' });
+      setStatus({ type: 'error', text: `✗ ${err.message}` });
     } finally {
       setIsSending(false);
     }

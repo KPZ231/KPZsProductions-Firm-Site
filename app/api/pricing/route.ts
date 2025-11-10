@@ -4,10 +4,24 @@ import Mail from 'nodemailer/lib/mailer';
 
 export async function POST(request: NextRequest) {
   try {
-    const { email, name, surname, message, phone } = await request.json();
+    const { 
+      websiteType,
+      pagesCount,
+      cms,
+      customDesign,
+      integrations,
+      deadline,
+      email,
+      budget,
+      requirements,
+      seo,
+      maintenance,
+      hosting,
+      domain
+    } = await request.json();
 
     // Input validation
-    if (!email || !name || !message) {
+    if (!email || !websiteType || !pagesCount || !cms) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -23,46 +37,54 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Phone validation (optional field)
-    if (phone) {
-      const phoneRegex = /^(\+\d{1,3}\s?)?\d{3}[\s-]?\d{3}[\s-]?\d{3}$/;
-      if (!phoneRegex.test(phone)) {
-        return NextResponse.json(
-          { error: 'Invalid phone format' },
-          { status: 400 }
-        );
-      }
-    }
-
     const transport = nodemailer.createTransport({
-      service: 'gmail',   
+      service: 'gmail',
       auth: {
         user: process.env.MY_EMAIL,
         pass: process.env.MY_PASSWORD,
       },
     });
 
+    const formattedDate = deadline ? new Date(deadline).toLocaleDateString('pl-PL') : 'Nie określono';
+    
     const emailContent = `
-Nowa wiadomość kontaktowa
+Nowe zapytanie o wycenę strony internetowej
 
-Dane kontaktowe:
----------------
-Imię: ${name}
-Nazwisko: ${surname || 'Nie podano'}
+Szczegóły projektu:
+------------------
+Typ strony: ${websiteType}
+Liczba stron: ${pagesCount}
+System CMS: ${cms}
+Projekt na zamówienie: ${customDesign ? 'Tak' : 'Nie'}
+Zakres budżetu: ${budget || 'Nie określono'}
+Integracje: ${integrations}
+
+Dodatkowe opcje:
+--------------
+SEO: ${seo ? 'Tak' : 'Nie'}
+Hosting: ${hosting ? 'Tak' : 'Nie'}
+Domena: ${domain ? 'Tak' : 'Nie'}
+Opieka techniczna: ${maintenance ? 'Tak' : 'Nie'}
+
+Dodatkowe wymagania:
+------------------
+${requirements || 'Brak dodatkowych wymagań'}
+
+Termin realizacji:
+----------------
+Oczekiwany termin: ${formattedDate}
+
+Kontakt do klienta:
+------------------
 Email: ${email}
-Telefon: ${phone || 'Nie podano'}
 
-Treść wiadomości:
----------------
-${message}
-
-Wiadomość wygenerowana automatycznie przez formularz kontaktowy KPZsProductions.
+Wiadomość wygenerowana automatycznie przez formularz wyceny KPZsProductions.
     `.trim();
 
     const mailOptions: Mail.Options = {
       from: process.env.MY_EMAIL,
       to: process.env.MY_EMAIL,
-      subject: `Wiadomość od ${name} ${surname || ''} (KPZsProductions Contact)`,
+      subject: `Zapytanie o wycenę - ${websiteType} (KPZsProductions Pricing)`,
       text: emailContent,
       replyTo: email // Bezpieczne ustawienie adresu do odpowiedzi
     };
