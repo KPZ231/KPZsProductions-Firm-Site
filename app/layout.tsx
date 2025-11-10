@@ -3,6 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import { Analytics } from "@vercel/analytics/next"
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -44,6 +45,7 @@ export default function RootLayout({
       <body className={`${jetbrainsMono.variable} antialiased`}>
         <Navbar></Navbar>
         {children}
+        <Analytics />
         <Footer></Footer>
       </body>
     </html>

@@ -9,26 +9,37 @@ import CTA from "../components/CTA";
 
 const timelineItems: TimelineItem[] = [
   {
-    year: 2020,
+    year: 2019,
     title: "Faza 1",
-    description: "Wstępne planowanie i koncepcja.",
+    description: "Pierwsze kroki w świecie programowania — rozpoczęcie nauki tworzenia gier w silniku Unity. To właśnie wtedy narodziła się pasja do kodu i kreatywnego projektowania.",
   },
   {
-    year: 2021,
+    year: 2020,
     title: "Faza 2",
-    description: "Rozwój i testowanie.",
+    description: "Publikacja pierwszej autorskiej gry. Pierwszy projekt, pierwsze wyzwania i pierwsza satysfakcja z ukończonego dzieła.",
   },
   {
     year: 2022,
     title: "Faza 3",
-    description: "Wdrażanie i uruchomienie.",
+    description: "Premiera kolejnej gry — bardziej dopracowanej, ambitniejszej i stanowiącej kolejny krok w rozwoju umiejętności programistycznych oraz designerskich.",
   },
   {
     year: 2023,
     title: "Faza 4",
-    description: "Wsparcie i utrzymanie po uruchomieniu.",
+    description: "Rozpoczęcie przygody z tworzeniem stron internetowych. Od prostych projektów po coraz bardziej zaawansowane aplikacje webowe.",
   },
+  {
+    year: 2025,
+    title: "Faza 5",
+    description: "Dołączenie do zespołu Sixteractive jako programista WordPress. Praca nad profesjonalnymi projektami komercyjnymi i dalsze doskonalenie warsztatu.",
+  },
+  {
+    year: 2025,
+    title: "Faza 6",
+    description: "Wydanie pierwszych autorskich stron internetowych — realizacja własnych pomysłów i wizji od zera do gotowego produktu.",
+  }
 ];
+
 
 export default function AboutUs() {
   return (
