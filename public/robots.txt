@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /private/
-Dissalow: /api
+Disallow: /api
 
 
 Sitemap: https://kpzsproductions.pl/sitemap.xml
