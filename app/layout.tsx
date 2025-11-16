@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     "tworzenie stron internetowych, projektowanie stron, nowoczesne strony www, strony internetowe Rybnik, strony www Rybnik, web developer Rybnik, agencja webowa Rybnik, studio webowe Rybnik, KPZsProductions, strony firmowe Rybnik, responsywne strony www, profesjonalne strony internetowe, projektowanie stron dla firm, web development, front-end developer, web design, nowoczesne strony internetowe, indywidualne projekty stron, strony z Next.js, strony z React, strony z Astro, Tailwind CSS, szybkie strony internetowe, strony SEO-friendly, optymalizacja stron internetowych, strony pod pozycjonowanie, tworzenie stron z CMS, strony WordPress Rybnik, WordPress WooCommerce, sklepy internetowe Rybnik, projektowanie sklepów online, strony e-commerce, developer stron Rybnik, freelancer web developer",
   publisher: "KPZsProductions",
   alternates: {
-    canonical: "./",
+    canonical: "https://www.kpzsproductions.pl/",
   },
   robots: "index,follow",
 };
