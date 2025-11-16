@@ -3,7 +3,7 @@ import { JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
@@ -41,6 +41,18 @@ export default function RootLayout({
           href="/Images/favicon.jpg"
           type="image/x-icon"
         />
+
+        {/* Schema.org */}
+        <script type="application/ld+json">
+          {`
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "name": "KPZsProductions",
+              "description": "KPZsProductions to studio tworzące szybkie, nowoczesne i responsywne strony internetowe oparte na technologiach Next.js, React, Astro i Tailwind CSS. Pomagamy markom budować silną obecność w sieci."
+            }
+          `}
+        </script>
       </head>
       <body className={`${jetbrainsMono.variable} antialiased`}>
         <Navbar></Navbar>
