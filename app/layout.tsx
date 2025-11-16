@@ -44,7 +44,7 @@ export default function RootLayout({
          {/* Open Graph (Facebook) */}
         <meta property="og:title" content="KPZsProductions" />
         <meta property="og:description" content="KPZsProductions to studio tworzące szybkie, nowoczesne i responsywne strony internetowe oparte na technologiach Next.js, React, Astro i Tailwind CSS. Pomagamy markom budować silną obecność w sieci." />
-        <meta property="og:image" content="https://www.kpzsproductions.pl/Images/kpz.png" />
+        <meta property="og:image" content="https://www.kpzsproductions.pl/Images/kpz.jpg" />
         <meta property="og:url" content="https://www.kpzsproductions.pl/" />
 
         {/* Schema.org */}
