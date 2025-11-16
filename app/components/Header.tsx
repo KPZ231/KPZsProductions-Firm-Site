@@ -24,7 +24,7 @@ export default function Header({ title }: HeaderProps) {
   }, []);
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
+  <section className="w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
         
@@ -70,19 +70,19 @@ export default function Header({ title }: HeaderProps) {
         }
       `}</style>
 
-      <div ref={headerRef} className="header-box w-full max-w-7xl bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow scan-effect">
+      <div ref={headerRef} className="header-box mx-auto w-[90%]  bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow scan-effect">
         {/* Header */}
         <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
             </div>
-            <span className="text-[#666666] text-xs tracking-wider">HEADER.TSX</span>
+            <span className="text-[#f8b500] text-xs tracking-wider">// HEADER.TSX</span>
           </div>
-          <div className="text-[#444444] text-xs">
-            <span className="text-[#666666]">React Component</span>
+          <div className="text-[#6faadb] text-xs">
+            <span className="text-[#f8b500]">React Component</span>
           </div>
         </div>
 
@@ -91,7 +91,7 @@ export default function Header({ title }: HeaderProps) {
           {/* Line numbers and code */}
           <div className="flex gap-6">
             {/* Line numbers */}
-            <div className="text-[#333333] text-sm select-none flex flex-col gap-2">
+            <div className="text-[#6faadb] text-sm select-none flex flex-col gap-2">
               <span>1</span>
               <span>2</span>
               <span>3</span>
@@ -106,57 +106,57 @@ export default function Header({ title }: HeaderProps) {
               <div className="flex flex-col gap-2 text-sm md:text-base">
                 {/* Import statement */}
                 <div>
-                  <span className="text-[#666666]">import</span>
-                  <span className="text-[#888888]"> {'{ '}</span>
-                  <span className="text-[#999999]">Component</span>
-                  <span className="text-[#888888]">{' }'}</span>
-                  <span className="text-[#666666]"> from</span>
-                  <span className="text-[#888888]"> 'react';</span>
+                  <span className="text-[#61afef]">import</span>
+                  <span className="text-[#7ba4d4]"> {'{ '}</span>
+                  <span className="text-[#98c379]">Component</span>
+                  <span className="text-[#7ba4d4]">{' }'}</span>
+                  <span className="text-[#61afef]"> from</span>
+                  <span className="text-[#98c379]"> 'react';</span>
                 </div>
                 
                 <div className="h-4"></div>
 
                 {/* Comment */}
                 <div>
-                  <span className="text-[#555555]">// Main heading</span>
+                  <span className="text-[#7ba4d4]">// Main heading</span>
                 </div>
 
                 {/* Return statement with JSX */}
                 <div>
-                  <span className="text-[#888888]">return</span>
-                  <span className="text-[#666666]"> (</span>
+                  <span className="text-[#7ba4d4]">return</span>
+                  <span className="text-[#61afef]"> (</span>
                 </div>
 
                 {/* The actual title with proper indentation */}
                 <div className="pl-4 text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight mt-2">
-                  <span className="text-[#666666]">&lt;</span>
-                  <span className="text-[#888888]">h2</span>
-                  <span className="text-[#666666]">&gt;</span>
-                  <h2 className="text-[#cccccc]">{title}</h2>
-                  <span className="text-[#666666]">&lt;/</span>
-                  <span className="text-[#888888]">h2</span>
-                  <span className="text-[#666666]">&gt;</span>
+                  <span className="text-[#61afef]">&lt;</span>
+                  <span className="text-[#7ba4d4]">h2</span>
+                  <span className="text-[#61afef]">&gt;</span>
+                  <h2 className="text-[#ffc59c]">{title}</h2>
+                  <span className="text-[#61afef]">&lt;/</span>
+                  <span className="text-[#7ba4d4]">h2</span>
+                  <span className="text-[#61afef]">&gt;</span>
                 </div>
 
                 <div className="mt-2">
-                  <span className="text-[#666666]">);</span>
+                  <span className="text-[#61afef]">);</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom status bar */}
-          <div className="mt-12 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#555555] text-xs">
+          <div className="mt-12 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#7ba4d4] text-xs">
             <div className="flex items-center gap-4">
-              <span>JSX</span>
-              <span className="text-[#333333]">|</span>
-              <span>UTF-8</span>
-              <span className="text-[#333333]">|</span>
-              <span className="text-[#666666]">Spaces: 2</span>
+              <span className="text-[#e06c75]">JSX</span>
+              <span className="text-[#6faadb]">|</span>
+              <span className="text-[#98c379]">UTF-8</span>
+              <span className="text-[#6faadb]">|</span>
+              <span className="text-[#61afef]">Spaces: 2</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[#666666]">Ln</span> 7
-              <span className="text-[#666666]">Col</span> {title.length + 11}
+              <span className="text-[#6faadb]">Ln</span> 7
+              <span className="text-[#6faadb]">Col</span> {title.length + 11}
             </div>
           </div>
         </div>

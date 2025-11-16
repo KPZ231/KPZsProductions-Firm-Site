@@ -82,7 +82,7 @@ const ContactForm: FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-6">
+    <div className="min-h-[60vh] bg-[#0a0a0a] flex items-center justify-center p-6">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
         
@@ -125,19 +125,19 @@ const ContactForm: FC = () => {
         }
       `}</style>
 
-      <div className="code-form w-full max-w-6xl bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow relative">
+      <div className="code-form mx-auto w-[90%] max-w-4xl bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow relative">
         {/* Minimalistyczny nagłówek */}
         <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
             </div>
-            <span className="text-[#666666] text-xs tracking-wider">CONTACT.TSX</span>
+            <span className="text-[#f8b500] text-xs tracking-wider">// CONTACT.TSX</span>
           </div>
-          <div className="text-[#444444] text-xs">
-            <span className="text-[#666666]">ln</span> 1:1
+          <div className="text-[#6faadb] text-xs">
+            <span className="text-[#c5d4e8]">ln</span> 1:1
           </div>
         </div>
 
@@ -145,17 +145,17 @@ const ContactForm: FC = () => {
         <div className="p-8 grid-bg">
           {/* Komentarz nagłówka */}
           <div className="mb-8">
-            <div className="text-[#555555] text-sm mb-2">
-              <span className="text-[#666666]">/**</span>
+            <div className="text-[#6faadb] text-sm mb-2">
+              <span className="text-[#6faadb]">/**</span>
             </div>
-            <div className="text-[#555555] text-sm mb-1 pl-3">
+            <div className="text-[#c5d4e8] text-sm mb-1 pl-3">
               * Wyślij do nas wiadomość
             </div>
-            <div className="text-[#555555] text-sm mb-1 pl-3">
+            <div className="text-[#c5d4e8] text-sm mb-1 pl-3">
               * Odezwiemy się do Ciebie wkrótce
             </div>
-            <div className="text-[#555555] text-sm">
-              <span className="text-[#666666]">*/</span>
+            <div className="text-[#6faadb] text-sm">
+              <span className="text-[#6faadb]">*/</span>
             </div>
           </div>
 
@@ -253,7 +253,7 @@ const ContactForm: FC = () => {
             <button
               onClick={handleSubmit}
               disabled={isSending}
-              className="flex-1 bg-[#1a1a1a] hover:bg-[#222222] disabled:bg-[#0d0d0d] text-[#cccccc] hover:text-white disabled:text-[#555555] text-sm py-3 px-6 border border-[#2a2a2a] hover:border-[#3a3a3a] transition-all duration-200 disabled:cursor-not-allowed"
+              className="flex-1 bg-linear-to-r from-blue-600 via-indigo-500 to-indigo-600 hover:opacity-95 disabled:opacity-70 text-white text-sm py-3 px-6 border border-transparent rounded transition-all duration-200 disabled:cursor-not-allowed"
             >
               {isSending ? (
                 <span className="flex items-center justify-center gap-2">

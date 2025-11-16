@@ -49,7 +49,7 @@ export default function Grid({
   ];
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
+    <section className="min-h-[60vh] w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
         
@@ -88,30 +88,30 @@ export default function Grid({
         }
       `}</style>
 
-      <div className="grid-container w-full max-w-7xl">
+      <div className="grid-container mx-auto w-[85%]">
         {/* Header */}
         <div className="bg-[#111111] border border-[#222222] rounded-lg overflow-hidden mb-6">
           <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="dots flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
               </div>
-              <span className="text-[#666666] text-xs tracking-wider">FEATURES.TSX</span>
+              <span className="text-[#f8b500] text-xs tracking-wider">// FEATURES.TSX</span>
             </div>
-            <div className="text-[#444444] text-xs">
-              <span className="text-[#666666]">Grid Layout</span>
+            <div className="text-[#6faadb] text-xs">
+              <span className="text-[#f8b500]">Grid Layout</span>
             </div>
           </div>
 
           <div className="p-8 grid-pattern">
             {/* Comment */}
-            <div className="mb-6 text-[#555555] text-sm">
-              <span className="text-[#666666]">/**</span>
+            <div className="mb-6 text-[#7ba4d4] text-sm">
+              <span className="text-[#6faadb]">/**</span>
               <div className="pl-3">* Key features and benefits</div>
               <div className="pl-3">* @type {'{GridItem[]}'}</div>
-              <span className="text-[#666666]"> */</span>
+              <span className="text-[#6faadb]"> */</span>
             </div>
 
             {/* Grid */}
@@ -123,36 +123,36 @@ export default function Grid({
                 >
                   {/* Index number */}
                   <div className="flex items-center justify-between">
-                    <span className="text-[#444444] text-xs font-mono">
+                    <span className="text-[#6faadb] text-xs font-mono">
                       // index: {item.index}
                     </span>
-                    <span className="text-[#333333] text-2xl font-bold">
+                    <span className="text-[#f8b500] text-2xl font-bold">
                       {item.index}
                     </span>
                   </div>
 
                   {/* Header */}
                   <div>
-                    <div className="text-[#555555] text-xs mb-2">
+                    <div className="text-[#6faadb] text-xs mb-2">
                       &lt;h3&gt;
                     </div>
-                    <h3 className="text-[#cccccc] text-2xl font-semibold pl-4">
+                    <h3 className="text-[#ffc59c] text-2xl font-semibold pl-4">
                       {item.header}
                     </h3>
-                    <div className="text-[#555555] text-xs mt-2">
+                    <div className="text-[#6faadb] text-xs mt-2">
                       &lt;/h3&gt;
                     </div>
                   </div>
 
                   {/* Content */}
                   <div>
-                    <div className="text-[#555555] text-xs mb-2">
+                    <div className="text-[#6faadb] text-xs mb-2">
                       &lt;p&gt;
                     </div>
-                    <p className="text-[#999999] text-sm leading-relaxed pl-4">
+                    <p className="text-[#c5d4e8] text-sm leading-relaxed pl-4">
                       {item.content}
                     </p>
-                    <div className="text-[#555555] text-xs mt-2">
+                    <div className="text-[#6faadb] text-xs mt-2">
                       &lt;/p&gt;
                     </div>
                   </div>

@@ -59,20 +59,20 @@ export default function ProjectsCarousel({ ProjectsShown }: CarouselProps) {
   }, [ProjectsShown]);
 
   return (
-    <div className="w-full h-screen overflow-hidden bg-[#0a0a0a]" ref={component}>
+    <div className="w-full h-[75vh] overflow-hidden bg-[#0a0a0a]" ref={component}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
         .carousel-container {
           font-family: 'JetBrains Mono', monospace;
           display: flex;
-          height: 100vh;
+          height: 75vh;
           width: max-content;
         }
 
         .panel {
           flex: 0 0 100vw;
-          height: 100vh;
+          height: 75vh;
           scroll-snap-align: start;
         }
 
@@ -118,35 +118,35 @@ export default function ProjectsCarousel({ ProjectsShown }: CarouselProps) {
       <div ref={slider} className="carousel-container">
         {ProjectsShown.map((project, index) => (
           <div key={index} className="panel flex items-center justify-center p-6">
-            <div className="project-card w-full max-w-6xl bg-[#111111] border border-[#222222] rounded-lg overflow-hidden">
+            <div className="project-card mx-auto w-[90%] max-w-4xl bg-[#111111] border border-[#222222] rounded-lg overflow-hidden">
               {/* Header */}
               <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
                   </div>
-                  <span className="text-[#666666] text-xs tracking-wider">
-                    PROJECT_{index + 1}.TSX
+                  <span className="text-[#f8b500] text-xs tracking-wider">
+                    // PROJECT_{index + 1}.TSX
                   </span>
                 </div>
-                <div className="text-[#444444] text-xs">
-                  <span className="text-[#666666]">{index + 1} / {ProjectsShown.length}</span>
+                <div className="text-[#6faadb] text-xs">
+                  <span className="text-[#c5d4e8]">{index + 1} / {ProjectsShown.length}</span>
                 </div>
               </div>
 
               {/* Content */}
               <div className="grid md:grid-cols-2 grid-pattern">
                 {/* Image Section */}
-                <div className="image-container relative min-h-[300px] md:min-h-[500px] bg-[#0d0d0d]">
+                <div className="image-container relative min-h-[220px] md:min-h-[380px] bg-[#0d0d0d]">
                   <img
                     src={project.thumbnail}
                     alt={project.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute bottom-4 left-4 bg-[#0d0d0d] bg-opacity-90 border border-[#2a2a2a] px-3 py-1 rounded text-[#888888] text-xs">
-                    // thumbnail
+                  <div className="absolute bottom-4 left-4 bg-[#0d0d0d] bg-opacity-90 border border-[#2a2a2a] px-3 py-1 rounded text-[#6faadb] text-xs">
+                    <span className="text-[#6faadb]">//</span> <span className="text-[#c5d4e8]">thumbnail</span>
                   </div>
                 </div>
 
@@ -154,41 +154,41 @@ export default function ProjectsCarousel({ ProjectsShown }: CarouselProps) {
                 <div className="p-8 md:p-12 flex flex-col justify-between">
                   {/* Title */}
                   <div>
-                    <div className="text-[#555555] text-xs mb-2">
-                      <span className="text-[#666666]">/**</span>
-                      <div className="pl-3">* Project details</div>
-                      <span className="text-[#666666]"> */</span>
+                    <div className="text-[#6faadb] text-xs mb-2">
+                      <span className="text-[#6faadb]">/**</span>
+                      <div className="pl-3 text-[#c5d4e8]">* Project details</div>
+                      <span className="text-[#6faadb]"> */</span>
                     </div>
 
                     <div className="mb-2">
-                      <div className="text-[#555555] text-xs mb-1">
-                        &lt;h3&gt;
+                      <div className="text-[#6faadb] text-xs mb-1">
+                        &lt;<span className="text-[#61afef]">h3</span>&gt;
                       </div>
-                      <h3 className="text-3xl md:text-4xl font-bold text-[#e0e0e0] pl-4 mb-1">
+                      <h3 className="text-3xl md:text-4xl font-bold text-[#ffc59c] pl-4 mb-1">
                         {project.title}
                       </h3>
-                      <div className="text-[#555555] text-xs">
-                        &lt;/h3&gt;
+                      <div className="text-[#6faadb] text-xs">
+                        &lt;/<span className="text-[#61afef]">h3</span>&gt;
                       </div>
                     </div>
 
                     <div className="mt-6 mb-8">
-                      <div className="text-[#555555] text-xs mb-1">
-                        &lt;p&gt;
+                      <div className="text-[#6faadb] text-xs mb-1">
+                        &lt;<span className="text-[#61afef]">p</span>&gt;
                       </div>
-                      <p className="text-[#999999] text-sm md:text-base leading-relaxed pl-4 mb-1">
+                      <p className="text-[#c5d4e8] text-sm md:text-base leading-relaxed pl-4 mb-1">
                         {project.description}
                       </p>
-                      <div className="text-[#555555] text-xs">
-                        &lt;/p&gt;
+                      <div className="text-[#6faadb] text-xs">
+                        &lt;/<span className="text-[#61afef]">p</span>&gt;
                       </div>
                     </div>
                   </div>
 
                   {/* Button */}
                   <div>
-                    <div className="text-[#555555] text-xs mb-2">
-                      &lt;button&gt;
+                    <div className="text-[#6faadb] text-xs mb-2">
+                      &lt;<span className="text-[#61afef]">button</span>&gt;
                     </div>
                     <div className="pl-4 mb-2">
                       <a
@@ -199,17 +199,17 @@ export default function ProjectsCarousel({ ProjectsShown }: CarouselProps) {
                         {project.buttonContent}
                       </a>
                     </div>
-                    <div className="text-[#555555] text-xs">
-                      &lt;/button&gt;
+                    <div className="text-[#6faadb] text-xs">
+                      &lt;/<span className="text-[#61afef]">button</span>&gt;
                     </div>
 
                     {/* Metadata */}
-                    <div className="mt-6 pt-4 border-t border-[#1a1a1a] text-[#555555] text-xs">
+                    <div className="mt-6 pt-4 border-t border-[#1a1a1a] text-[#6faadb] text-xs">
                       <div className="flex items-center gap-4">
-                        <span className="text-[#666666]">const</span>
-                        <span className="text-[#888888]">link</span>
-                        <span className="text-[#666666]">=</span>
-                        <span className="text-[#999999] truncate">'{project.link.substring(0, 30)}...'</span>
+                        <span className="text-[#61afef]">const</span>
+                        <span className="text-[#c5d4e8]">link</span>
+                        <span className="text-[#e06c75]">=</span>
+                        <span className="text-[#98c379] truncate">'{project.link.substring(0, 30)}...'</span>
                       </div>
                     </div>
                   </div>

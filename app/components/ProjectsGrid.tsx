@@ -67,7 +67,7 @@ export default function ProjectsShowcase({ projects }: ProjectsShowcaseProps) {
   }, [activeProject])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen bg-[#0a0a0a] text-white px-6 py-32 flex flex-col gap-48 items-center overflow-hidden">
+    <section ref={containerRef} className="relative min-h-[70vh] bg-[#0a0a0a] text-white px-6 py-32 flex flex-col gap-48 items-center overflow-hidden">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
@@ -129,64 +129,66 @@ export default function ProjectsShowcase({ projects }: ProjectsShowcaseProps) {
         <div
           key={i}
           ref={(el) => setCardRef(el, i)}
-          className="project-terminal w-full max-w-6xl shadow-2xl"
+          className="project-terminal mx-auto w-[90%] max-w-4xl shadow-2xl"
         >
           {/* HEADER */}
           <div className="project-header">
             <div className="flex items-center gap-3">
               <div className="dots flex gap-1.5">
-                <div></div><div></div><div></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
               </div>
-              <span className="text-[#666] text-xs tracking-wider">
-                PROJECT_{i + 1}.TSX
+              <span className="text-[#f8b500] text-xs tracking-wider">
+                // PROJECT_{i + 1}.TSX
               </span>
             </div>
-            <span className="text-[#666] text-xs">{i + 1} / {projects.length}</span>
+            <span className="text-[#6faadb] text-xs">{i + 1} / {projects.length}</span>
           </div>
 
           {/* CONTENT */}
           <div className="grid md:grid-cols-2 grid-pattern">
             {/* IMAGE */}
-            <div className="image-container bg-[#0d0d0d] min-h-[300px] md:min-h-[500px]">
+            <div className="image-container bg-[#0d0d0d] min-h-[220px] md:min-h-[380px]">
               <img
                 src={project.thumbnail}
                 alt={project.title}
                 className="project-image w-full h-full object-cover"
               />
-              <div className="absolute bottom-4 left-4 bg-[#0d0d0d] bg-opacity-90 border border-[#2a2a2a] px-3 py-1 rounded text-[#888] text-xs">
-                // thumbnail
+              <div className="absolute bottom-4 left-4 bg-[#0d0d0d] bg-opacity-90 border border-[#2a2a2a] px-3 py-1 rounded text-[#6faadb] text-xs">
+                <span className="text-[#6faadb]">//</span> <span className="text-[#c5d4e8]">thumbnail</span>
               </div>
             </div>
 
             {/* TEXT */}
             <div className="p-8 md:p-12 flex flex-col justify-between">
               <div>
-                <div className="text-[#555] text-xs mb-2">
-                  <span className="text-[#666]">/**</span>
-                  <div className="pl-3">* Project details</div>
-                  <span className="text-[#666]"> */</span>
+                <div className="text-[#6faadb] text-xs mb-2">
+                  <span className="text-[#6faadb]">/**</span>
+                  <div className="pl-3 text-[#c5d4e8]">* Project details</div>
+                  <span className="text-[#6faadb]"> */</span>
                 </div>
 
                 <div className="mb-2">
-                  <div className="text-[#555] text-xs mb-1">&lt;h3&gt;</div>
+                  <div className="text-[#6faadb] text-xs mb-1">&lt;<span className="text-[#61afef]">h3</span>&gt;</div>
                   <h3 className="text-3xl md:text-4xl font-bold text-[#e0e0e0] pl-4 mb-1">
                     {project.title}
                   </h3>
-                  <div className="text-[#555] text-xs">&lt;/h3&gt;</div>
+                  <div className="text-[#6faadb] text-xs">&lt;/<span className="text-[#61afef]">h3</span>&gt;</div>
                 </div>
 
                 <div className="mt-6 mb-8">
-                  <div className="text-[#555] text-xs mb-1">&lt;p&gt;</div>
-                  <p className="text-[#999] text-sm md:text-base leading-relaxed pl-4 mb-1">
+                  <div className="text-[#6faadb] text-xs mb-1">&lt;<span className="text-[#61afef]">p</span>&gt;</div>
+                  <p className="text-[#c5d4e8] text-sm md:text-base leading-relaxed pl-4 mb-1">
                     {project.description}
                   </p>
-                  <div className="text-[#555] text-xs">&lt;/p&gt;</div>
+                  <div className="text-[#6faadb] text-xs">&lt;/<span className="text-[#61afef]">p</span>&gt;</div>
                 </div>
               </div>
 
               {/* BUTTON */}
               <div>
-                <div className="text-[#555] text-xs mb-2">&lt;button&gt;</div>
+                <div className="text-[#6faadb] text-xs mb-2">&lt;<span className="text-[#61afef]">button</span>&gt;</div>
                 <div className="pl-4 mb-2">
                   <button
                     onClick={() => setActiveProject(project)}
@@ -195,7 +197,7 @@ export default function ProjectsShowcase({ projects }: ProjectsShowcaseProps) {
                     {project.buttonContent}
                   </button>
                 </div>
-                <div className="text-[#555] text-xs">&lt;/button&gt;</div>
+                <div className="text-[#6faadb] text-xs">&lt;/<span className="text-[#61afef]">button</span>&gt;</div>
 
                 <div className="mt-6 pt-4 border-t border-[#1a1a1a] text-[#555] text-xs">
                   <div className="flex items-center gap-4">

@@ -38,7 +38,7 @@ export default function ImageGrid() {
   ];
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
+    <section className="min-h-[50vh] w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
         
@@ -81,29 +81,29 @@ export default function ImageGrid() {
         }
       `}</style>
 
-      <div ref={gridRef} className="tech-grid w-full max-w-6xl">
+  <div ref={gridRef} className="tech-grid mx-auto w-[90%] max-w-6xl">
         {/* Header */}
         <div className="bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow mb-6">
           <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
               </div>
-              <span className="text-[#666666] text-xs tracking-wider">TECH_STACK.TSX</span>
+              <span className="text-[#f8b500] text-xs tracking-wider">// TECH_STACK.TSX</span>
             </div>
-            <div className="text-[#444444] text-xs">
-              <span className="text-[#666666]">9 technologies</span>
+            <div className="text-[#6faadb] text-xs">
+              <span className="text-[#f8b500]">9 technologies</span>
             </div>
           </div>
 
           <div className="p-8 grid-pattern">
             {/* Comment */}
-            <div className="mb-6 text-[#555555] text-sm">
-              <span className="text-[#666666]">/**</span>
+            <div className="mb-6 text-[#7ba4d4] text-sm">
+              <span className="text-[#6faadb]">/**</span>
               <div className="pl-3">* Technologies we work with</div>
-              <span className="text-[#666666]"> */</span>
+              <span className="text-[#6faadb]"> */</span>
             </div>
 
             {/* Tech Grid */}
@@ -124,7 +124,7 @@ export default function ImageGrid() {
                       
                       {/* Tech name */}
                       <div className="text-center">
-                        <div className="text-[#cccccc] text-sm font-medium">
+                        <div className="text-sm font-medium" style={{ color: tech.color }}>
                           {tech.name}
                         </div>
                         <div className="text-[#555555] text-xs mt-1">

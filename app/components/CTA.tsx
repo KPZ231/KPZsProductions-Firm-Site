@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from "react";
 
+
 interface CTAProps {
   title: string;
   description: string;
@@ -32,7 +33,7 @@ export default function CTA({
   }, []);
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
+  <section className="min-h-[50vh] w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
@@ -91,20 +92,20 @@ export default function CTA({
 
       <div
         ref={boxRef}
-        className="cta-box w-full max-w-7xl bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow scan-effect px-4 sm:px-6 md:px-8"
+        className="cta-box mx-auto w-[90%] bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow scan-effect px-4 sm:px-6 md:px-8"
       >
         {/* Header */}
         <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
             </div>
-            <span className="text-[#666666] text-xs tracking-wider">CTA.TSX</span>
+            <span className="text-[#f8b500] text-xs tracking-wider">// CTA.TSX</span>
           </div>
-          <div className="text-[#444444] text-xs">
-            <span className="text-[#666666]">Call to Action</span>
+          <div className="text-[#6faadb] text-xs">
+            <span className="text-[#f8b500]">Call to Action</span>
           </div>
         </div>
 
@@ -112,7 +113,7 @@ export default function CTA({
         <div className="p-6 sm:p-8 md:p-12 grid-pattern">
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             {/* Line numbers */}
-            <div className="text-[#333333] text-sm select-none flex flex-row sm:flex-col gap-2 sm:gap-1">
+            <div className="text-[#6faadb] text-sm select-none flex flex-row sm:flex-col gap-2 sm:gap-1">
               <span>1</span>
               <span>2</span>
               <span>3</span>
@@ -134,62 +135,62 @@ export default function CTA({
               {/* Comment */}
               <div className="flex flex-col gap-2 text-sm">
                 <div>
-                  <span className="text-[#555555]">/**</span>
+                  <span className="text-[#6faadb]">/**</span>
                 </div>
                 <div>
-                  <span className="text-[#555555]"> * </span>
-                  <span className="text-[#666666]">@component CTA Section</span>
+                  <span className="text-[#6faadb]"> * </span>
+                  <span className="text-[#c5d4e8]">@component CTA Section</span>
                 </div>
                 <div>
-                  <span className="text-[#555555]"> */</span>
+                  <span className="text-[#6faadb]"> */</span>
                 </div>
 
                 <div className="h-2"></div>
 
                 {/* Return statement */}
                 <div>
-                  <span className="text-[#888888]">return</span>
-                  <span className="text-[#666666]"> (</span>
+                  <span className="text-[#61afef]">return</span>
+                  <span className="text-[#e06c75]"> (</span>
                 </div>
 
                 {/* Section opening */}
                 <div className="pl-4">
-                  <span className="text-[#666666]">&lt;</span>
-                  <span className="text-[#888888]">section</span>
-                  <span className="text-[#666666]">&gt;</span>
+                  <span className="text-[#e06c75]">&lt;</span>
+                  <span className="text-[#61afef]">section</span>
+                  <span className="text-[#e06c75]">&gt;</span>
                 </div>
 
                 {/* Title */}
                 <div className="pl-8 mt-4">
                   <div className="mb-1">
-                    <span className="text-[#666666]">&lt;</span>
-                    <span className="text-[#888888]">h2</span>
-                    <span className="text-[#666666]">&gt;</span>
+                    <span className="text-[#6faadb]">&lt;</span>
+                    <span className="text-[#61afef]">h2</span>
+                    <span className="text-[#6faadb]">&gt;</span>
                   </div>
-                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#cccccc] pl-2 sm:pl-4 mb-1">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#ffc59c] pl-2 sm:pl-4 mb-1">
                     {title}
                   </div>
                   <div>
-                    <span className="text-[#666666]">&lt;/</span>
-                    <span className="text-[#888888]">h2</span>
-                    <span className="text-[#666666]">&gt;</span>
+                    <span className="text-[#6faadb]">&lt;/</span>
+                    <span className="text-[#61afef]">h2</span>
+                    <span className="text-[#6faadb]">&gt;</span>
                   </div>
                 </div>
 
                 {/* Description */}
                 <div className="pl-8 mt-4">
                   <div className="mb-1">
-                    <span className="text-[#666666]">&lt;</span>
-                    <span className="text-[#888888]">p</span>
-                    <span className="text-[#666666]">&gt;</span>
+                    <span className="text-[#6faadb]">&lt;</span>
+                    <span className="text-[#61afef]">p</span>
+                    <span className="text-[#6faadb]">&gt;</span>
                   </div>
-                  <div className="text-sm sm:text-base md:text-lg text-[#999999] pl-2 sm:pl-4 mb-4 max-w-full sm:max-w-2xl leading-relaxed">
+                  <div className="text-sm sm:text-base md:text-lg text-[#c5d4e8] pl-2 sm:pl-4 mb-4 max-w-full sm:max-w-2xl leading-relaxed">
                     {description}
                   </div>
                   <div>
-                    <span className="text-[#666666]">&lt;/</span>
-                    <span className="text-[#888888]">p</span>
-                    <span className="text-[#666666]">&gt;</span>
+                    <span className="text-[#6faadb]">&lt;/</span>
+                    <span className="text-[#61afef]">p</span>
+                    <span className="text-[#6faadb]">&gt;</span>
                   </div>
                 </div>
 
@@ -197,7 +198,7 @@ export default function CTA({
                 <div className="pl-8 mt-6">
                   <a
                     href={ctaButtonLink}
-                    className="cta-button inline-block bg-[#1a1a1a] text-[#cccccc] hover:text-white px-6 py-2 text-sm sm:text-base border border-[#2a2a2a] font-medium rounded"
+                    className="cta-button inline-block bg-linear-to-r from-blue-600 via-indigo-500 to-indigo-600 text-white px-6 py-2 text-sm sm:text-base border border-transparent font-medium rounded"
                   >
                     {ctaButtonContent}
                   </a>
@@ -205,13 +206,13 @@ export default function CTA({
 
                 {/* Section closing */}
                 <div className="pl-4 mt-4">
-                  <span className="text-[#666666]">&lt;/</span>
-                  <span className="text-[#888888]">section</span>
-                  <span className="text-[#666666]">&gt;</span>
+                  <span className="text-[#6faadb]">&lt;/</span>
+                  <span className="text-[#61afef]">section</span>
+                  <span className="text-[#6faadb]">&gt;</span>
                 </div>
 
                 <div>
-                  <span className="text-[#666666]">);</span>
+                  <span className="text-[#e06c75]">);</span>
                 </div>
               </div>
             </div>

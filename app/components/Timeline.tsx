@@ -33,7 +33,7 @@ export default function Timeline({ items }: TimelineProps) {
   }, [items]);
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
+    <section className="min-h-[80vh] w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
         
@@ -102,30 +102,30 @@ export default function Timeline({ items }: TimelineProps) {
         }
       `}</style>
 
-      <div className="timeline-container w-full max-w-6xl">
+  <div className="timeline-container mx-auto w-[90%] max-w-8xl">
         {/* Header */}
         <div className="bg-[#111111] border border-[#222222] rounded-lg overflow-hidden mb-6">
           <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-                <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
               </div>
-              <span className="text-[#666666] text-xs tracking-wider">TIMELINE.TSX</span>
+              <span className="text-[#f8b500] text-xs tracking-wider">// TIMELINE.TSX</span>
             </div>
-            <div className="text-[#444444] text-xs">
-              <span className="text-[#666666]">{items.length} milestones</span>
+            <div className="text-[#6faadb] text-xs">
+              <span className="text-[#f8b500]">{items.length} milestones</span>
             </div>
           </div>
 
           <div className="p-8 grid-pattern">
             {/* Comment */}
-            <div className="mb-8 text-[#555555] text-sm">
-              <span className="text-[#666666]">/**</span>
+            <div className="mb-8 text-[#7ba4d4] text-sm">
+              <span className="text-[#6faadb]">/**</span>
               <div className="pl-3">* Company history and milestones</div>
               <div className="pl-3">* @type {'{TimelineItem[]}'}</div>
-              <span className="text-[#666666]"> */</span>
+              <span className="text-[#6faadb]"> */</span>
             </div>
 
             {/* Timeline */}
@@ -150,37 +150,37 @@ export default function Timeline({ items }: TimelineProps) {
                       <div className="timeline-card bg-[#0d0d0d] border border-[#222222] rounded-lg p-6">
                         {/* Year badge */}
                         <div className="inline-block bg-[#1a1a1a] border border-[#2a2a2a] px-3 py-1 rounded mb-4">
-                          <span className="text-[#888888] text-xs">
+                          <span className="text-[#6faadb] text-xs">
                             // year:
                           </span>
-                          <span className="text-[#cccccc] text-sm font-semibold ml-2">
+                          <span className="text-[#ffc59c] text-sm font-semibold ml-2">
                             {item.year}
                           </span>
                         </div>
 
                         {/* Title */}
                         <div className="mb-3">
-                          <div className="text-[#555555] text-xs mb-1">
-                            &lt;h3&gt;
+                          <div className="text-[#6faadb] text-xs mb-1">
+                            &lt;<span className="text-[#61afef]">h3</span>&gt;
                           </div>
-                          <h3 className="text-[#cccccc] text-xl font-semibold pl-4">
+                          <h3 className="text-[#ffc59c] text-xl font-semibold pl-4">
                             {item.title}
                           </h3>
-                          <div className="text-[#555555] text-xs mt-1">
-                            &lt;/h3&gt;
+                          <div className="text-[#6faadb] text-xs mt-1">
+                            &lt;/<span className="text-[#61afef]">h3</span>&gt;
                           </div>
                         </div>
 
                         {/* Description */}
                         <div>
-                          <div className="text-[#555555] text-xs mb-1">
-                            &lt;p&gt;
+                          <div className="text-[#6faadb] text-xs mb-1">
+                            &lt;<span className="text-[#61afef]">p</span>&gt;
                           </div>
-                          <p className="text-[#999999] text-sm leading-relaxed pl-4">
+                          <p className="text-[#c5d4e8] text-sm leading-relaxed pl-4">
                             {item.description}
                           </p>
-                          <div className="text-[#555555] text-xs mt-1">
-                            &lt;/p&gt;
+                          <div className="text-[#6faadb] text-xs mt-1">
+                            &lt;/<span className="text-[#61afef]">p</span>&gt;
                           </div>
                         </div>
 

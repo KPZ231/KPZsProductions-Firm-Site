@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 function getCurrentYear() {
   return new Date().getFullYear();
@@ -8,6 +9,7 @@ function getCurrentYear() {
 
 export default function Footer() {
   const footerRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (footerRef.current) {
@@ -90,9 +92,9 @@ export default function Footer() {
         }
       `}</style>
 
-      <div ref={footerRef} className="footer-container mx-auto grid-pattern">
+      <div ref={footerRef} className="footer-container mx-auto px-6 grid-pattern">
         {/* Main Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 p-8 md:p-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 p-8 md:p-12 place-items-center md:place-items-start">
           {/* Logo/Brand Section */}
           <div className="flex flex-col gap-4">
             <div className="text-[#555555] text-xs mb-2">
@@ -102,7 +104,7 @@ export default function Footer() {
             </div>
             <div className="bg-[#0d0d0d] border border-[#222222] rounded p-6">
               <div className="text-2xl font-bold text-[#cccccc] mb-2">
-                <Image src={"/Images/logo.png"} alt="logo" width={200} height={100}></Image>
+                <Image src={"/Images/logo_white.png"} alt="logo" width={200} height={100}></Image>
               </div>
             </div>
           </div>
@@ -113,15 +115,20 @@ export default function Footer() {
               // QUICK_LINKS
             </div>
             <nav className="flex flex-col gap-2">
-              {navLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  className="footer-link text-sm"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link, index) => {
+              const isActive = pathname === link.href;
+              return (
+                <div key={index} className="flex items-center gap-6">
+                  <a
+                    href={link.href}
+                    className={`nav-link ${isActive ? "active" : ""}`}
+                  >
+                    {link.label}
+                  </a>
+                  {index < navLinks.length - 1 && <span className="text-[#333333]">|</span>}
+                </div>
+              );
+            })}
             </nav>
           </div>
 
@@ -148,8 +155,8 @@ export default function Footer() {
 
             {/* Contact Info */}
             <div>
-              <div className="text-[#888888] text-sm font-semibold mb-3">
-                // CONTACT_INFO
+              <div className="text-[#f8b500] text-sm font-semibold mb-3">
+                <span className="text-[#6faadb]">//</span> <span className="text-[#f8b500]">CONTACT_INFO</span>
               </div>
               <div className="flex flex-col gap-2">
                 <a
@@ -173,20 +180,20 @@ export default function Footer() {
         <div className="border-t border-[#1a1a1a] px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#555555]">
             <div className="flex items-center gap-3">
-              <span className="text-[#666666]">const</span>
-              <span className="text-[#888888]">year</span>
-              <span className="text-[#666666]">=</span>
-              <span className="text-[#999999]">{getCurrentYear()}</span>
+              <span className="text-[#61afef]">const</span>
+              <span className="text-[#c5d4e8]">year</span>
+              <span className="text-[#e06c75]">=</span>
+              <span className="text-[#ffc59c]">{getCurrentYear()}</span>
             </div>
             <div>
-              <span className="text-[#666666]">// Copyright © </span>
-              <span className="text-[#888888]">{getCurrentYear()}</span>
-              <span className="text-[#666666]"> KPZsProductions</span>
+              <span className="text-[#6faadb]">// Copyright © </span>
+              <span className="text-[#ffc59c]">{getCurrentYear()}</span>
+              <span className="text-[#6faadb]"> KPZsProductions</span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-[#444444]">v1.0.0</span>
+              <span className="text-[#f8b500]">v1.0.0</span>
               <span className="text-[#333333]">|</span>
-              <span className="text-[#444444]">Built with Next.js</span>
+              <span className="text-[#c5d4e8]">Built with Next.js</span>
             </div>
           </div>
         </div>

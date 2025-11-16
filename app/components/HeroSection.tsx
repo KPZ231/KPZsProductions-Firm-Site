@@ -166,7 +166,7 @@ export default function Hero({
   }, []);
 
   return (
-    <section className="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 md:p-8 bg-[#0a0a0a]">
+    <section className="w-full flex items-center justify-center p-4 sm:p-6 md:p-8 bg-[#0a0a0a]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
         
@@ -228,22 +228,22 @@ export default function Hero({
           className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-4 py-3 flex items-center justify-between"
         >
           <div className="flex items-center gap-2">
-            <div className="flex gap-1">
-              <div className="w-2 h-2 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2 h-2 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2 h-2 rounded-full bg-[#2a2a2a]"></div>
-            </div>
-            <span className="text-[#666666] text-xs tracking-wider">HERO.TSX</span>
+              <div className="flex gap-1">
+                <div className="w-2 h-2 rounded-full bg-[#f8b500]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#6faadb]"></div>
+                <div className="w-2 h-2 rounded-full bg-[#e06c75]"></div>
+              </div>
+            <span className="text-[#f8b500] text-xs tracking-wider">// HERO.TSX</span>
           </div>
-          <div className="text-[#444444] text-xs">
-            <span className="text-[#666666]">Main Landing</span>
+          <div className="text-[#6faadb] text-xs">
+            <span className="text-[#f8b500]">Main Landing</span>
           </div>
         </div>
 
         {/* Główna zawartość */}
         <div className="p-6 md:p-12 grid-pattern flex flex-col gap-6">
           <div className="flex gap-4 md:gap-6 flex-wrap">
-            <div className="line-numbers text-[#333333] text-sm select-none flex flex-col gap-2">
+            <div className="line-numbers text-[#6faadb] text-sm select-none flex flex-col gap-2">
               {Array.from({ length: 17 }).map((_, i) => (
                 <span key={i}>{i + 1}</span>
               ))}
@@ -251,20 +251,20 @@ export default function Hero({
             <div className="flex-1 code-content text-sm md:text-base flex flex-col gap-3">
               <h1 
                 ref={titleRef}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#e0e0e0] leading-tight"
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#60a5fa] leading-tight"
               >
                 {title}
               </h1>
               <p 
                 ref={descRef}
-                className="text-[#999999] sm:text-lg md:text-xl max-w-3xl leading-relaxed"
+                className="text-[#c5d4e8] sm:text-lg md:text-xl max-w-3xl leading-relaxed"
               >
                 {desc}
               </p>
               <a
                 ref={ctaRef}
                 href={ctaButtonLink}
-                className="cta-button inline-block bg-[#1a1a1a] text-[#cccccc] px-8 sm:px-10 py-3 sm:py-4 border border-[#2a2a2a] text-base sm:text-lg font-medium rounded"
+                className="cta-button inline-block bg-linear-to-r from-blue-600 via-indigo-500 to-indigo-600 text-white px-8 sm:px-10 py-3 sm:py-4 border border-transparent text-base sm:text-lg font-medium rounded"
               >
                 {ctaButtonContent}
               </a>
@@ -274,20 +274,20 @@ export default function Hero({
           {/* Stopka z informacjami */}
           <div 
             ref={footerRef}
-            className="mt-8 pt-4 border-t border-[#1a1a1a] flex flex-col sm:flex-row items-start sm:items-center justify-between text-[#555555] text-xs gap-2 sm:gap-0"
+            className="mt-8 pt-4 border-t border-[#1a1a1a] flex flex-col sm:flex-row items-start sm:items-center justify-between text-[#7ba4d4] text-xs gap-2 sm:gap-0"
           >
             <div className="flex items-center gap-2 flex-wrap">
-              <span>TSX</span>
-              <span className="text-[#333333]">|</span>
-              <span>UTF-8</span>
-              <span className="text-[#333333]">|</span>
-              <span className="text-[#666666]">React 18.x</span>
-              <span className="text-[#333333]">|</span>
-              <span className="text-[#666666]">Next.js</span>
+              <span className="text-[#e06c75]">TSX</span>
+              <span className="text-[#6faadb]">|</span>
+              <span className="text-[#98c379]">UTF-8</span>
+              <span className="text-[#6faadb]">|</span>
+              <span className="text-[#61afef]">React 18.x</span>
+              <span className="text-[#6faadb]">|</span>
+              <span className="text-[#61afef]">Next.js</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[#666666]">Ln</span> 17
-              <span className="text-[#666666]">Col</span> 2
+              <span className="text-[#6faadb]">Ln</span> 17
+              <span className="text-[#6faadb]">Col</span> 2
             </div>
           </div>
         </div>

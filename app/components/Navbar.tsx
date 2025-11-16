@@ -36,27 +36,31 @@ export default function Navbar() {
         .nav-link {
           transition: all 0.25s ease;
           position: relative;
-          color: #888888;
+          color: #c5d4e8;
           font-size: 0.875rem;
         }
         .nav-link::before {
-          content: '';
-          position: absolute;
-          bottom: -4px;
-          left: 0;
-          width: 0;
-          height: 1px;
-          background: #cccccc;
-          transition: width 0.3s ease;
+          content: '→ ';
+          opacity: 0;
+          margin-right: -12px;
+          transition: all 0.25s ease;
+          color: #ffc59c;
         }
-        .nav-link:hover::before { width: 100%; }
-        .nav-link:hover { color: #cccccc; }
+        .nav-link:hover::before { 
+          opacity: 1;
+          margin-right: 4px;
+        }
+        .nav-link:hover { 
+          color: #ffc59c;
+          padding-left: 4px;
+        }
         .nav-link.active {
-          color: #ffffff;
+          color: #ffc59c;
         }
         .nav-link.active::before {
           width: 100%;
-          background: #ffffff;
+          background: #ffc59c;
+          content: '';
         }
         .logo-container { transition: all 0.3s ease; }
         .logo-container:hover { transform: scale(1.05); }
@@ -68,22 +72,22 @@ export default function Navbar() {
         }
       `}</style>
 
-      <div ref={navbarRef} className="navbar-container mx-auto px-6 py-4 grid-pattern">
+      <div ref={navbarRef} className="navbar-container mx-auto w-[90%] px-6 py-4 grid-pattern">
         <div className="flex items-center justify-between">
           {/* Logo Section */}
           <div className="flex items-center gap-4">
             <div className="hidden md:flex gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
             </div>
 
             <a href="/" className="logo-container flex items-center">
-              <img src="/Images/logo.png" alt="KPZsProductions Logo" className="h-12 w-auto" />
+              <img src="/Images/logo_white.png" alt="KPZsProductions Logo" className="h-10 w-auto" />
             </a>
 
             <div className="hidden lg:block text-[#555555] text-xs">
-              <span className="text-[#666666">//</span> NAV.TSX
+              <span className="text-[#6faadb]">//</span> <span className="text-[#f8b500]">NAV.TSX</span>
             </div>
           </div>
 
@@ -138,10 +142,10 @@ export default function Navbar() {
 
         {/* Bottom code line (optional) */}
         <div className="mt-3 text-[#444444] text-xs hidden xl:block">
-          <span className="text-[#666666]">const</span>
-          <span className="text-[#888888]"> navigation </span>
-          <span className="text-[#666666]">= </span>
-          <span className="text-[#888888]">[</span>
+          <span className="text-[#61afef]">const</span>
+          <span className="text-[#c5d4e8]"> navigation </span>
+          <span className="text-[#e06c75]">= </span>
+          <span className="text-[#c5d4e8]">[</span>
           {navLinks.map((link, index) => (
             <span key={index}>
               <span className="text-[#999999]">'{link.label}'</span>

@@ -26,7 +26,7 @@ export default function CitedText({ content }: CitedTextProps) {
   }, []);
 
   return (
-    <div className="w-full lg:w-[80%] flex mx-auto mb-12 mt-12 px-4">
+    <div className="w-full lg:w-[90%] mx-auto mb-12 mt-12 px-4">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
         
@@ -80,14 +80,14 @@ export default function CitedText({ content }: CitedTextProps) {
         <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#2a2a2a]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
             </div>
-            <span className="text-[#666666] text-xs tracking-wider">MISSION.TS</span>
+            <span className="text-[#f8b500] text-xs tracking-wider">// MISSION.TS</span>
           </div>
-          <div className="text-[#444444] text-xs">
-            <span className="text-[#666666]">readonly</span>
+          <div className="text-[#6faadb] text-xs">
+            <span className="text-[#61afef]">readonly</span>
           </div>
         </div>
 
@@ -96,7 +96,7 @@ export default function CitedText({ content }: CitedTextProps) {
           {/* Line numbers and code */}
           <div className="flex gap-6">
             {/* Line numbers */}
-            <div className="text-[#333333] text-sm select-none flex flex-col gap-1">
+            <div className="text-[#6faadb] text-sm select-none flex flex-col gap-1">
               <span>1</span>
               <span>2</span>
               <span>3</span>
@@ -107,36 +107,36 @@ export default function CitedText({ content }: CitedTextProps) {
             <div className="flex-1 text-sm md:text-base">
               <div className="flex flex-col gap-1">
                 <div>
-                  <span className="text-[#666666]">/**</span>
+                  <span className="text-[#6faadb]">/**</span>
                 </div>
                 <div>
-                  <span className="text-[#666666]"> * </span>
-                  <span className="text-[#888888]">@description Our mission statement</span>
+                  <span className="text-[#6faadb]"> * </span>
+                  <span className="text-[#7ba4d4]">@description Our mission statement</span>
                 </div>
                 <div>
-                  <span className="text-[#666666]"> */</span>
+                  <span className="text-[#6faadb]"> */</span>
                 </div>
                 <div className="mt-2">
-                  <span className="text-[#888888]">const </span>
-                  <span className="text-[#999999]">mission</span>
-                  <span className="text-[#666666]"> = </span>
-                  <span className="text-[#aaaaaa]">"{content}"</span>
-                  <span className="text-[#666666]">;</span>
+                  <span className="text-[#61afef]">const </span>
+                  <span className="text-[#98c379]">mission</span>
+                  <span className="text-[#6faadb]"> = </span>
+                  <span className="text-[#cfe8ff]">"{content}"</span>
+                  <span className="text-[#6faadb]">;</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom status bar */}
-          <div className="mt-8 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#555555] text-xs">
+          <div className="mt-8 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#7ba4d4] text-xs">
             <div className="flex items-center gap-4">
-              <span>TypeScript</span>
-              <span className="text-[#333333]">|</span>
-              <span>UTF-8</span>
+              <span className="text-[#e06c75]">TypeScript</span>
+              <span className="text-[#6faadb]">|</span>
+              <span className="text-[#98c379]">UTF-8</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[#666666]">Ln</span> 4
-              <span className="text-[#666666]">Col</span> {content.length + 18}
+              <span className="text-[#6faadb]">Ln</span> 4
+              <span className="text-[#6faadb]">Col</span> {content.length + 18}
             </div>
           </div>
         </div>
