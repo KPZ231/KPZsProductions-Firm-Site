@@ -2,8 +2,8 @@
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
 
-// Rejestracja pluginu ScrollTrigger
 gsap.registerPlugin(ScrollTrigger);
 
 interface HeroProps {
@@ -30,121 +30,79 @@ export default function Hero({
     // Animacja początkowa - fade-in całego kontenera
     gsap.fromTo(
       heroRef.current,
-      {
-        opacity: 0,
-        y: 30,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-      }
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
     );
 
-    // Animacja nagłówka (header z kropkami) - fade-in z opóźnieniem
+    // Animacja nagłówka
     gsap.fromTo(
       headerRef.current,
-      {
-        opacity: 0,
-        y: -20,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        delay: 0.2,
-        ease: "power2.out",
-      }
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: "power2.out" }
     );
 
-    // Animacja tytułu - slide-in z lewej strony
+    // Animacja tytułu
     gsap.fromTo(
       titleRef.current,
-      {
-        opacity: 0,
-        x: -50,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        delay: 0.4,
-        ease: "power2.out",
-      }
+      { opacity: 0, x: -50 },
+      { opacity: 1, x: 0, duration: 0.8, delay: 0.4, ease: "power2.out" }
     );
 
-    // Animacja opisu - slide-in z lewej strony
+    // Animacja opisu
     gsap.fromTo(
       descRef.current,
-      {
-        opacity: 0,
-        x: -50,
-      },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.8,
-        delay: 0.6,
-        ease: "power2.out",
-      }
+      { opacity: 0, x: -50 },
+      { opacity: 1, x: 0, duration: 0.8, delay: 0.6, ease: "power2.out" }
     );
 
-    // Animacja przycisku CTA - fade-in z scale effect
+    // Animacja przycisku CTA
     gsap.fromTo(
       ctaRef.current,
-      {
-        opacity: 0,
-        scale: 0.8,
-      },
-      {
-        opacity: 1,
-        scale: 1,
-        duration: 0.8,
-        delay: 0.8,
-        ease: "back.out(1.4)",
-      }
+      { opacity: 0, scale: 0.8 },
+      { opacity: 1, scale: 1, duration: 0.8, delay: 0.8, ease: "back.out(1.4)" }
     );
 
-    // Animacja stopki - fade-in z dołu
+    // Animacja stopki
     gsap.fromTo(
       footerRef.current,
-      {
-        opacity: 0,
-        y: 20,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        delay: 1.0,
-        ease: "power2.out",
-      }
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.8, delay: 1.0, ease: "power2.out" }
     );
 
-    // Animacja hover dla przycisku CTA z użyciem GSAP
+    // ✅ POPRAWIONA animacja hover
     const ctaButton = ctaRef.current;
+    let cleanupFunctions: (() => void)[] = [];
+
     if (ctaButton) {
-      ctaButton.addEventListener("mouseenter", () => {
+      const handleMouseEnter = () => {
         gsap.to(ctaButton, {
           y: -4,
           scale: 1.02,
           duration: 0.3,
           ease: "power2.out",
         });
-      });
+      };
 
-      ctaButton.addEventListener("mouseleave", () => {
+      const handleMouseLeave = () => {
         gsap.to(ctaButton, {
           y: 0,
           scale: 1,
           duration: 0.3,
           ease: "power2.out",
         });
+      };
+
+      ctaButton.addEventListener("mouseenter", handleMouseEnter);
+      ctaButton.addEventListener("mouseleave", handleMouseLeave);
+
+      // Dodaj cleanup do tablicy
+      cleanupFunctions.push(() => {
+        ctaButton.removeEventListener("mouseenter", handleMouseEnter);
+        ctaButton.removeEventListener("mouseleave", handleMouseLeave);
       });
     }
 
-    // ScrollTrigger - animacja przy przewijaniu (jeśli sekcja nie jest widoczna na starcie)
+    // ScrollTrigger
     ScrollTrigger.create({
       trigger: heroRef.current,
       start: "top 80%",
@@ -156,17 +114,18 @@ export default function Hero({
           ease: "power2.out",
         });
       },
-      once: true, // Animacja tylko raz
+      once: true,
     });
 
-    // Cleanup function
+    // ✅ POPRAWIONY cleanup - wykonuje się dla wszystkich elementów
     return () => {
+      cleanupFunctions.forEach(fn => fn());
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
     };
   }, []);
 
   return (
-    <section className="w-full flex items-center justify-center p-4 sm:p-6 md:p-8 bg-[#0a0a0a]">
+    <section className="w-full flex items-center justify-center bg-[#0a0a0a] min-h-[70vh]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
         
@@ -195,44 +154,50 @@ export default function Hero({
           animation: scan 10s linear infinite;
         }
         @keyframes scan { 0% { top: -100%; } 100% { top: 200%; } }
+        
+        /* ✅ POPRAWIONE style przycisku - usunięto konflikty */
         .cta-button { 
-          transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
           cursor: pointer;
+          min-height: 48px;
+          min-width: 120px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          /* Tylko background/border/shadow transition - NIE transform! */
+          transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
+        
         .cta-button:hover {
-          background: #222222;
-          border-color: #3a3a3a;
-          color: white;
+          background: linear-gradient(135deg, #f8b500 0%, #e09600 100%);
+          border-color: #f8b500;
+          box-shadow: 0 4px 16px rgba(248, 181, 0, 0.4);
         }
 
-        /* Responsywność */
-        @media (max-width: 768px) {
-          .line-numbers { display: none; }
-          .code-content { font-size: 0.875rem; }
-          .cta-button { padding: 0.75rem 1.5rem; font-size: 0.875rem; }
-        }
-        @media (max-width: 480px) {
-          h1 { font-size: 1.75rem; }
-          p { font-size: 0.875rem; }
-          .cta-button { padding: 0.5rem 1rem; font-size: 0.8rem; }
+        /* ✅ Usunięto !important które blokowało GSAP */
+
+        @media (max-width: 640px) {
+          .cta-button {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
+          }
         }
       `}</style>
 
       <div 
         ref={heroRef} 
-        className="hero-box w-full bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow scan-effect"
+        className="hero-box w-full bg-[#111111] border-y border-[#2a2a2a] subtle-glow scan-effect"
       >
-        {/* Header z kropkami */}
         <div 
           ref={headerRef}
-          className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-4 py-3 flex items-center justify-between"
+          className="hidden sm:flex bg-[#0d0d0d] border-b border-[#2a2a2a] px-6 sm:px-8 lg:px-12 py-3 sm:py-4 items-center justify-between"
         >
-          <div className="flex items-center gap-2">
-              <div className="flex gap-1">
-                <div className="w-2 h-2 rounded-full bg-[#f8b500]"></div>
-                <div className="w-2 h-2 rounded-full bg-[#6faadb]"></div>
-                <div className="w-2 h-2 rounded-full bg-[#e06c75]"></div>
-              </div>
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#6faadb]"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#e06c75]"></div>
+            </div>
             <span className="text-[#f8b500] text-xs tracking-wider">// HERO.TSX</span>
           </div>
           <div className="text-[#6faadb] text-xs">
@@ -240,41 +205,42 @@ export default function Hero({
           </div>
         </div>
 
-        {/* Główna zawartość */}
-        <div className="p-6 md:p-12 grid-pattern flex flex-col gap-6">
-          <div className="flex gap-4 md:gap-6 flex-wrap">
-            <div className="line-numbers text-[#6faadb] text-sm select-none flex flex-col gap-2">
+        <div className="px-6 py-8 sm:px-8 sm:py-10 md:px-12 md:py-12 lg:px-16 lg:py-16 grid-pattern flex flex-col gap-6">
+          <div className="flex gap-4 sm:gap-6">
+            <div className="hidden sm:flex text-[#7ba4d4] text-sm select-none flex-col gap-2 pt-1">
               {Array.from({ length: 17 }).map((_, i) => (
                 <span key={i}>{i + 1}</span>
               ))}
             </div>
-            <div className="flex-1 code-content text-sm md:text-base flex flex-col gap-3">
+            
+            <div className="flex-1 min-w-0 flex flex-col gap-4 sm:gap-6">
               <h1 
                 ref={titleRef}
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-[#60a5fa] leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#60a5fa] leading-tight break-words"
               >
                 {title}
               </h1>
+              
               <p 
                 ref={descRef}
-                className="text-[#c5d4e8] sm:text-lg md:text-xl max-w-3xl leading-relaxed"
+                className="text-[#d0dae8] text-base sm:text-lg md:text-xl lg:text-2xl max-w-3xl leading-relaxed break-words"
               >
                 {desc}
               </p>
-              <a
+              
+              <Link
                 ref={ctaRef}
                 href={ctaButtonLink}
-                className="cta-button inline-block bg-linear-to-r from-blue-600 via-indigo-500 to-indigo-600 text-white px-8 sm:px-10 py-3 sm:py-4 border border-transparent text-base sm:text-lg font-medium rounded"
+                className="cta-button bg-gradient-to-r from-[#f8b500] to-[#e09600] text-[#0a0a0a] px-8 sm:px-10 py-3 sm:py-4 border border-[#f8b500] text-base sm:text-lg font-semibold rounded-lg shadow-lg mt-2"
               >
                 {ctaButtonContent}
-              </a>
+              </Link>
             </div>
           </div>
 
-          {/* Stopka z informacjami */}
           <div 
             ref={footerRef}
-            className="mt-8 pt-4 border-t border-[#1a1a1a] flex flex-col sm:flex-row items-start sm:items-center justify-between text-[#7ba4d4] text-xs gap-2 sm:gap-0"
+            className="hidden sm:flex mt-6 sm:mt-8 pt-3 sm:pt-4 border-t border-[#2a2a2a] flex-col sm:flex-row items-start sm:items-center justify-between text-[#8ba5c4] text-xs gap-2 sm:gap-0"
           >
             <div className="flex items-center gap-2 flex-wrap">
               <span className="text-[#e06c75]">TSX</span>

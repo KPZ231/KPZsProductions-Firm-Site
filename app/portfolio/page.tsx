@@ -5,19 +5,20 @@ import Header from "../components/Header";
 import Grid from "../components/Grid";
 import CTA from "../components/CTA";
 
+
 export default function Portfolio() {
   const projects: Project[] = [
     {
       title: "Whatnow!? - Chaos",
-      description: "Whatnow!? - Chaos to aplikacja imprezowa której celem jest łączenie zajmoych za pomocą śmiesznych wyzwań",
+      description: "Interaktywna aplikacja imprezowa łącząca znajomych poprzez zabawne wyzwania i dynamiczną rozgrywkę",
       buttonContent: "Zobacz projekt",
       link: "https://what-now-chaos.vercel.app/",
       thumbnail: "/Images/whatnowchaos.png",
       isIframable: true
     },
     {
-      title: "Łowisko Lipus - Strona łowiska komercyjnego",
-      description: "Łowisko Lipus - Strona łowiska komercyjnego umieszczonego w Mikołowie",
+      title: "Łowisko Lipus",
+      description: "Responsywna strona internetowa dla łowiska komercyjnego z galerią, mapą i formularzem kontaktowym",
       buttonContent: "Zobacz projekt",
       link: "https://github.com/KPZ231/lipus",
       thumbnail: "/Images/GitHub.png",
@@ -25,7 +26,7 @@ export default function Portfolio() {
     },
     {
       title: "Challengify",
-      description: "Challengify to platforma do pokazywania swoich umiejetnosci, ktora losuje jedno losowe zadanie dziennie, i użytkownicy maja 24h na wykonanie zadania",
+      description: "Platforma webowa do codziennych wyzwań programistycznych – użytkownicy mają 24h na wykonanie losowego zadania",
       buttonContent: "Zobacz projekt",
       link: "https://github.com/KPZ231/Challengify-App",
       thumbnail: "/Images/challengify-logo.jpg",
@@ -33,31 +34,31 @@ export default function Portfolio() {
     },
     {
       title: "Code Locker",
-      description: "Strona do zapisywania swoich snippetów kodu i dzielenie sie nimi z innymi",
+      description: "Aplikacja do zarządzania i udostępniania snippetów kodu w zespole deweloperskim",
       buttonContent: "Zobacz projekt",
       link: "https://github.com/KPZ231/Code-Locker",
       thumbnail: "/Images/GitHub.png",
       isIframable: false
     },
     {
-      title: "Luxpol - Strona firmowa",
-      description: "Strona firmy luxpol sklep internetowy przy uzyciu woocomerce. ",
+      title: "Grupa Luxpol",
+      description: "Profesjonalny sklep internetowy z WordPress WooCommerce – pełna integracja płatności i zarządzanie produktami",
       buttonContent: "Zobacz projekt",
       link: "https://grupaluxpol.pl/",
       thumbnail: "/Images/grupa_luxpol_logo (1).webp",
       isIframable: false
     },
     {
-      title: "SCP 173 - Decontaminaion",
-      description: "Gra komputerowa umieszczona w świecie SCP - gracz musi jak najszybicej wysprzątac klate obiektu SCP 173",
+      title: "SCP 173 - Decontamination",
+      description: "Gra komputerowa osadzona w uniwersum SCP – wyścig z czasem w czyszczeniu klatki obiektu SCP-173",
       buttonContent: "Zobacz projekt",
       link: "https://kacper-duda.itch.io/scp-173-decontamination",
       thumbnail: "/Images/EE_5wb.png",
       isIframable: false
     },
     {
-      title: "Dino Cliker",
-      description: "Gra komputerowa przypominająca Cookie Cliker - umiesczona w swiecie dinozaurów",
+      title: "Dino Clicker",
+      description: "Gra w stylu idle clicker osadzona w świecie dinozaurów – kolekcjonuj zasoby i rozwijaj swoją wymarłą cywilizację",
       buttonContent: "Zobacz projekt",
       link: "https://kacper-duda.itch.io/dino-clicker",
       thumbnail: "/Images/dinoclicker.png",
@@ -65,32 +66,34 @@ export default function Portfolio() {
     },   
   ];
 
+
   return (
     <>
       <Hero
-        title="Prezentacja moich prac – strony internetowe, które działają i inspirują"
-        desc="W KPZsProductions tworzę nowoczesne, szybkie i atrakcyjne wizualnie strony internetowe, korzystając z Next.js, Astro, React i Tailwind CSS. Oto wybór projektów, które pokazują moje umiejętności, kreatywność oraz zaangażowanie w dostarczanie wysokiej jakości doświadczeń cyfrowych."
-        ctaButtonContent="Zamów swoją stronę już dziś"
+        title="Portfolio projektów – profesjonalne strony internetowe i aplikacje webowe"
+        desc="Odkryj zrealizowane projekty KPZsProductions: nowoczesne strony internetowe, sklepy e-commerce i aplikacje webowe stworzone z Next.js, React i Astro. Zobacz, jak łączę technologię z designem, aby tworzyć responsywne strony www generujące rezultaty."
+        ctaButtonContent="Zamów swoją stronę internetową"
         ctaButtonLink="/contact"
       ></Hero>
-      <Header title="Wyróżnione projekty"></Header>
+      <Header title="Zrealizowane projekty webowe"></Header>
+
 
       <ProjectsGrid projects={projects}></ProjectsGrid>
-      <Header title="Co tu znajdziesz"></Header>
+      <Header title="Co wyróżnia moje projekty?"></Header>
       <Grid
-        header_1="Nowoczesne strony"
-        header_2="Rozwiązania szyte na miarę"
-        header_3="Doskonalenie techniczne"
-        header_4="Dbałość o detale"
-        content_1="Czysty design, szybka wydajność, responsywne układy."
-        content_2="Każdy projekt dopasowany do celów i odbiorców klienta."
-        content_3="Stworzone przy użyciu najnowszych technologii internetowych, z myślą o skalowalności i SEO."
-        content_4="Każdy projekt dopracowany pod względem estetyki, użyteczności i szybkości."
+        header_1="Nowoczesny design"
+        header_2="Indywidualne rozwiązania"
+        header_3="Najnowsze technologie"
+        header_4="Perfekcja w detalu"
+        content_1="Responsywne strony www z czystym interfejsem i błyskawiczną wydajnością."
+        content_2="Każda strona internetowa dopasowana do celów biznesowych i grupy docelowej."
+        content_3="Web development z Next.js, React i Astro – szybkie, skalowalne i SEO-friendly."
+        content_4="Optymalizacja każdego projektu pod kątem estetyki, użyteczności i szybkości ładowania."
       ></Grid>
       <CTA
-        title="Gotowy stworzyć coś niesamowitego?"
-        description="Stwórzmy stronę, która szybko przyniesie rezultaty, jest nowoczesna i gotowa na rozwój."
-        ctaButtonContent="Uzyskaj darmową wycenę lub skontaktuj się z nami"
+        title="Potrzebujesz profesjonalnej strony internetowej?"
+        description="Studio webowe KPZsProductions tworzy strony www i sklepy internetowe, które przyciągają klientów i zwiększają sprzedaż. Porozmawiajmy o Twoim projekcie."
+        ctaButtonContent="Bezpłatna wycena strony"
         ctaButtonLink="/contact"
       ></CTA>
     </>

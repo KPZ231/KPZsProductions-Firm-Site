@@ -102,10 +102,11 @@ export default function Timeline({ items }: TimelineProps) {
         }
       `}</style>
 
-  <div className="timeline-container mx-auto w-[90%] max-w-8xl">
+      <div className="timeline-container mx-auto w-[90%] max-w-8xl">
         {/* Header */}
         <div className="bg-[#111111] border border-[#222222] rounded-lg overflow-hidden mb-6">
-          <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
+          {/* Header z kropkami - ukryty na mobile */}
+          <div className="hidden sm:flex bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="flex gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
@@ -120,8 +121,8 @@ export default function Timeline({ items }: TimelineProps) {
           </div>
 
           <div className="p-8 grid-pattern">
-            {/* Comment */}
-            <div className="mb-8 text-[#7ba4d4] text-sm">
+            {/* Comment - ukryty na mobile */}
+            <div className="hidden sm:block mb-8 text-[#7ba4d4] text-sm">
               <span className="text-[#6faadb]">/**</span>
               <div className="pl-3">* Company history and milestones</div>
               <div className="pl-3">* @type {'{TimelineItem[]}'}</div>
@@ -150,42 +151,45 @@ export default function Timeline({ items }: TimelineProps) {
                       <div className="timeline-card bg-[#0d0d0d] border border-[#222222] rounded-lg p-6">
                         {/* Year badge */}
                         <div className="inline-block bg-[#1a1a1a] border border-[#2a2a2a] px-3 py-1 rounded mb-4">
-                          <span className="text-[#6faadb] text-xs">
+                          {/* Tekst "// year:" ukryty na mobile */}
+                          <span className="hidden sm:inline text-[#6faadb] text-xs">
                             // year:
                           </span>
-                          <span className="text-[#ffc59c] text-sm font-semibold ml-2">
+                          <span className="text-[#ffc59c] text-sm font-semibold sm:ml-2">
                             {item.year}
                           </span>
                         </div>
 
                         {/* Title */}
                         <div className="mb-3">
-                          <div className="text-[#6faadb] text-xs mb-1">
+                          {/* Tagi HTML ukryte na mobile */}
+                          <div className="hidden sm:block text-[#6faadb] text-xs mb-1">
                             &lt;<span className="text-[#61afef]">h3</span>&gt;
                           </div>
-                          <h3 className="text-[#ffc59c] text-xl font-semibold pl-4">
+                          <h3 className="text-[#ffc59c] text-xl font-semibold sm:pl-4">
                             {item.title}
                           </h3>
-                          <div className="text-[#6faadb] text-xs mt-1">
+                          <div className="hidden sm:block text-[#6faadb] text-xs mt-1">
                             &lt;/<span className="text-[#61afef]">h3</span>&gt;
                           </div>
                         </div>
 
                         {/* Description */}
                         <div>
-                          <div className="text-[#6faadb] text-xs mb-1">
+                          {/* Tagi HTML ukryte na mobile */}
+                          <div className="hidden sm:block text-[#6faadb] text-xs mb-1">
                             &lt;<span className="text-[#61afef]">p</span>&gt;
                           </div>
-                          <p className="text-[#c5d4e8] text-sm leading-relaxed pl-4">
+                          <p className="text-[#c5d4e8] text-sm leading-relaxed sm:pl-4">
                             {item.description}
                           </p>
-                          <div className="text-[#6faadb] text-xs mt-1">
+                          <div className="hidden sm:block text-[#6faadb] text-xs mt-1">
                             &lt;/<span className="text-[#61afef]">p</span>&gt;
                           </div>
                         </div>
 
-                        {/* Index indicator */}
-                        <div className="mt-4 text-[#444444] text-xs text-right">
+                        {/* Index indicator - ukryty na mobile */}
+                        <div className="hidden sm:block mt-4 text-[#444444] text-xs text-right">
                           index: [{index}]
                         </div>
                       </div>
@@ -195,8 +199,8 @@ export default function Timeline({ items }: TimelineProps) {
               </div>
             </div>
 
-            {/* Footer */}
-            <div className="mt-12 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#555555] text-xs">
+            {/* Footer - ukryty na mobile */}
+            <div className="hidden sm:flex mt-12 pt-4 border-t border-[#1a1a1a] items-center justify-between text-[#555555] text-xs">
               <div className="flex items-center gap-4">
                 <span>const timeline</span>
                 <span className="text-[#333333]">|</span>

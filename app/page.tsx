@@ -6,19 +6,20 @@ import { Project } from './classes/Projects';
 import CTA from './components/CTA';
 import ProjectsGrid from "./components/ProjectsGrid";
 
+
 export default function Home() {
   const projects: Project[] = [
     {
       title: "Whatnow!? - Chaos",
-      description: "Whatnow!? - Chaos to aplikacja imprezowa której celem jest łączenie zajmoych za pomocą śmiesznych wyzwań",
+      description: "Interaktywna aplikacja imprezowa łącząca ludzi przez zabawne wyzwania i dynamiczną rozgrywkę",
       buttonContent: "Zobacz projekt",
       link: "https://what-now-chaos.vercel.app/",
       thumbnail: "/Images/whatnowchaos.png",
       isIframable: true
     },
     {
-      title: "Łowisko Lipus - Strona łowiska komercyjnego",
-      description: "Łowisko Lipus - Strona łowiska komercyjnego umieszczonego w Mikołowie",
+      title: "Łowisko Lipus",
+      description: "Responsywna strona internetowa dla łowiska komercyjnego z galerią i systemem administrowania postami",
       buttonContent: "Zobacz projekt",
       link: "https://github.com/KPZ231/lipus",
       thumbnail: "/Images/GitHub.png",
@@ -26,7 +27,7 @@ export default function Home() {
     },
     {
       title: "Challengify",
-      description: "Challengify to platforma do pokazywania swoich umiejetnosci, ktora losuje jedno losowe zadanie dziennie, i użytkownicy maja 24h na wykonanie zadania",
+      description: "Platforma webowa do codziennych wyzwań programistycznych z systemem 24-godzinnych zadań",
       buttonContent: "Zobacz projekt",
       link: "https://github.com/KPZ231/Challengify-App",
       thumbnail: "/Images/challengify-logo.jpg",
@@ -34,7 +35,7 @@ export default function Home() {
     },
     {
       title: "Code Locker",
-      description: "Strona do zapisywania swoich snippetów kodu i dzielenie sie nimi z innymi",
+      description: "Aplikacja do zarządzania snippetami kodu z funkcją udostępniania w zespole",
       buttonContent: "Zobacz projekt",
       link: "https://github.com/KPZ231/Code-Locker",
       thumbnail: "/Images/GitHub.png",
@@ -42,43 +43,45 @@ export default function Home() {
     },
   ];
 
+
   return (
     <>
       <Hero
-        title="Nowoczesne strony internetowe stworzone za pomocą Next.js, Astro & React – <b>KPZsProductions"
-        desc="Tworzymy szybkie, responsywne i efektowne wizualnie strony internetowe napędzane przez Next.js, Astro, React i Tailwind CSS. Zwiększ swoją widoczność SEO, wydajność i tożsamość marki dzięki stronie, która wyróżnia się w dzisiejszym cyfrowym świecie."
-        ctaButtonContent="Stwórzmy razem twoją strone"
+        title="Tworzenie stron internetowych Next.js, React & Astro | KPZsProductions"
+        desc="Profesjonalne strony internetowe, które zwiększają sprzedaż. Szybkie, responsywne strony www z Next.js i React. SEO-friendly projekty dla firm – studio webowe specjalizujące się w web development."
+        ctaButtonContent="Zamów bezpłatną wycenę"
         ctaButtonLink="/contact"
       />
-      <Header title="Tworzenie szybkich, pięknych i skalowalnych doświadczeń internetowych"></Header>
+      <Header title="Nowoczesne strony internetowe, które działają dla Twojego biznesu"></Header>
       <Grid
-        content_1="Projektowane i kodowane od podstaw dla Twojej marki."
-        content_2="Błyskawiczne ładowanie i perfekcyjne wyniki w Lighthouse."
-        content_3="Widoczność, która generuje rzeczywiste rezultaty."
-        content_4="Niezawodne aktualizacje i długoterminowa współpraca."
-        header_1="Strony na zamówienie"
-        header_2="Optymalizacja wydajności"
-        header_3="Konfiguracja SEO & analityki"
-        header_4="Utrzymanie i wsparcie"
+        content_1="Indywidualne projekty stron dopasowane do Twojej marki i celów biznesowych."
+        content_2="Błyskawiczne ładowanie i perfekcyjne wyniki w Google – strony SEO-friendly."
+        content_3="Optymalizacja stron internetowych pod pozycjonowanie i konwersję."
+        content_4="Profesjonalne wsparcie techniczne i regularne aktualizacje."
+        header_1="Strony firmowe na wymiar"
+        header_2="Szybkie strony internetowe"
+        header_3="Optymalizacja pod SEO"
+        header_4="Utrzymanie i rozwój"
       />
-      <Header title="Dlaczego warto pracować z KPZsProductions?"></Header>
+      <Header title="Dlaczego KPZsProductions – profesjonalna agencja webowa?"></Header>
       <Grid
-        content_1="Nowoczesne frameworki takie jak Next.js i Astro."
-        content_2="Prędkość, SEO i doświadczenie użytkownika."
-        content_3="Kodowanie w React i Tailwind CSS."
-        content_4="Komunikacja i terminowa realizacja."
-        header_1="Stworzone z"
-        header_2="Skupienie na"
-        header_3="Czysty, skalowalny"
-        header_4="Przejrzysty"
+        content_1="Projektowanie stron z Next.js, Astro i React – najnowsze technologie web development."
+        content_2="Responsywne strony www działające perfekcyjnie na każdym urządzeniu."
+        content_3="Czysty kod w Tailwind CSS zapewniający szybkość i łatwą rozbudowę."
+        content_4="Transparentna współpraca i dotrzymywanie terminów."
+        header_1="Nowoczesne technologie"
+        header_2="Responsywność i UX"
+        header_3="Skalowalny kod"
+        header_4="Profesjonalizm"
       />
 
-      <Header title="Projekty, które mówią same za siebie"></Header>
+
+      <Header title="Nasze realizacje – portfolio projektów webowych"></Header>
       <ProjectsCarousel ProjectsShown={projects}></ProjectsCarousel>
       
-      <CTA title="Gotowy, aby stworzyć coś niesamowitego?"
-        description="Stwórzmy stronę, która szybko przyniesie rezultaty, jest nowoczesna i gotowa na rozwój."
-        ctaButtonContent="Uzyskaj darmową wycenę lub skontaktuj się z nami"
+      <CTA title="Potrzebujesz profesjonalnej strony internetowej?"
+        description="Studio webowe KPZsProductions tworzy strony www i sklepy internetowe, które przyciągają klientów i zwiększają sprzedaż. Porozmawiajmy o Twoim projekcie."
+        ctaButtonContent="Bezpłatna konsultacja i wycena"
         ctaButtonLink="/contact"
       ></CTA>
     </>

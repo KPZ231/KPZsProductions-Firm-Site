@@ -7,75 +7,78 @@ import Grid from "../components/Grid";
 import ImageGrid from "../components/ImageGrid";
 import CTA from "../components/CTA";
 
+
 const timelineItems: TimelineItem[] = [
   {
     year: 2019,
-    title: "Faza 1",
-    description: "Pierwsze kroki w świecie programowania — rozpoczęcie nauki tworzenia gier w silniku Unity. To właśnie wtedy narodziła się pasja do kodu i kreatywnego projektowania.",
+    title: "Początek programowania",
+    description: "Pierwsze kroki w web development – nauka Unity i podstaw programowania. Początek pasji do tworzenia aplikacji i rozwiązań cyfrowych.",
   },
   {
     year: 2020,
-    title: "Faza 2",
-    description: "Publikacja pierwszej autorskiej gry. Pierwszy projekt, pierwsze wyzwania i pierwsza satysfakcja z ukończonego dzieła.",
+    title: "Pierwszy projekt",
+    description: "Publikacja pierwszej autorskiej aplikacji – praktyczna nauka projektowania interfejsów i logiki biznesowej.",
   },
   {
     year: 2022,
-    title: "Faza 3",
-    description: "Premiera kolejnej gry — bardziej dopracowanej, ambitniejszej i stanowiącej kolejny krok w rozwoju umiejętności programistycznych oraz designerskich.",
+    title: "Rozszerzenie kompetencji",
+    description: "Rozwój umiejętności w zakresie front-end development – bardziej zaawansowane projekty z naciskiem na UX i wydajność.",
   },
   {
     year: 2023,
-    title: "Faza 4",
-    description: "Rozpoczęcie przygody z tworzeniem stron internetowych. Od prostych projektów po coraz bardziej zaawansowane aplikacje webowe.",
+    title: "Start z web development",
+    description: "Profesjonalne tworzenie stron internetowych – pierwsze projekty dla klientów biznesowych z Next.js i React.",
   },
   {
     year: 2025,
-    title: "Faza 5",
-    description: "Dołączenie do zespołu Sixteractive jako programista WordPress. Praca nad profesjonalnymi projektami komercyjnymi i dalsze doskonalenie warsztatu.",
+    title: "Współpraca z Sixteractive",
+    description: "Dołączenie do zespołu jako WordPress developer – realizacja komercyjnych projektów e-commerce i stron firmowych.",
   },
   {
     year: 2025,
-    title: "Faza 6",
-    description: "Wydanie pierwszych autorskich stron internetowych — realizacja własnych pomysłów i wizji od zera do gotowego produktu.",
+    title: "KPZsProductions",
+    description: "Założenie studio webowego – kompleksowe projektowanie stron internetowych i sklepów online z nowoczesnymi technologiami.",
   }
 ];
+
 
 
 export default function AboutUs() {
   return (
     <>
       <Hero
-        title="Przekształcanie pomysłów w szybkie, nowoczesne i skalowalne strony internetowe"
-        desc="Jestem Kacper Duda, założyciel i twórca KPZsProductions — studia kreatywnego skupionego na tworzeniu szybkich, nowoczesnych i efektownych wizualnie stron internetowych wykorzystujących Next.js, Astro, React i Tailwind CSS. Moim celem jest proste: tworzyć doświadczenia internetowe, które są nie tylko piękne, ale także błyskawicznie szybkie i przyjazne SEO."
-        ctaButtonContent="Stwórzmy razem Twoją stronę"
+        title="O nas – studio webowe tworząc profesjonalne strony internetowe"
+        desc="KPZsProductions to studio webowe specjalizujące się w tworzeniu szybkich, responsywnych stron www z Next.js, React i Astro. Projektujemy nowoczesne strony internetowe dla firm, sklepy e-commerce oraz aplikacje webowe – SEO-friendly, skalowalne i dopasowane do Twojej marki."
+        ctaButtonContent="Rozpocznij współpracę"
         ctaButtonLink="/contact"
       ></Hero>
+
 
       <Timeline items={timelineItems.map(item => ({
         ...item,
         year: item.year.toString()
       }))}></Timeline>
-      <CitedText content="Moja misja to tworzenie stron, które inspirują, osiągają wyniki i rosną wraz z Twoim biznesem. Każdy projekt jest wyjątkowy, a każdą stronę traktuję jak długoterminową inwestycję w Twoją obecność w sieci — zoptymalizowaną pod kątem szybkości, SEO i spójności designu."></CitedText>
+      <CitedText content="Studio webowe KPZsProductions tworzy profesjonalne strony internetowe, które generują rezultaty i rozwijają Twój biznes. Każdy projekt to indywidualne podejście – responsywne strony www zoptymalizowane pod szybkość ładowania, pozycjonowanie w Google i konwersję. Od stron firmowych po sklepy internetowe z WordPress WooCommerce."></CitedText>
       
-      <Header title="Wartości"></Header>
+      <Header title="Nasze wartości"></Header>
       <Grid
-        header_1="Precyzja"
-        content_1="Każdy detal ma znaczenie — od pikseli po wydajność."
-        header_2="Wydajność"
-        content_2="Szybkie strony lepiej konwertują, a ja dbam o to, by tak było."
-        header_3="Przejrzystość"
-        content_3="Zawsze wiesz, co jest tworzone i dlaczego."
-        header_4="Nowoczesny design"
-        content_4="Czysty, odważny i dopasowany do Twojej marki."
+        header_1="Precyzja techniczna"
+        content_1="Czysty kod, optymalizacja wydajności i dbałość o każdy szczegół interfejsu użytkownika."
+        header_2="Szybkość ładowania"
+        content_2="Strony SEO-friendly z błyskawicznym czasem ładowania – kluczowe dla konwersji i rankingu."
+        header_3="Transparentna współpraca"
+        content_3="Jasna komunikacja na każdym etapie – wiesz co tworzymy, dlaczego i w jakim terminie."
+        header_4="Nowoczesny web design"
+        content_4="Responsywne strony www z czystym interfejsem dopasowanym do tożsamości Twojej marki."
       ></Grid>
       
-      <Header title="Technologie"></Header>
+      <Header title="Technologie web development"></Header>
       <ImageGrid></ImageGrid>
       
       <CTA 
-        title="Gotowy, aby stworzyć coś niesamowitego?" 
-        description="Stwórzmy stronę, która szybko przyniesie rezultaty, jest nowoczesna i gotowa na rozwój." 
-        ctaButtonContent="Uzyskaj darmową wycenę lub skontaktuj się z nami" 
+        title="Potrzebujesz profesjonalnej strony internetowej?" 
+        description="Studio webowe KPZsProductions tworzy strony www i sklepy internetowe, które przyciągają klientów i zwiększają sprzedaż. Porozmawiajmy o Twoim projekcie." 
+        ctaButtonContent="Bezpłatna wycena strony" 
         ctaButtonLink="/contact"
       ></CTA>
     </>

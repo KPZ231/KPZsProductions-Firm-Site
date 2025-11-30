@@ -1,6 +1,7 @@
 'use client'
+import Link from "next/link";
 import { useEffect, useRef } from "react";
-
+import { gsap } from "gsap";
 
 interface CTAProps {
   title: string;
@@ -16,24 +17,73 @@ export default function CTA({
   ctaButtonLink,
 }: CTAProps) {
   const boxRef = useRef<HTMLDivElement | null>(null);
+  const ctaRef = useRef<HTMLAnchorElement | null>(null);
 
   useEffect(() => {
+    // Animacja całego boksu
     if (boxRef.current) {
-      boxRef.current.style.opacity = '0';
-      boxRef.current.style.transform = 'translateY(20px)';
-
-      setTimeout(() => {
-        if (boxRef.current) {
-          boxRef.current.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-          boxRef.current.style.opacity = '1';
-          boxRef.current.style.transform = 'translateY(0)';
-        }
-      }, 100);
+      gsap.fromTo(
+        boxRef.current,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+      );
     }
+
+    // Animacja przycisku z opóźnieniem
+    if (ctaRef.current) {
+      gsap.fromTo(
+        ctaRef.current,
+        { opacity: 0, scale: 0.9 },
+        { 
+          opacity: 1, 
+          scale: 1, 
+          duration: 0.6, 
+          delay: 0.3,
+          ease: "back.out(1.2)" 
+        }
+      );
+    }
+
+    // ✅ GSAP hover animations
+    const ctaButton = ctaRef.current;
+    let cleanupFunctions: (() => void)[] = [];
+
+    if (ctaButton) {
+      const handleMouseEnter = () => {
+        gsap.to(ctaButton, {
+          y: -4,
+          scale: 1.02,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      const handleMouseLeave = () => {
+        gsap.to(ctaButton, {
+          y: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out",
+        });
+      };
+
+      ctaButton.addEventListener("mouseenter", handleMouseEnter);
+      ctaButton.addEventListener("mouseleave", handleMouseLeave);
+
+      cleanupFunctions.push(() => {
+        ctaButton.removeEventListener("mouseenter", handleMouseEnter);
+        ctaButton.removeEventListener("mouseleave", handleMouseLeave);
+      });
+    }
+
+    // ✅ Cleanup
+    return () => {
+      cleanupFunctions.forEach(fn => fn());
+    };
   }, []);
 
   return (
-  <section className="min-h-[50vh] w-full flex items-center justify-center p-6 bg-[#0a0a0a]">
+    <section className="min-h-[50vh] w-full flex items-center justify-center p-4 sm:p-6 lg:p-8 bg-[#0a0a0a]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
@@ -78,24 +128,43 @@ export default function CTA({
           100% { top: 200%; }
         }
 
+        /* ✅ POPRAWIONE style przycisku */
         .cta-button {
-          transition: all 0.3s ease;
-          border-radius: 0.375rem; /* rounded */
+          opacity: 0; /* Początkowy stan - ukryty */
+          border-radius: 0.5rem;
+          min-height: 48px;
+          min-width: 120px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          /* Tylko background/border/shadow - BEZ transform! */
+          transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .cta-button:hover {
-          background: #222222;
-          border-color: #3a3a3a;
-          transform: translateY(-2px);
+          background: linear-gradient(135deg, #f8b500 0%, #e09600 100%);
+          border-color: #f8b500;
+          box-shadow: 0 4px 16px rgba(248, 181, 0, 0.4);
+        }
+
+        /* ✅ Usunięto :active z transform - GSAP kontroluje transform */
+
+        @media (max-width: 640px) {
+          .cta-button {
+            width: 100%;
+            padding: 0.875rem 1.5rem;
+            font-size: 1rem;
+          }
         }
       `}</style>
 
       <div
         ref={boxRef}
-        className="cta-box mx-auto w-[90%] bg-[#111111] border border-[#222222] rounded-lg overflow-hidden subtle-glow scan-effect px-4 sm:px-6 md:px-8"
+        className="cta-box mx-auto w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[85%] bg-[#111111] border border-[#2a2a2a] rounded-lg overflow-hidden subtle-glow scan-effect"
       >
-        {/* Header */}
-        <div className="bg-[#0d0d0d] border-b border-[#1a1a1a] px-6 py-4 flex items-center justify-between">
+        {/* Header - ukryty na mobile */}
+        <div className="hidden sm:flex bg-[#0d0d0d] border-b border-[#2a2a2a] px-4 sm:px-6 py-3 sm:py-4 items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="flex gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-[#f8b500]"></div>
@@ -110,10 +179,10 @@ export default function CTA({
         </div>
 
         {/* Content */}
-        <div className="p-6 sm:p-8 md:p-12 grid-pattern">
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-            {/* Line numbers */}
-            <div className="text-[#6faadb] text-sm select-none flex flex-row sm:flex-col gap-2 sm:gap-1">
+        <div className="p-6 sm:p-8 md:p-10 lg:p-12 grid-pattern">
+          <div className="flex gap-4 sm:gap-6">
+            {/* Line numbers - ukryte na mobile */}
+            <div className="hidden sm:flex text-[#7ba4d4] text-sm select-none flex-col gap-2 pt-1">
               <span>1</span>
               <span>2</span>
               <span>3</span>
@@ -131,105 +200,106 @@ export default function CTA({
             </div>
 
             {/* Code content */}
-            <div className="flex-1">
-              {/* Comment */}
+            <div className="flex-1 min-w-0">
               <div className="flex flex-col gap-2 text-sm">
-                <div>
-                  <span className="text-[#6faadb]">/**</span>
+                {/* Comment - ukryty na mobile */}
+                <div className="hidden sm:block">
+                  <span className="text-[#7ba4d4]">/**</span>
                 </div>
-                <div>
-                  <span className="text-[#6faadb]"> * </span>
-                  <span className="text-[#c5d4e8]">@component CTA Section</span>
+                <div className="hidden sm:block">
+                  <span className="text-[#7ba4d4]"> * </span>
+                  <span className="text-[#d0dae8]">@component CTA Section</span>
                 </div>
-                <div>
-                  <span className="text-[#6faadb]"> */</span>
+                <div className="hidden sm:block">
+                  <span className="text-[#7ba4d4]"> */</span>
                 </div>
 
-                <div className="h-2"></div>
+                <div className="hidden sm:block h-2"></div>
 
-                {/* Return statement */}
-                <div>
+                {/* Return statement - ukryty na mobile */}
+                <div className="hidden sm:block">
                   <span className="text-[#61afef]">return</span>
                   <span className="text-[#e06c75]"> (</span>
                 </div>
 
-                {/* Section opening */}
-                <div className="pl-4">
+                {/* Section opening - ukryty na mobile */}
+                <div className="hidden sm:block pl-4">
                   <span className="text-[#e06c75]">&lt;</span>
                   <span className="text-[#61afef]">section</span>
                   <span className="text-[#e06c75]">&gt;</span>
                 </div>
 
                 {/* Title */}
-                <div className="pl-8 mt-4">
-                  <div className="mb-1">
-                    <span className="text-[#6faadb]">&lt;</span>
+                <div className="sm:pl-8 mt-2 sm:mt-4">
+                  <div className="hidden sm:block mb-1">
+                    <span className="text-[#7ba4d4]">&lt;</span>
                     <span className="text-[#61afef]">h2</span>
-                    <span className="text-[#6faadb]">&gt;</span>
+                    <span className="text-[#7ba4d4]">&gt;</span>
                   </div>
-                  <div className="text-xl sm:text-2xl md:text-3xl font-semibold text-[#ffc59c] pl-2 sm:pl-4 mb-1">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-[#ffc59c] sm:pl-4 mb-3 sm:mb-1 leading-tight break-words">
                     {title}
-                  </div>
-                  <div>
-                    <span className="text-[#6faadb]">&lt;/</span>
+                  </h2>
+                  <div className="hidden sm:block">
+                    <span className="text-[#7ba4d4]">&lt;/</span>
                     <span className="text-[#61afef]">h2</span>
-                    <span className="text-[#6faadb]">&gt;</span>
+                    <span className="text-[#7ba4d4]">&gt;</span>
                   </div>
                 </div>
 
                 {/* Description */}
-                <div className="pl-8 mt-4">
-                  <div className="mb-1">
-                    <span className="text-[#6faadb]">&lt;</span>
+                <div className="sm:pl-8 mt-4 sm:mt-4">
+                  <div className="hidden sm:block mb-1">
+                    <span className="text-[#7ba4d4]">&lt;</span>
                     <span className="text-[#61afef]">p</span>
-                    <span className="text-[#6faadb]">&gt;</span>
+                    <span className="text-[#7ba4d4]">&gt;</span>
                   </div>
-                  <div className="text-sm sm:text-base md:text-lg text-[#c5d4e8] pl-2 sm:pl-4 mb-4 max-w-full sm:max-w-2xl leading-relaxed">
+                  <p className="text-base sm:text-lg md:text-xl text-[#d0dae8] sm:pl-4 mb-6 sm:mb-4 leading-relaxed break-words">
                     {description}
-                  </div>
-                  <div>
-                    <span className="text-[#6faadb]">&lt;/</span>
+                  </p>
+                  <div className="hidden sm:block">
+                    <span className="text-[#7ba4d4]">&lt;/</span>
                     <span className="text-[#61afef]">p</span>
-                    <span className="text-[#6faadb]">&gt;</span>
+                    <span className="text-[#7ba4d4]">&gt;</span>
                   </div>
                 </div>
 
                 {/* Button */}
-                <div className="pl-8 mt-6">
-                  <a
+                <div className="sm:pl-8 mt-6 sm:mt-6">
+                  <Link
+                    ref={ctaRef}
                     href={ctaButtonLink}
-                    className="cta-button inline-block bg-linear-to-r from-blue-600 via-indigo-500 to-indigo-600 text-white px-6 py-2 text-sm sm:text-base border border-transparent font-medium rounded"
+                    className="cta-button bg-gradient-to-r from-[#f8b500] to-[#e09600] text-[#0a0a0a] px-8 py-3 sm:py-3 text-base sm:text-lg border border-[#f8b500] font-semibold shadow-lg"
                   >
                     {ctaButtonContent}
-                  </a>
+                  </Link>
                 </div>
 
-                {/* Section closing */}
-                <div className="pl-4 mt-4">
-                  <span className="text-[#6faadb]">&lt;/</span>
+                {/* Section closing - ukryty na mobile */}
+                <div className="hidden sm:block pl-4 mt-4">
+                  <span className="text-[#7ba4d4]">&lt;/</span>
                   <span className="text-[#61afef]">section</span>
-                  <span className="text-[#6faadb]">&gt;</span>
+                  <span className="text-[#7ba4d4]">&gt;</span>
                 </div>
 
-                <div>
+                <div className="hidden sm:block">
                   <span className="text-[#e06c75]">);</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom status bar */}
-          <div className="mt-12 pt-4 border-t border-[#1a1a1a] flex items-center justify-between text-[#555555] text-xs">
+          {/* Bottom status bar - ukryty na mobile */}
+          <div className="hidden sm:flex mt-10 sm:mt-12 pt-3 sm:pt-4 border-t border-[#2a2a2a] items-center justify-between text-[#7ba4d4] text-xs">
             <div className="flex items-center gap-4">
               <span>TSX</span>
-              <span className="text-[#333333]">|</span>
+              <span className="text-[#4a4a4a]">|</span>
               <span>UTF-8</span>
-              <span className="text-[#333333]">|</span>
-              <span className="text-[#666666]">Spaces: 2</span>
+              <span className="text-[#4a4a4a]">|</span>
+              <span className="text-[#8ba5c4]">Spaces: 2</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-[#666666]">Ln</span> 14
-              <span className="text-[#666666]">Col</span> 3
+              <span className="text-[#8ba5c4]">Ln</span> 14
+              <span className="text-[#8ba5c4]">Col</span> 3
             </div>
           </div>
         </div>
