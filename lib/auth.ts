@@ -34,7 +34,8 @@ const config = {
         }
 
         try {
-          const { PrismaClient } = await import("@prisma/client");
+          const PrismaClientModule = await import("@prisma/client");
+          const PrismaClient = PrismaClientModule.PrismaClient || PrismaClientModule.default;
           const { PrismaPg } = await import("@prisma/adapter-pg");
           const { Pool } = await import("pg");
 
