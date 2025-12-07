@@ -11,6 +11,8 @@ export default function Navbar() {
 
   const navLinks = [
     { href: "/about-us", label: "About Us" },
+    { href: "/blog", label: "Blog" },
+    { href: "/case-studies", label: "Case Studies" },
     { href: "/portfolio", label: "Portfolio" },
     { href: "/contact", label: "Contact" },
     { href: "/pricing", label: "Pricing" },

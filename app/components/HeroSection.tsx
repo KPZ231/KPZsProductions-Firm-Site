@@ -25,60 +25,74 @@ export default function Hero({
   const ctaRef = useRef<HTMLAnchorElement | null>(null);
   const headerRef = useRef<HTMLDivElement | null>(null);
   const footerRef = useRef<HTMLDivElement | null>(null);
+  const contentRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Animacja początkowa - fade-in całego kontenera
     gsap.fromTo(
       heroRef.current,
-      { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" }
+      { opacity: 0 },
+      { opacity: 1, duration: 1, ease: "power2.out" }
     );
 
     // Animacja nagłówka
     gsap.fromTo(
       headerRef.current,
-      { opacity: 0, y: -20 },
-      { opacity: 1, y: 0, duration: 0.8, delay: 0.2, ease: "power2.out" }
+      { opacity: 0, y: -30 },
+      { opacity: 1, y: 0, duration: 0.9, delay: 0.15, ease: "cubic.out" }
     );
 
-    // Animacja tytułu
+    // Animacja tytułu - bardziej elegancka
     gsap.fromTo(
       titleRef.current,
-      { opacity: 0, x: -50 },
-      { opacity: 1, x: 0, duration: 0.8, delay: 0.4, ease: "power2.out" }
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, delay: 0.35, ease: "cubic.out" }
     );
 
     // Animacja opisu
     gsap.fromTo(
       descRef.current,
-      { opacity: 0, x: -50 },
-      { opacity: 1, x: 0, duration: 0.8, delay: 0.6, ease: "power2.out" }
+      { opacity: 0, y: 30 },
+      { opacity: 1, y: 0, duration: 1, delay: 0.55, ease: "cubic.out" }
     );
 
     // Animacja przycisku CTA
     gsap.fromTo(
       ctaRef.current,
-      { opacity: 0, scale: 0.8 },
-      { opacity: 1, scale: 1, duration: 0.8, delay: 0.8, ease: "back.out(1.4)" }
+      { opacity: 0, y: 20, scale: 0.95 },
+      { opacity: 1, y: 0, scale: 1, duration: 0.9, delay: 0.75, ease: "cubic.out" }
     );
 
     // Animacja stopki
     gsap.fromTo(
       footerRef.current,
-      { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, delay: 1.0, ease: "power2.out" }
+      { opacity: 0 },
+      { opacity: 1, duration: 0.8, delay: 0.9, ease: "power2.out" }
     );
 
-    // ✅ POPRAWIONA animacja hover
+    // Subtelna animacja całej sekcji treści (float effect)
+    gsap.fromTo(
+      contentRef.current,
+      { y: 0 },
+      {
+        y: -8,
+        duration: 3,
+        delay: 1.5,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      }
+    );
+
+    // Hover animacja przycisku
     const ctaButton = ctaRef.current;
     let cleanupFunctions: (() => void)[] = [];
 
     if (ctaButton) {
       const handleMouseEnter = () => {
         gsap.to(ctaButton, {
-          y: -4,
-          scale: 1.02,
-          duration: 0.3,
+          y: -6,
+          duration: 0.4,
           ease: "power2.out",
         });
       };
@@ -86,8 +100,7 @@ export default function Hero({
       const handleMouseLeave = () => {
         gsap.to(ctaButton, {
           y: 0,
-          scale: 1,
-          duration: 0.3,
+          duration: 0.4,
           ease: "power2.out",
         });
       };
@@ -95,29 +108,26 @@ export default function Hero({
       ctaButton.addEventListener("mouseenter", handleMouseEnter);
       ctaButton.addEventListener("mouseleave", handleMouseLeave);
 
-      // Dodaj cleanup do tablicy
       cleanupFunctions.push(() => {
         ctaButton.removeEventListener("mouseenter", handleMouseEnter);
         ctaButton.removeEventListener("mouseleave", handleMouseLeave);
       });
     }
 
-    // ScrollTrigger
+    // ScrollTrigger - dla efektu parallax
     ScrollTrigger.create({
       trigger: heroRef.current,
-      start: "top 80%",
-      onEnter: () => {
-        gsap.to(heroRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
+      start: "top center",
+      onUpdate: (self) => {
+        gsap.to(contentRef.current, {
+          y: self.getVelocity() * 0.1,
+          duration: 0.5,
           ease: "power2.out",
         });
       },
-      once: true,
     });
 
-    // ✅ POPRAWIONY cleanup - wykonuje się dla wszystkich elementów
+    // Cleanup
     return () => {
       cleanupFunctions.forEach(fn => fn());
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
@@ -125,7 +135,7 @@ export default function Hero({
   }, []);
 
   return (
-    <section className="w-full flex items-center justify-center bg-[#0a0a0a] min-h-[70vh]">
+    <section className="w-[95%] mt-4 mx-auto flex items-center justify-center bg-[#0a0a0a] min-h-[70vh]">
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
         
@@ -186,7 +196,7 @@ export default function Hero({
 
       <div 
         ref={heroRef} 
-        className="hero-box w-full bg-[#111111] border-y border-[#2a2a2a] subtle-glow scan-effect"
+        className="hero-box w-full bg-[#111111] border rounded-2xl border-[#2a2a2a] subtle-glow scan-effect"
       >
         <div 
           ref={headerRef}

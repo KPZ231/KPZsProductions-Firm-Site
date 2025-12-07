@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  //output   = "./generated"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model BlogPost {
+  id             Int      @id @default(autoincrement())
+  title          String   @db.VarChar(255)
+  slug           String   @unique @db.VarChar(255)
+  excerpt        String?  @db.VarChar(500)
+  content        String   // Rich text / Markdown
+  featuredImage  String?
+  category       String   @db.VarChar(100) // "tech", "business", "design"
+  tags           String[] // ["nextjs", "prisma", "saas"]
+  metaTitle      String?  @db.VarChar(255)
+  metaDescription String? @db.VarChar(500)
+  status         PostStatus @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("blog_posts")
+  @@index([slug])
+  @@index([publishedAt])
+  @@index([category])
+}
+
+model CaseStudy {
+  id             Int      @id @default(autoincrement())
+  title          String   @db.VarChar(255)
+  slug           String   @unique @db.VarChar(255)
+  clientName     String?  @db.VarChar(255) // Anonimowe: "Klient z branży X"
+  clientIndustry String   @db.VarChar(100) // "ecommerce", "saas", "med"
+  problem        String   // Opis problemu klienta
+  solution       String   // Twoja implementacja
+  results        Json     // { revenue: "+250%", users: "10k→50k", time: "-60%" }
+  featuredImage  String?
+  tags           String[]
+  metaTitle      String?  @db.VarChar(255)
+  metaDescription String? @db.VarChar(500)
+  status         PostStatus @default(DRAFT)
+  publishedAt    DateTime?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@map("case_studies")
+  @@index([slug])
+  @@index([clientIndustry])
+  @@index([publishedAt])
+}
+
+model AdminUser {
+  id        Int     @id @default(autoincrement())
+  email     String  @unique @db.VarChar(255)
+  password  String  // Hashed password
+  role      String  @default("admin") @db.VarChar(50) // "admin"
+  isActive  Boolean @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admin_users")
+  @@index([email])
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
