@@ -1,4 +1,4 @@
-import NextAuth, { type NextAuthConfig } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 
@@ -20,7 +20,7 @@ declare module "next-auth/jwt" {
   }
 }
 
-const config: NextAuthConfig = {
+const config = {
   providers: [
     Credentials({
       name: "Credentials",
@@ -96,7 +96,7 @@ const config: NextAuthConfig = {
     },
   },
   session: {
-    strategy: "jwt",
+    strategy: "jwt" as const,
     maxAge: 24 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
