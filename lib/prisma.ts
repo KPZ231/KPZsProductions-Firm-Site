@@ -1,8 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 
 const prismaClientSingleton = () => {
+  const { PrismaClient } = require("@prisma/client");
+  
   const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
   });

@@ -34,9 +34,9 @@ const config = {
         }
 
         try {
-          const { PrismaClient } = await import("@prisma/client") as any;
-          const { PrismaPg } = await import("@prisma/adapter-pg");
-          const { Pool } = await import("pg");
+          const { PrismaClient } = require("@prisma/client");
+          const { PrismaPg } = require("@prisma/adapter-pg");
+          const { Pool } = require("pg");
 
           const pool = new Pool({
             connectionString: process.env.DATABASE_URL,
