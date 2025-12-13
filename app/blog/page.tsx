@@ -1,8 +1,8 @@
-'use client'
-import { useEffect, useState } from 'react';
-import Hero from '@/app/components/HeroSection';
-import BlogList from '@/app/components/BlogList';
-import Link from 'next/link';
+"use client";
+import { useEffect, useState } from "react";
+import Hero from "@/app/components/HeroSection";
+import BlogList from "@/app/components/BlogList";
+import Link from "next/link";
 
 interface BlogPost {
   id: number;
@@ -21,7 +21,7 @@ export default function BlogPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
   const POSTS_PER_PAGE = 9;
@@ -32,22 +32,22 @@ export default function BlogPage() {
       try {
         setLoading(true);
         const params = new URLSearchParams();
-        params.append('status', 'PUBLISHED');
-        params.append('limit', '100');
+        params.append("status", "PUBLISHED");
+        params.append("limit", "100");
 
         const response = await fetch(`/api/admin/blog-posts?${params}`);
-        if (!response.ok) throw new Error('Failed to fetch posts');
+        if (!response.ok) throw new Error("Failed to fetch posts");
 
         const data = await response.json();
         if (data.success) {
           // Filtrujemy tylko opublikowane posty
           const publishedPosts = data.data.filter(
-            (post: BlogPost) => post.status === 'PUBLISHED'
+            (post: BlogPost) => post.status === "PUBLISHED"
           );
           setPosts(publishedPosts);
         }
       } catch (err) {
-        setError('Nie udało się załadować artykułów');
+        setError("Nie udało się załadować artykułów");
         console.error(err);
       } finally {
         setLoading(false);
@@ -59,7 +59,8 @@ export default function BlogPage() {
 
   // Filter posts
   const filteredPosts = posts.filter((post) => {
-    const matchesCategory = !selectedCategory || post.category === selectedCategory;
+    const matchesCategory =
+      !selectedCategory || post.category === selectedCategory;
     const matchesSearch =
       !searchTerm ||
       post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -70,10 +71,15 @@ export default function BlogPage() {
   // Pagination
   const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-  const paginatedPosts = filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  const paginatedPosts = filteredPosts.slice(
+    startIndex,
+    startIndex + POSTS_PER_PAGE
+  );
 
   // Get unique categories
-  const categories = Array.from(new Set(posts.map((post) => post.category))).sort();
+  const categories = Array.from(
+    new Set(posts.map((post) => post.category))
+  ).sort();
 
   // Reset to page 1 when filters change
   useEffect(() => {
@@ -83,7 +89,7 @@ export default function BlogPage() {
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
       {/* Hero Section */}
-      <Hero 
+      <Hero
         title="Blog"
         desc="Odkryj najnowsze artykuły o tworzeniu stron, web designie i nowoczesnych technologiach."
         ctaButtonContent="Przeglądaj artykuły"
@@ -149,11 +155,14 @@ export default function BlogPage() {
       `}</style>
 
       {/* Main Content */}
-      <section id="blog-content" className="w-full bg-[#0a0a0a] py-8 sm:py-12 lg:py-16">
+      <section
+        id="blog-content"
+        className="w-full bg-[#0a0a0a] py-8 sm:py-12 lg:py-16"
+      >
         <div className="mx-auto w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[85%]">
           <div className="blog-page">
             {/* Search and Filters */}
-            <div className="mb-8 sm:mb-10 lg:mb-12 space-y-6">
+            <div className="mb-8 sm:mb-10 lg:mb-12 space-y-6 px-4 sm:px-0">
               {/* Search */}
               <div>
                 <label className="block text-sm font-medium text-[#ffc59c] mb-3">
@@ -178,7 +187,7 @@ export default function BlogPage() {
                     <button
                       onClick={() => setSelectedCategory(null)}
                       className={`category-btn px-4 py-2 rounded text-sm sm:text-base font-medium ${
-                        selectedCategory === null ? 'active' : ''
+                        selectedCategory === null ? "active" : ""
                       }`}
                     >
                       Wszystkie
@@ -188,7 +197,7 @@ export default function BlogPage() {
                         key={category}
                         onClick={() => setSelectedCategory(category)}
                         className={`category-btn px-4 py-2 rounded text-sm sm:text-base font-medium ${
-                          selectedCategory === category ? 'active' : ''
+                          selectedCategory === category ? "active" : ""
                         }`}
                       >
                         {category}
@@ -228,7 +237,7 @@ export default function BlogPage() {
                       <button
                         onClick={() => {
                           setSelectedCategory(null);
-                          setSearchTerm('');
+                          setSearchTerm("");
                         }}
                         className="px-4 py-2 rounded bg-[#f8b500] text-[#0a0a0a] font-bold hover:bg-[#ffc59c] transition-colors text-sm sm:text-base"
                       >
@@ -244,7 +253,9 @@ export default function BlogPage() {
                     {totalPages > 1 && (
                       <div className="mt-10 sm:mt-12 lg:mt-16 flex items-center justify-center gap-2">
                         <button
-                          onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                          onClick={() =>
+                            setCurrentPage((prev) => Math.max(1, prev - 1))
+                          }
                           disabled={currentPage === 1}
                           className="pagination-btn px-3 py-2 rounded text-sm font-medium"
                         >
@@ -252,12 +263,15 @@ export default function BlogPage() {
                         </button>
 
                         <div className="flex gap-1">
-                          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                          {Array.from(
+                            { length: totalPages },
+                            (_, i) => i + 1
+                          ).map((page) => (
                             <button
                               key={page}
                               onClick={() => setCurrentPage(page)}
                               className={`pagination-btn w-10 h-10 rounded text-sm font-medium ${
-                                currentPage === page ? 'active' : ''
+                                currentPage === page ? "active" : ""
                               }`}
                             >
                               {page}
@@ -267,7 +281,9 @@ export default function BlogPage() {
 
                         <button
                           onClick={() =>
-                            setCurrentPage((prev) => Math.min(totalPages, prev + 1))
+                            setCurrentPage((prev) =>
+                              Math.min(totalPages, prev + 1)
+                            )
                           }
                           disabled={currentPage === totalPages}
                           className="pagination-btn px-3 py-2 rounded text-sm font-medium"
@@ -284,7 +300,9 @@ export default function BlogPage() {
             {/* Results Count */}
             {!loading && !error && (
               <div className="mt-8 text-center text-[#b5b5b5] text-sm">
-                Wyświetlanie {startIndex + 1}–{Math.min(startIndex + POSTS_PER_PAGE, filteredPosts.length)} z {filteredPosts.length} artykułów
+                Wyświetlanie {startIndex + 1}–
+                {Math.min(startIndex + POSTS_PER_PAGE, filteredPosts.length)} z{" "}
+                {filteredPosts.length} artykułów
               </div>
             )}
           </div>

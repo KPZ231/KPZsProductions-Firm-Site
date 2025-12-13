@@ -244,8 +244,8 @@ export default function BlogPostPage() {
       )}
 
       {/* Article Content */}
-      <article id="article-content" className="w-full bg-[#0a0a0a] py-8 sm:py-12 lg:py-16">
-        <div className="mx-auto w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[750px]">
+      <article id="article-content" className="w-[95%] mx-auto bg-[#0a0a0a] py-8 sm:py-12 lg:py-16">
+        <div className="mx-auto w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[80%]">
           <div className="blog-post-content">
             {/* Meta Information */}
             <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pb-6 border-b border-[#2a2a2a]">

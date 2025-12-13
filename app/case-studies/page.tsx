@@ -4,6 +4,7 @@ import Hero from '@/app/components/HeroSection';
 import CaseStudyList from '@/app/components/CaseStudyList';
 import Link from 'next/link';
 
+
 interface CaseStudy {
   id: number;
   title: string;
@@ -17,6 +18,7 @@ interface CaseStudy {
   status: string;
 }
 
+
 export default function CaseStudiesPage() {
   const [studies, setStudies] = useState<CaseStudy[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,7 +27,9 @@ export default function CaseStudiesPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
 
+
   const STUDIES_PER_PAGE = 9;
+
 
   // Fetch case studies from API
   useEffect(() => {
@@ -36,8 +40,10 @@ export default function CaseStudiesPage() {
         params.append('status', 'PUBLISHED');
         params.append('limit', '100');
 
+
         const response = await fetch(`/api/admin/case-studies?${params}`);
         if (!response.ok) throw new Error('Failed to fetch case studies');
+
 
         const data = await response.json();
         if (data.success) {
@@ -55,8 +61,10 @@ export default function CaseStudiesPage() {
       }
     };
 
+
     fetchStudies();
   }, []);
+
 
   // Filter studies
   const filteredStudies = studies.filter((study) => {
@@ -69,18 +77,22 @@ export default function CaseStudiesPage() {
     return matchesIndustry && matchesSearch;
   });
 
+
   // Pagination
   const totalPages = Math.ceil(filteredStudies.length / STUDIES_PER_PAGE);
   const startIndex = (currentPage - 1) * STUDIES_PER_PAGE;
   const paginatedStudies = filteredStudies.slice(startIndex, startIndex + STUDIES_PER_PAGE);
 
+
   // Get unique industries
   const industries = Array.from(new Set(studies.map((study) => study.clientIndustry))).sort();
+
 
   // Reset to page 1 when filters change
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedIndustry, searchTerm]);
+
 
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
@@ -91,6 +103,7 @@ export default function CaseStudiesPage() {
         ctaButtonContent="Przeglądaj projekty"
         ctaButtonLink="#case-studies-content"
       />
+
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
@@ -150,12 +163,13 @@ export default function CaseStudiesPage() {
         }
       `}</style>
 
+
       {/* Main Content */}
       <section id="case-studies-content" className="w-full bg-[#0a0a0a] py-8 sm:py-12 lg:py-16">
         <div className="mx-auto w-full max-w-[95%] sm:max-w-[90%] lg:max-w-[85%]">
           <div className="case-studies-page">
             {/* Search and Filters */}
-            <div className="mb-8 sm:mb-10 lg:mb-12 space-y-6">
+            <div className="mb-8 sm:mb-10 lg:mb-12 space-y-6 px-4 sm:px-0">
               {/* Search */}
               <div>
                 <label className="block text-sm font-medium text-[#00bfff] mb-3">
@@ -169,6 +183,7 @@ export default function CaseStudiesPage() {
                   className="search-input w-full px-4 py-3 rounded-lg text-sm sm:text-base"
                 />
               </div>
+
 
               {/* Industries */}
               {industries.length > 0 && (
@@ -201,6 +216,7 @@ export default function CaseStudiesPage() {
               )}
             </div>
 
+
             {/* Loading State */}
             {loading && (
               <div className="flex items-center justify-center py-16">
@@ -211,6 +227,7 @@ export default function CaseStudiesPage() {
               </div>
             )}
 
+
             {/* Error State */}
             {error && (
               <div className="rounded-lg border border-red-500/30 bg-red-500/10 p-4 text-red-400">
@@ -218,11 +235,12 @@ export default function CaseStudiesPage() {
               </div>
             )}
 
+
             {/* Case Studies Grid */}
             {!loading && !error && (
               <>
                 {filteredStudies.length === 0 ? (
-                  <div className="text-center py-12">
+                  <div className="text-center py-12 px-4 sm:px-0">
                     <p className="text-[#b5b5b5] mb-4">
                       Nie znaleziono projektów spełniających kryteria.
                     </p>
@@ -242,9 +260,10 @@ export default function CaseStudiesPage() {
                   <>
                     <CaseStudyList studies={paginatedStudies} />
 
+
                     {/* Pagination */}
                     {totalPages > 1 && (
-                      <div className="mt-10 sm:mt-12 lg:mt-16 flex items-center justify-center gap-2">
+                      <div className="mt-10 sm:mt-12 lg:mt-16 flex items-center justify-center gap-2 px-4 sm:px-0">
                         <button
                           onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
                           disabled={currentPage === 1}
@@ -252,6 +271,7 @@ export default function CaseStudiesPage() {
                         >
                           ← Poprzednia
                         </button>
+
 
                         <div className="flex gap-1">
                           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -266,6 +286,7 @@ export default function CaseStudiesPage() {
                             </button>
                           ))}
                         </div>
+
 
                         <button
                           onClick={() =>
@@ -283,9 +304,10 @@ export default function CaseStudiesPage() {
               </>
             )}
 
+
             {/* Results Count */}
             {!loading && !error && (
-              <div className="mt-8 text-center text-[#b5b5b5] text-sm">
+              <div className="mt-8 text-center text-[#b5b5b5] text-sm px-4 sm:px-0">
                 Wyświetlanie {startIndex + 1}–{Math.min(startIndex + STUDIES_PER_PAGE, filteredStudies.length)} z {filteredStudies.length} projektów
               </div>
             )}
