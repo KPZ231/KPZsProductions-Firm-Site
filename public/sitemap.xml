@@ -4,30 +4,42 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
 
 <url>
-  <loc>https://kpzsproductions.pl/</loc>
-  <lastmod>2025-11-09T22:50:38+00:00</lastmod>
+  <loc>https://www.kpzsproductions.pl/</loc>
+  <lastmod>2025-12-26T18:07:36+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://kpzsproductions.pl/about-us</loc>
-  <lastmod>2025-11-09T22:50:38+00:00</lastmod>
+  <loc>https://www.kpzsproductions.pl/about-us</loc>
+  <lastmod>2025-12-26T18:07:36+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kpzsproductions.pl/portfolio</loc>
-  <lastmod>2025-11-09T22:50:38+00:00</lastmod>
+  <loc>https://www.kpzsproductions.pl/blog</loc>
+  <lastmod>2025-12-26T18:07:36+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kpzsproductions.pl/contact</loc>
-  <lastmod>2025-11-09T22:50:38+00:00</lastmod>
+  <loc>https://www.kpzsproductions.pl/case-studies</loc>
+  <lastmod>2025-12-26T18:07:36+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://kpzsproductions.pl/pricing</loc>
-  <lastmod>2025-11-09T22:50:38+00:00</lastmod>
+  <loc>https://www.kpzsproductions.pl/portfolio</loc>
+  <lastmod>2025-12-26T18:07:36+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.kpzsproductions.pl/contact</loc>
+  <lastmod>2025-12-26T18:07:36+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.kpzsproductions.pl/pricing</loc>
+  <lastmod>2025-12-26T18:07:36+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 

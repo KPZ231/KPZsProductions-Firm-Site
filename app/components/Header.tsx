@@ -139,7 +139,7 @@ export default function Header({ title }: HeaderProps) {
 
                 {/* ✅ ZMIENIONE: Title - wycentrowany na mobile, wyrównany do lewej na desktop */}
                 <div className="sm:pl-4 mt-0 sm:mt-4 mb-2 sm:mb-3 text-center sm:text-left">
-                  <h2 className="text-[#ffc59c] text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold leading-tight break-words">
+                  <h2 className="text-[#ffc59c] text-xl sm:text-3xl md:text-3xl lg:text-4xl font-semibold leading-tight break-words">
                     {title}
                   </h2>
                 </div>
