@@ -1,7 +1,11 @@
 'use client'
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Link from "next/link";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Project {
   title: string;
@@ -12,123 +16,99 @@ interface Project {
   buttonContent: string;
 }
 
-interface CarouselProps {
+interface ProjectsScrollProps {
   ProjectsShown: Project[];
 }
 
-export default function ProjectsCarousel({ ProjectsShown }: CarouselProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const resetAutoplay = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-
-    timeoutRef.current = setTimeout(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % ProjectsShown.length);
-    }, 3000);
-  };
+export default function ProjectsScroll({ ProjectsShown }: ProjectsScrollProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    resetAutoplay();
+    if (!containerRef.current || !scrollRef.current) return;
+
+    const container = containerRef.current;
+    const scroll = scrollRef.current;
+
+    // Calculate total scroll width
+    const scrollWidth = scroll.scrollWidth - window.innerWidth;
+
+    // Create horizontal scroll animation
+    const tl = gsap.to(scroll, {
+      x: -scrollWidth,
+      ease: "none",
+      scrollTrigger: {
+        trigger: container,
+        start: "top top",
+        end: () => `+=${scrollWidth}`,
+        scrub: 1,
+        pin: true,
+        anticipatePin: 1,
+      },
+    });
+
     return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      tl.kill();
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [currentIndex]);
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? ProjectsShown.length - 1 : prev - 1));
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % ProjectsShown.length);
-  };
+  }, [ProjectsShown]);
 
   return (
-    <div className="relative w-full min-h-screen bg-[#0a0a0a] py-8 sm:py-12 lg:py-16 overflow-hidden">
-      {/* Container for carousel content with arrows */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Left Arrow */}
-        <div className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-20">
-          <button
-            onClick={prevSlide}
-            className="group relative bg-[#0d0d0d] hover:bg-[#1a1a1a] text-[#00bfff] border border-[#00bfff] hover:border-[#00bfff] p-3 sm:p-4 rounded-sm font-mono transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,191,255,0.4)]"
+    <div 
+      ref={containerRef}
+      className="relative w-full min-h-screen bg-[#0a0a0a] overflow-hidden"
+    >
+      <div 
+        ref={scrollRef}
+        className="flex items-center gap-8 px-8 h-screen"
+      >
+        {ProjectsShown.map((project, index) => (
+          <div
+            key={index}
+            className="flex-shrink-0 w-[90vw] md:w-[70vw] lg:w-[60vw] max-w-4xl"
           >
-            <span className="text-lg sm:text-xl font-bold">&lt;</span>
-            <div className="absolute inset-0 bg-[#00bfff] opacity-0 group-hover:opacity-10 transition-opacity duration-200" />
-          </button>
-        </div>
+            <div className="bg-[#111111] border border-[#2a2a2a] rounded-lg overflow-hidden shadow-2xl h-full">
+              <div className="grid md:grid-cols-2 h-full">
+                {/* IMG */}
+                <div className="relative min-h-[250px] md:min-h-[380px] bg-[#0d0d0d]">
+                  <img
+                    src={project.thumbnail}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
 
-        {/* Right Arrow */}
-        <div className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-20">
-          <button
-            onClick={nextSlide}
-            className="group relative bg-[#0d0d0d] hover:bg-[#1a1a1a] text-[#00bfff] border border-[#00bfff] hover:border-[#00bfff] p-3 sm:p-4 rounded-sm font-mono transition-all duration-200 hover:shadow-[0_0_20px_rgba(0,191,255,0.4)]"
-          >
-            <span className="text-lg sm:text-xl font-bold">&gt;</span>
-            <div className="absolute inset-0 bg-[#00bfff] opacity-0 group-hover:opacity-10 transition-opacity duration-200" />
-          </button>
-        </div>
+                {/* TEXT */}
+                <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ffc59c] mb-4 leading-tight">
+                      {project.title}
+                    </h3>
 
-        {/* Slides */}
-        <div
-          className="transition-transform duration-700 ease-in-out flex"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {ProjectsShown.map((project, index) => (
-            <div
-              key={index}
-              className="w-full flex-shrink-0"
-            >
-              <div className="mx-auto w-full max-w-4xl bg-[#111111] border border-[#2a2a2a] rounded-lg overflow-hidden shadow-2xl">
-                <div className="grid md:grid-cols-2">
-                  {/* IMG */}
-                  <div className="relative min-h-[250px] md:min-h-[380px] bg-[#0d0d0d]">
-                    <img
-                      src={project.thumbnail}
-                      alt={project.title}
-                      className="w-full h-full object-cover"
-                    />
+                    <p className="text-[#d0dae8] text-sm sm:text-base leading-relaxed mb-6">
+                      {project.description}
+                    </p>
                   </div>
 
-                  {/* TEXT */}
-                  <div className="p-6 sm:p-8 md:p-10 flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#ffc59c] mb-4 leading-tight">
-                        {project.title}
-                      </h3>
-
-                      <p className="text-[#d0dae8] text-sm sm:text-base leading-relaxed mb-6">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    <Link
-                      href={project.link}
-                      target={project.isIframable ? "_self" : "_blank"}
-                      rel={project.isIframable ? undefined : "noopener noreferrer"}
-                      className="bg-[#1a1a1a] text-[#d5d5d5] hover:text-[#0a0a0a] px-6 py-3 border border-[#3a3a3a] text-sm sm:text-base font-semibold rounded-lg hover:bg-[#f8b500] hover:border-[#f8b500] transition-all duration-300"
-                    >
-                      {project.buttonContent}
-                    </Link>
-                  </div>
+                  <Link
+                    href={project.link}
+                    target={project.isIframable ? "_self" : "_blank"}
+                    rel={project.isIframable ? undefined : "noopener noreferrer"}
+                    className="bg-[#1a1a1a] text-[#d5d5d5] hover:text-[#0a0a0a] px-6 py-3 border border-[#3a3a3a] text-sm sm:text-base font-semibold rounded-lg hover:bg-[#f8b500] hover:border-[#f8b500] transition-all duration-300 inline-block text-center"
+                  >
+                    {project.buttonContent}
+                  </Link>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
 
-      {/* Dots */}
-      <div className="flex justify-center mt-8 gap-2">
-        {ProjectsShown.map((_, i) => (
-          <div
-            key={i}
-            onClick={() => setCurrentIndex(i)}
-            className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
-              i === currentIndex ? "bg-[#f8b500] scale-110" : "bg-[#3a3a3a]"
-            }`}
-          />
-        ))}
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[#00bfff] font-mono text-sm flex flex-col items-center gap-2 pointer-events-none">
+        <span>SCROLL →</span>
+        <div className="w-8 h-1 bg-[#00bfff] animate-pulse" />
       </div>
     </div>
   );
